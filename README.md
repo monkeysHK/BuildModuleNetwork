@@ -10,7 +10,7 @@ This project is about building a network of Module Dependencies on Hypixel SkyBl
 
 ## How to run
 
-- The generated HTML is in the `build` directory.
+- The generated HTML is in the `docs` directory.
 - To generate the HTML again, there are two files (in `src` directory) to run:
 - `makegraph.py` builds the dependencies graph and save the dict in a file.
 - `buildnetwork.py` uses the file that makegraph provides, and builds the network visualization.
