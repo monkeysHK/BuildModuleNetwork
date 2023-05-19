@@ -11,6 +11,9 @@ import requests, re, sys
 additionalDependenciesList = {
 
 }
+additionalDataDependenciesList = {
+
+}
 
 def requestPage(page):
     payload = {
@@ -44,9 +47,11 @@ def requestPage(page):
 # loader.lazy.loadData('Module:Arguments')
 lineFormats = [
     r'(?<!\.)require\((.*?)\)',
-    r'mw\.loadData\((.*?)\)',
     r'loader\.require\((.*?)\)',
     r'loader\.lazy\.require\((.*?)\)',
+]
+dataLineFormats = [
+    r'mw\.loadData\((.*?)\)',
     r'loader\.loadData\((.*?)\)',
     r'loader\.lazy\.loadData\((.*?)\)',
 ]
@@ -65,12 +70,19 @@ def findDependencies(page):
     callStrings = []
     for pattern in lineFormats:
         callStrings += re.findall(pattern, content)
+    dataCallStrings = []
+    for pattern in dataLineFormats:
+        dataCallStrings += re.findall(pattern, content)
 
     # Match the page names
     pageNames = []
     for match in callStrings:
         for pattern in importFormats:
             pageNames += re.findall(pattern, match)
+    dataPageNames = []
+    for match in dataCallStrings:
+        for pattern in importFormats:
+            dataPageNames += re.findall(pattern, match)
 
     # Get additional dependencies
     additional = []
@@ -78,9 +90,15 @@ def findDependencies(page):
         additional = additionalDependenciesList[page]
     if ("Module:" + page) in additionalDependenciesList:
         additional = additionalDependenciesList["Module:" + page]
+    dataAdditional = []
+    if page in additionalDataDependenciesList:
+        dataAdditional = additionalDataDependenciesList[page]
+    if ("Module:" + page) in additionalDataDependenciesList:
+        dataAdditional = additionalDataDependenciesList["Module:" + page]
 
     # Return a list with all "Module:" removed, and then with all empty string removed
-    return list(filter(lambda s: s.strip() != "", [name.replace("Module:", "") for name in (pageNames + additional)]))
+    return (list(filter(lambda s: s.strip() != "", [name.replace("Module:", "") for name in (pageNames + additional)])),
+        list(filter(lambda s: s.strip() != "", [name.replace("Module:", "") for name in (dataPageNames + dataAdditional)])))
 
 if __name__ == "__main__":
     print(findDependencies("Module:VarsCacheMap"))

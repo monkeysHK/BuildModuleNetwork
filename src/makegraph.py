@@ -15,6 +15,7 @@ startFromPages = [
 # Using BFS, build dependencies graph
 queue = []
 dependenciesGraph = {}
+dataPages = []
 
 for pg in startFromPages:
     name = pg.replace("Module:", "")
@@ -24,10 +25,14 @@ while len(queue) > 0:
     name = queue.pop(0)
     if name.strip() != "" and not name in dependenciesGraph:
         print("Finding dependencies for", name)
-        dependencies = requestpage.findDependencies(name)
-        print(dependencies)
-        dependenciesGraph[name] = dependencies
-        queue += dependencies
+        dependencies, dataDependencies = requestpage.findDependencies(name)
+        combinedDependencies = dependencies + dataDependencies
+        print(combinedDependencies)
+        dependenciesGraph[name] = combinedDependencies
+        queue += combinedDependencies
+        dataPages += dataDependencies
+
+dataPages = list(set(dataPages))
 
 print(dependenciesGraph)
 
@@ -37,3 +42,10 @@ with open("dependencies-graph.txt", "w") as f:
 
 with open('dependencies-graph.pickle', 'wb') as f:
     pickle.dump(dependenciesGraph, f)
+
+with open("datapages.txt", "w") as f:
+    f.write(str(dataPages))
+    f.close()
+
+with open('datapages.pickle', 'wb') as f:
+    pickle.dump(dataPages, f)

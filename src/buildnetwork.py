@@ -6,11 +6,14 @@ import pickle
 with open('dependencies-graph.pickle', 'rb') as f:
     dependenciesGraph = pickle.load(f)
 
+with open('datapages.pickle', 'rb') as f:
+    dataPages = pickle.load(f)
+
 dependentGraph = {} # this is the reverse of dependencies graph
 
 nodeIndexMap = {}
 
-net = Network()
+net = Network(directed=True, neighborhood_highlight=True, filter_menu=True)
 
 for node, dependencies in dependenciesGraph.items():
     dependentGraph[node] = []
@@ -24,7 +27,11 @@ nodeList = list(dependentGraph.items())
 for index, value in enumerate(nodeList):
     node, dependents = value
     nodeIndexMap[node] = index
-    net.add_node(index, label=node, value=len(dependents), title=f"Dependent modules: {str(len(dependents))}\nDependencies: {str(len(dependenciesGraph[node]))}")
+    net.add_node(index,
+        label=node,
+        value=len(dependents),
+        title=f"ID: {str(index)}\nDependent modules: {str(len(dependents))}\nDependencies: {str(len(dependenciesGraph[node]))}",
+        color=node in dataPages and "#dd4b39" or None)
 
 for index, value in enumerate(nodeList):
     node, dependents = value
