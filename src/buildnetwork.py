@@ -16,7 +16,7 @@ dependentGraph = {} # this is the reverse of dependencies graph
 
 nodeIndexMap = {}
 
-net = Network(directed=True, neighborhood_highlight=True, filter_menu=True)
+net = Network(directed=True, neighborhood_highlight=True, select_menu=True, filter_menu=True)
 
 for node, dependencies in dependenciesGraph.items():
     dependentGraph[node] = []
@@ -33,13 +33,13 @@ for index, value in enumerate(nodeList):
     net.add_node(index,
         label=node,
         value=len(dependents),
-        title=f"Name: {node}\nID: {str(index)}\nDependent modules (indegree): {str(len(dependents))}\nDependencies (outdegree): {str(len(dependenciesGraph[node]))}",
+        title=f"Name: {node}\nID: {str(index)}\nDependent modules (outdegree): {str(len(dependents))}\nDependencies (indegree): {str(len(dependenciesGraph[node]))}",
         color=node in dataPages and "#dd4b39" or node in externalPages and "#63b833" or None)
 
 for index, value in enumerate(nodeList):
     node, dependents = value
     for dep in dependents:
-        net.add_edge(nodeIndexMap[dep], index)
+        net.add_edge(index, nodeIndexMap[dep], arrowStrikethrough=False)
 
 net.repulsion()
 net.show_buttons()

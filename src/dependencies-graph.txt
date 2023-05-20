@@ -693,7 +693,7 @@
         "Yesno"
     ],
     "Namespace detect": [
-        "Dev:Namespace_detect"
+        "Dev:Namespace detect"
     ],
     "Namespace detect/data": [],
     "Navbar": [
@@ -1002,7 +1002,7 @@
         "Sword upgrades/Enchantments"
     ],
     "Sword upgrades/Enchantments": [
-        "Sword_upgrades/Enchantments/Data",
+        "Sword upgrades/Enchantments/Data",
         "String",
         "Link",
         "Pet",
@@ -1034,7 +1034,7 @@
     "Sword upgrades/Stats/Reforges/Aliases": [],
     "Sword upgrades/Stats/Upgrades": [],
     "Sword upgrades/Upgrades": [
-        "Sword_upgrades/Upgrades/Data",
+        "Sword upgrades/Upgrades/Data",
         "LibraryUtil",
         "Statname/Aliases"
     ],
@@ -1207,14 +1207,8 @@
     "Bit32": [],
     "Dev:Mbox": [],
     "Dev:Arguments": [],
-    "Dev:Namespace_detect": [],
+    "Dev:Namespace detect": [],
     "Dev:Quote": [],
-    "Sword_upgrades/Enchantments/Data": [
-        "String"
-    ],
-    "Sword_upgrades/Upgrades/Data": [
-        "Bazaar"
-    ],
     "Dev:User error": [],
     "Dev:Yesno": [],
     "Dev:Testharness": [],

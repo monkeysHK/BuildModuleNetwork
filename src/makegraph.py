@@ -28,11 +28,11 @@ for pg in startFromPages:
 
 while len(queue) > 0:
     name = queue.pop(0).strip()
-    name = name if len(name) < 1 else name[0].upper() + name[1:]
+    name = requestpage.standardizeName(name)
     if name != "" and not name in dependenciesGraph:
         print("Finding dependencies for", name)
         dependencies, dataDependencies, isExternal = requestpage.findDependencies(name)
-        combinedDependencies = [name[0].upper() + name[1:] for name in filter(lambda page: page.strip() != "", dependencies + dataDependencies)]
+        combinedDependencies = dependencies + dataDependencies
         dependenciesGraph[name] = combinedDependencies
         queue += combinedDependencies
         dataPages += dataDependencies

@@ -25,6 +25,11 @@ def validPageFilterRule(page):
         page.strip() != "" and \
         page.find("%") < 0
 
+# A common name standardization for pages
+def standardizeName(name):
+    name = name.replace("Module:", "").replace("_", " ").strip()
+    return name if len(name) < 1 else name[0].upper() + name[1:]
+
 # Perform get request for the page list for one time
 def makePageListRequest(apcontinue, apnamespace):
     payload = {
@@ -154,8 +159,8 @@ def findDependencies(page):
         dataAdditional = additionalDataDependenciesList["Module:" + page]
 
     # Return a list with all "Module:" removed, and then with all empty string removed
-    return (list(filter(validPageFilterRule, [name.replace("Module:", "").strip() for name in (pageNames + additional)])),
-        list(filter(validPageFilterRule, [name.replace("Module:", "").strip() for name in (dataPageNames + dataAdditional)])),
+    return (list(filter(validPageFilterRule, [standardizeName(name) for name in (pageNames + additional)])),
+        list(filter(validPageFilterRule, [standardizeName(name) for name in (dataPageNames + dataAdditional)])),
         isMissing)
 
 if __name__ == "__main__":
