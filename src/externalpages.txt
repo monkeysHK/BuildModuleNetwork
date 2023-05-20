@@ -5,7 +5,6 @@
     "Dev:Dialogue",
     "Dev:Hatnote",
     "Bit32",
-    "Statname/aliases",
     "Dev:Mbox",
     "Dev:Arguments",
     "Dev:Namespace_detect",

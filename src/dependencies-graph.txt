@@ -397,9 +397,6 @@
         "Mayor",
         "Infobox/Data"
     ],
-    "Infobox/Test": [
-        "Infobox"
-    ],
     "Inventory slot": [
         "Arguments",
         "Loader",
@@ -432,16 +429,7 @@
         "Attribute",
         "Mayor"
     ],
-    "Inventory slot/Test": [],
-    "Inventory slot/Test2": [],
     "Inventory slot/Tooltips": [],
-    "Inventory slot/Tooltips/utils": [
-        "String",
-        "Table",
-        "LibraryUtil",
-        "Statname/aliases",
-        "Statname/Data"
-    ],
     "Inventory slot/Utils": [
         "Loader",
         "String",
@@ -783,7 +771,6 @@
     ],
     "Pet/Aliases": [],
     "Pet/Data": [],
-    "Pet/Data/doc/Abilities": [],
     "Pet/LevelingData": [
         "Table"
     ],
@@ -1049,7 +1036,7 @@
     "Sword upgrades/Upgrades": [
         "Sword_upgrades/Upgrades/Data",
         "LibraryUtil",
-        "Statname/aliases"
+        "Statname/Aliases"
     ],
     "Sword upgrades/Upgrades/Data": [
         "Bazaar"
@@ -1218,7 +1205,6 @@
     "Dev:Dialogue": [],
     "Dev:Hatnote": [],
     "Bit32": [],
-    "Statname/aliases": [],
     "Dev:Mbox": [],
     "Dev:Arguments": [],
     "Dev:Namespace_detect": [],

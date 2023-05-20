@@ -4,7 +4,7 @@ This project is about building a graph visualization of module dependencies of H
 
 ## How it works
 
-- Using a user-defined list of starting pages, and using BFS, the program will crawl through its dependencies, dependencies of dependencies, and so on.
+- With a user-defined list or an API requested list of all module pages as starting pages, using BFS, the program will crawl through its dependencies, dependencies of dependencies, and so on.
 - To get the dependencies, the program will first request the page content using MediaWiki's API, then detect its module dependencies.
 - The detection of module dependencies is solely string pattern detection based on how wiki users import their modules.
 

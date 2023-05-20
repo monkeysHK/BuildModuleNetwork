@@ -21,7 +21,7 @@ additionalDataDependenciesList = {
 def validPageFilterRule(page):
     return page.find("Sandbox") < 0 and \
         page.find("sandbox") < 0 and \
-        page[-4:] != "/doc" and \
+        not "doc" in page.split("/") and \
         page.strip() != "" and \
         page.find("%") < 0
 
