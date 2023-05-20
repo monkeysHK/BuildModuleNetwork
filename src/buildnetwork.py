@@ -9,6 +9,9 @@ with open('dependencies-graph.pickle', 'rb') as f:
 with open('datapages.pickle', 'rb') as f:
     dataPages = pickle.load(f)
 
+with open('externalpages.pickle', 'rb') as f:
+    externalPages = pickle.load(f)
+
 dependentGraph = {} # this is the reverse of dependencies graph
 
 nodeIndexMap = {}
@@ -30,13 +33,13 @@ for index, value in enumerate(nodeList):
     net.add_node(index,
         label=node,
         value=len(dependents),
-        title=f"ID: {str(index)}\nDependent modules: {str(len(dependents))}\nDependencies: {str(len(dependenciesGraph[node]))}",
-        color=node in dataPages and "#dd4b39" or None)
+        title=f"Name: {node}\nID: {str(index)}\nDependent modules (indegree): {str(len(dependents))}\nDependencies (outdegree): {str(len(dependenciesGraph[node]))}",
+        color=node in dataPages and "#dd4b39" or node in externalPages and "#63b833" or None)
 
 for index, value in enumerate(nodeList):
     node, dependents = value
     for dep in dependents:
-        net.add_edge(index, nodeIndexMap[dep])
+        net.add_edge(nodeIndexMap[dep], index)
 
 net.repulsion()
 net.show_buttons()

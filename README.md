@@ -23,4 +23,5 @@ This project is about building a graph visualization of module dependencies of H
 | Version | Changes |
 | ------- | ------- |
 | 1.0 | Initial Publish |
-| 1.1 | New color for data modules, Directed graph |
+| 1.1 | New color for data pages. Directed graph |
+| 1.2 | New color for external pages. Fixed first letter casing. Now uses all existing modules as starting points. Arrows now point to parents |

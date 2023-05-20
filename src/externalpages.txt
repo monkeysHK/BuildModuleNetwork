@@ -1,0 +1,18 @@
+[
+    "Api/Item/Aliases",
+    "ArgsUtil",
+    "Mw.ext.LuaCache",
+    "Dev:Dialogue",
+    "Dev:Hatnote",
+    "Bit32",
+    "Statname/aliases",
+    "Dev:Mbox",
+    "Dev:Arguments",
+    "Dev:Namespace_detect",
+    "Dev:Quote",
+    "Dev:User error",
+    "Dev:Yesno",
+    "Dev:Testharness",
+    "Binser",
+    "WP:Wikitable"
+]

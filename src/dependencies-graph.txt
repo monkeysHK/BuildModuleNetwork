@@ -1,1 +1,1237 @@
-{'Pet': ['Loader', 'String', 'Table', 'Yesno', 'Color', 'Currency', 'Ability', 'RarityTier', 'Statname', 'Inventory slot', 'Inventory slot/Utils', 'Arguments', 'Pet/Utils', 'Pet/LevelingData', 'UIText/Data', 'Color/Aliases', 'RarityTier/Aliases'], 'Loader': ['Table', 'MakeClass'], 'String': ['Arguments', 'Yesno', 'LibraryUtil', 'Table', 'MakeClass', 'String/Lorem'], 'Table': ['LibraryUtil'], 'Yesno': [], 'Color': ['Arguments', 'String', 'Table', 'Yesno', 'Color/Aliases', 'Color/Data'], 'Currency': ['Loader', 'Arguments', 'String', 'Table', 'Yesno', 'Color', 'Currency/Data', 'Bazaar/Data'], 'Ability': ['Arguments', 'Yesno'], 'RarityTier': ['Arguments', 'Loader', 'String', 'Table', 'Yesno', 'Color', 'Mainonly', 'RarityTier/Aliases', 'RarityTier/Data', 'Color/Data'], 'Statname': ['Arguments', 'Loader', 'String', 'Yesno', 'Color', 'Statname/Aliases', 'Statname/Data'], 'Inventory slot': ['Arguments', 'Loader', 'String', 'Table', 'Yesno', 'Currency', 'Random', 'UIText', 'Cache', 'Inventory slot/Aliases'], 'Inventory slot/Utils': ['Loader', 'String', 'Table', 'UIText', 'RarityTier', 'Inventory slot/Templates'], 'Arguments': ['LibU'], 'Pet/Utils': ['Loader', 'String', 'Table', 'Yesno', 'RarityTier', 'Inventory slot', 'Statname', 'Pet/Data', 'Pet/Aliases', 'RarityTier/Aliases'], 'Pet/LevelingData': ['Table'], 'UIText/Data': [], 'Color/Aliases': [], 'RarityTier/Aliases': [], 'MakeClass': ['Table', 'LibU'], 'LibraryUtil': ['LibU'], 'String/Lorem': [], 'Color/Data': [], 'Currency/Data': [], 'Bazaar/Data': [], 'Mainonly': [], 'RarityTier/Data': [], 'Statname/Aliases': [], 'Statname/Data': [], 'Random': ['Yesno', 'Random/Dependencies'], 'UIText': ['Arguments', 'Loader', 'String', 'Table', 'LibraryUtil', 'Yesno', 'Statname', 'Statname/Aliases', 'RarityTier', 'Zone', 'Potion/Data', 'Potion/Aliases', 'Enchantment/Data', 'Enchantment/Aliases', 'RarityTier/Data', 'RarityTier/Aliases', 'Color/Aliases', 'UIText/Data', 'Gemstone/Data', 'Zone/Data'], 'Cache': ['VarsCacheMap', 'CacheUtil'], 'Inventory slot/Aliases': [], 'Inventory slot/Templates': ['Table', 'Color/Data', 'Minion/Templates', 'Pet/Templates', 'Enchantment', 'Potion', 'Attribute', 'Mayor'], 'LibU': [], 'Pet/Data': [], 'Pet/Aliases': [], 'Random/Dependencies': ['libraryUtil'], 'Zone': ['Arguments', 'Loader', 'String', 'Table', 'Color', 'Zone/Data', 'Zone/Aliases'], 'Potion/Data': [], 'Potion/Aliases': [], 'Enchantment/Data': [], 'Enchantment/Aliases': [], 'Gemstone/Data': [], 'Zone/Data': [], 'VarsCacheMap': ['VariablesLuaUtil', 'Class', 'LibraryUtil', 'mw.ext.LuaCache'], 'CacheUtil': ['ArgsUtil', 'Arguments', 'mw.ext.LuaCache', 'VarsCacheMap'], 'Minion/Templates': ['String', 'Table', 'Minion', 'Minion/Data'], 'Pet/Templates': ['Loader', 'String', 'Table', 'Yesno', 'RarityTier', 'Statname', 'Pet/Utils', 'Pet/Data', 'Pet/Skins', 'RarityTier/Aliases'], 'Enchantment': ['Loader', 'Arguments', 'String', 'Table', 'Yesno', 'Mctxt', 'RarityTier', 'Enchantment/Data'], 'Potion': ['Loader', 'Arguments', 'String', 'Table', 'Yesno', 'UIText', 'Potion/Data', 'Potion/Aliases'], 'Attribute': ['String', 'Attribute/Data'], 'Mayor': ['Loader', 'Arguments', 'String', 'Table', 'Yesno', 'LibraryUtil', 'Mayor/Data', 'Mayor/Elections', 'Mayor/Elections/Automated'], 'libraryUtil': ['LibU'], 'Zone/Aliases': [], 'VariablesLuaUtil': ['binser'], 'Class': [], 'mw.ext.LuaCache': [], 'ArgsUtil': [], 'Minion': ['Arguments', 'Arguments', 'Loader', 'String', 'Table', 'Yesno', 'Inventory slot', 'Bazaar', 'Color', 'Currency', 'Item', 'Crafting/UI', 'Skillname', 'Minion/Data', 'Collection/Data', 'Minion/Aliases'], 'Minion/Data': [], 'Pet/Skins': [], 'Mctxt': ['Arguments'], 'Attribute/Data': [], 'Mayor/Data': [], 'Mayor/Elections': [], 'Mayor/Elections/Automated': [], 'binser': [], 'Bazaar': ['Arguments', 'Loader', 'String', 'Table', 'Yesno', 'Currency', 'Color', 'Bazaar/Data', 'Bazaar/Aliases', 'Bazaar/i18n'], 'Item': ['Loader', 'Arguments', 'String', 'Table', 'Yesno', 'RarityTier', 'Currency', 'Link', 'Color', 'Cache', 'Item/ApiData', 'Item/ApiAliases', 'Item/Data', 'Item/Aliases', 'Armor/Sets'], 'Crafting/UI': ['Arguments', 'Loader', 'String', 'Table', 'Yesno', 'Crafting', 'UI/Core', 'Element'], 'Skillname': ['Arguments', 'Loader', 'String', 'Table', 'Yesno', 'Color', 'Skillname/Data', 'Skillname/Aliases'], 'Collection/Data': [], 'Minion/Aliases': [], 'Bazaar/Aliases': [], 'Bazaar/i18n': [], 'Link': ['Loader', 'String', 'Table', 'Yesno', 'Collection', 'Color', 'LibraryUtil', 'Arguments', 'Enchantment/Data', 'Enchantment/Aliases', 'Potion/Data', 'Potion/Aliases'], 'Item/ApiData': [], 'Item/ApiAliases': [], 'Item/Data': [], 'Item/Aliases': [], 'Armor/Sets': [], 'Crafting': ['Loader', 'Recipe table', 'Cache', 'String', 'Table', 'Yesno', 'Inventory slot', 'Arguments', 'Crafting/Utils'], 'UI/Core': ['Loader', 'Class', 'Yesno', 'Inventory slot', 'Random', 'Color/Data'], 'Element': ['Arguments', 'String', 'Table', 'Yesno'], 'Skillname/Data': [], 'Skillname/Aliases': [], 'Collection': ['Arguments', 'Loader', 'String', 'Table', 'Yesno', 'Collection/Data'], 'Recipe table': [], 'Crafting/Utils': ['Loader', 'String', 'Table']}
+{
+    "AIV": [
+        "LoadLib"
+    ],
+    "Ability": [
+        "Arguments",
+        "Yesno"
+    ],
+    "AlphaStatus": [
+        "AlphaStatus/Data"
+    ],
+    "AlphaStatus/Data": [],
+    "Animate": [
+        "Loader",
+        "Arguments",
+        "String",
+        "Table",
+        "Yesno",
+        "Cache"
+    ],
+    "Api": [
+        "Item/ApiAliases",
+        "Api/Item/Aliases"
+    ],
+    "Api/Item": [],
+    "Api/Item/SPELL BOOK TEST": [],
+    "Arguments": [
+        "LibU"
+    ],
+    "Armor": [
+        "Loader",
+        "String",
+        "Yesno",
+        "Arguments",
+        "Inventory slot",
+        "RarityTier",
+        "Color",
+        "Ability",
+        "Armor/StatsList",
+        "Armor/Data/FairyArmorColors"
+    ],
+    "Armor/Data": [],
+    "Armor/Data/FairyArmorColors": [],
+    "Armor/Sets": [],
+    "Armor/StatsList": [
+        "Statname",
+        "String",
+        "Statname/Data"
+    ],
+    "Attribute": [
+        "String",
+        "Attribute/Data"
+    ],
+    "Attribute/Data": [],
+    "Bazaar": [
+        "Arguments",
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "Currency",
+        "Color",
+        "Bazaar/Data",
+        "Bazaar/Aliases",
+        "Bazaar/i18n"
+    ],
+    "Bazaar/Aliases": [],
+    "Bazaar/Data": [],
+    "Bazaar/i18n": [],
+    "Cache": [
+        "VarsCacheMap",
+        "CacheUtil"
+    ],
+    "CacheUtil": [
+        "ArgsUtil",
+        "Arguments",
+        "Mw.ext.LuaCache",
+        "VarsCacheMap"
+    ],
+    "Calculator": [
+        "Arguments",
+        "HypixelServerTime"
+    ],
+    "Calculator Update": [
+        "Loader",
+        "String",
+        "Table",
+        "Pet/Data",
+        "Minion/Data",
+        "Minion/Aliases",
+        "RarityTier/Data",
+        "Statname/Data",
+        "Skillname/Data",
+        "Collection/Data",
+        "Staff/Members",
+        "Enchantment/Data",
+        "Potion/Data"
+    ],
+    "CallAssert": [],
+    "Changelog": [
+        "LoadLib"
+    ],
+    "Changelog/Aliases": [],
+    "Class": [],
+    "Collection": [
+        "Arguments",
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "Collection/Data"
+    ],
+    "Collection/Data": [],
+    "Collection/UI": [
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "Cache",
+        "UIText",
+        "UI/Core",
+        "Potion",
+        "Potion/UI",
+        "Random",
+        "Arguments",
+        "Collection/Data",
+        "Collection/UI/Data",
+        "Armor/Sets",
+        "Potion/Data"
+    ],
+    "Collection/UI/Data": [],
+    "Color": [
+        "Arguments",
+        "String",
+        "Table",
+        "Yesno",
+        "Color/Aliases",
+        "Color/Data"
+    ],
+    "Color contrast/colors": [],
+    "Color/Aliases": [],
+    "Color/Conversion": [
+        "Arguments"
+    ],
+    "Color/Data": [],
+    "Constructor": [
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "Arguments",
+        "MakeClass",
+        "LibU"
+    ],
+    "Countdown": [
+        "Arguments",
+        "Yesno"
+    ],
+    "Crafting": [
+        "Loader",
+        "Recipe table",
+        "Cache",
+        "String",
+        "Table",
+        "Yesno",
+        "Inventory slot",
+        "Arguments",
+        "Crafting/Utils"
+    ],
+    "Crafting/Aliases": [
+        "Loader",
+        "String",
+        "Table",
+        "Minion",
+        "Crafting/Data",
+        "Crafting/Templates",
+        "Crafting/Utils",
+        "Minion/Data"
+    ],
+    "Crafting/Data": [],
+    "Crafting/Templates": [],
+    "Crafting/UI": [
+        "Arguments",
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "Crafting",
+        "UI/Core",
+        "Element"
+    ],
+    "Crafting/Utils": [
+        "Loader",
+        "String",
+        "Table"
+    ],
+    "Currency": [
+        "Loader",
+        "Arguments",
+        "String",
+        "Table",
+        "Yesno",
+        "Color",
+        "Currency/Data",
+        "Bazaar/Data"
+    ],
+    "Currency/Data": [],
+    "DPL": [
+        "Table",
+        "String",
+        "Yesno"
+    ],
+    "DamageType": [
+        "Arguments",
+        "Loader",
+        "String",
+        "Yesno",
+        "Color",
+        "DamageType/Data",
+        "DamageType/Aliases"
+    ],
+    "DamageType/Aliases": [],
+    "DamageType/Data": [],
+    "Date": [],
+    "DetailedList": [
+        "Loader",
+        "Arguments",
+        "String",
+        "Table",
+        "Yesno",
+        "DetailedList/Data"
+    ],
+    "DetailedList/Data": [],
+    "Dialogue": [
+        "Dev:Dialogue"
+    ],
+    "Documentation": [
+        "Arguments",
+        "Documentation/Core"
+    ],
+    "Documentation/Config": [],
+    "Documentation/Core": [
+        "Loader",
+        "String",
+        "Table",
+        "Class",
+        "LibraryUtil",
+        "Documentation/Config"
+    ],
+    "Documentation/Parameters": [
+        "Class",
+        "Table",
+        "Arguments",
+        "Number",
+        "String"
+    ],
+    "Dungeon": [
+        "Loader",
+        "Arguments",
+        "String",
+        "Table",
+        "Yesno",
+        "LibraryUtil",
+        "Color",
+        "Item",
+        "Mctxt"
+    ],
+    "Element": [
+        "Arguments",
+        "String",
+        "Table",
+        "Yesno"
+    ],
+    "Empty": [],
+    "Enchantment": [
+        "Loader",
+        "Arguments",
+        "String",
+        "Table",
+        "Yesno",
+        "Mctxt",
+        "RarityTier",
+        "Enchantment/Data"
+    ],
+    "Enchantment/Aliases": [],
+    "Enchantment/Data": [],
+    "Enchantment/EnchantmentPageRow": [
+        "Loader",
+        "Arguments",
+        "String",
+        "Table",
+        "RarityTier",
+        "Link",
+        "Skillname",
+        "Enchantment/Data"
+    ],
+    "EnchantmentBazaarStats": [
+        "Arguments",
+        "String"
+    ],
+    "Example": [
+        "Arguments",
+        "MultiRequire"
+    ],
+    "Format": [
+        "Arguments",
+        "Yesno"
+    ],
+    "Gemstone": [
+        "Loader",
+        "Arguments",
+        "Arguments",
+        "String",
+        "Table",
+        "Gemstone/Data",
+        "Gemstone/Aliases"
+    ],
+    "Gemstone/Aliases": [],
+    "Gemstone/Data": [],
+    "Hatnote": [
+        "Dev:Hatnote"
+    ],
+    "Heart of the Mountain": [
+        "Loader",
+        "HypixelServerTime",
+        "String",
+        "Arguments",
+        "LibU",
+        "Item"
+    ],
+    "History": [
+        "String",
+        "Table",
+        "Arguments",
+        "History/Aliases"
+    ],
+    "History/Aliases": [],
+    "Html": [
+        "LoadLib"
+    ],
+    "HypixelServerTime": [],
+    "IP": [
+        "Bit32",
+        "LibraryUtil"
+    ],
+    "IPAddress": [
+        "IP"
+    ],
+    "Image": [
+        "Arguments",
+        "String",
+        "Table"
+    ],
+    "Infobox": [
+        "Arguments",
+        "Loader",
+        "LibU",
+        "Table",
+        "Class"
+    ],
+    "Infobox/Data": [],
+    "Infobox/Item": [
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "Arguments",
+        "Statname",
+        "Infobox",
+        "RarityTier",
+        "Link",
+        "Odds",
+        "Bazaar",
+        "String/Templates",
+        "List",
+        "Ability",
+        "Currency",
+        "Animate",
+        "Item",
+        "Pet",
+        "Inventory slot",
+        "Infobox/Data"
+    ],
+    "Infobox/Mechanic": [
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "Arguments",
+        "Statname",
+        "Infobox",
+        "Inventory slot",
+        "String/Templates",
+        "Minimap",
+        "Animate",
+        "Sprite",
+        "Mayor",
+        "Infobox/Data"
+    ],
+    "Infobox/Test": [
+        "Infobox"
+    ],
+    "Inventory slot": [
+        "Arguments",
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "Currency",
+        "Random",
+        "UIText",
+        "Cache",
+        "Inventory slot/Aliases"
+    ],
+    "Inventory slot/Aliases": [],
+    "Inventory slot/Datasheet": [
+        "Loader",
+        "String",
+        "Table",
+        "Inventory slot/Utils",
+        "Inventory slot/Tooltips",
+        "Inventory slot/Templates",
+        "Color/Data"
+    ],
+    "Inventory slot/Templates": [
+        "Table",
+        "Color/Data",
+        "Minion/Templates",
+        "Pet/Templates",
+        "Enchantment",
+        "Potion",
+        "Attribute",
+        "Mayor"
+    ],
+    "Inventory slot/Test": [],
+    "Inventory slot/Test2": [],
+    "Inventory slot/Tooltips": [],
+    "Inventory slot/Tooltips/utils": [
+        "String",
+        "Table",
+        "LibraryUtil",
+        "Statname/aliases",
+        "Statname/Data"
+    ],
+    "Inventory slot/Utils": [
+        "Loader",
+        "String",
+        "Table",
+        "UIText",
+        "RarityTier",
+        "Inventory slot/Templates"
+    ],
+    "Item": [
+        "Loader",
+        "Arguments",
+        "String",
+        "Table",
+        "Yesno",
+        "RarityTier",
+        "Currency",
+        "Link",
+        "Color",
+        "Cache",
+        "Item/ApiData",
+        "Item/ApiAliases",
+        "Item/Data",
+        "Item/Aliases",
+        "Armor/Sets"
+    ],
+    "Item/Aliases": [],
+    "Item/ApiAliases": [],
+    "Item/ApiData": [],
+    "Item/ApiData/AsCacheTable": [
+        "Item/ApiData"
+    ],
+    "Item/Data": [],
+    "Item/Variants": [
+        "Table",
+        "String",
+        "Color/Data",
+        "Pet/Templates",
+        "Minion/Templates",
+        "Potion",
+        "Enchantment",
+        "Armor/Sets"
+    ],
+    "ItemInfo": [
+        "Arguments",
+        "Loader",
+        "Yesno",
+        "Color",
+        "Statname",
+        "RarityTier",
+        "Ability",
+        "Inventory slot",
+        "Statname/Data"
+    ],
+    "ItemInfo/Armor Data": [],
+    "ItemInfo/Item Data": [],
+    "ItemInfo/Weapon Data": [],
+    "IterativeInventorySlot": [
+        "Arguments",
+        "Table",
+        "String"
+    ],
+    "JSON": [
+        "Table"
+    ],
+    "Kat": [
+        "Arguments",
+        "Yesno",
+        "Table",
+        "String"
+    ],
+    "Keypress": [
+        "Arguments",
+        "Yesno"
+    ],
+    "LibU": [],
+    "LibraryUtil": [
+        "LibU"
+    ],
+    "Link": [
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "Collection",
+        "Color",
+        "LibraryUtil",
+        "Arguments",
+        "Enchantment/Data",
+        "Enchantment/Aliases",
+        "Potion/Data",
+        "Potion/Aliases"
+    ],
+    "List": [
+        "Arguments",
+        "Arguments",
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "Statname",
+        "Sprite",
+        "Item",
+        "Gemstone"
+    ],
+    "LoadLib": [
+        "LibraryUtil",
+        "LoadLib/Autoloads"
+    ],
+    "LoadLib/Autoloads": [],
+    "Loader": [
+        "Table",
+        "MakeClass"
+    ],
+    "Location/Aliases": [],
+    "Location/Sprites": [],
+    "LuaFunction": [
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "LibraryUtil",
+        "Class",
+        "Color",
+        "Arguments"
+    ],
+    "Mainonly": [],
+    "MakeClass": [
+        "Table",
+        "LibU"
+    ],
+    "Mayor": [
+        "Loader",
+        "Arguments",
+        "String",
+        "Table",
+        "Yesno",
+        "LibraryUtil",
+        "Mayor/Data",
+        "Mayor/Elections",
+        "Mayor/Elections/Automated"
+    ],
+    "Mayor/Data": [],
+    "Mayor/Elections": [],
+    "Mayor/Elections/Automated": [],
+    "Mayor/UI": [
+        "Loader",
+        "Arguments",
+        "String",
+        "Table",
+        "Yesno",
+        "Mayor",
+        "Inventory slot/Utils",
+        "LibraryUtil",
+        "Mayor/Data",
+        "Mayor/Elections"
+    ],
+    "Mbox": [
+        "Dev:Mbox",
+        "Dev:Arguments",
+        "Mbox/data"
+    ],
+    "Mbox/data": [],
+    "Mctxt": [
+        "Arguments"
+    ],
+    "Minimap": [
+        "Loader",
+        "Arguments",
+        "String",
+        "String/Templates",
+        "Table",
+        "LibU",
+        "Minimap/Data",
+        "Minimap/Aliases",
+        "Zone/Data",
+        "Zone/Aliases"
+    ],
+    "Minimap/Aliases": [],
+    "Minimap/Data": [],
+    "Minion": [
+        "Arguments",
+        "Arguments",
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "Inventory slot",
+        "Bazaar",
+        "Color",
+        "Currency",
+        "Item",
+        "Crafting/UI",
+        "Skillname",
+        "Minion/Data",
+        "Collection/Data",
+        "Minion/Aliases"
+    ],
+    "Minion/Aliases": [],
+    "Minion/Data": [],
+    "Minion/MinionPageRow": [
+        "Arguments",
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "Minion",
+        "Minion/Data",
+        "Minion/Aliases"
+    ],
+    "Minion/Templates": [
+        "String",
+        "Table",
+        "Minion",
+        "Minion/Data"
+    ],
+    "Minion/UI": [
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "Arguments",
+        "Inventory slot",
+        "Crafting/UI",
+        "UI/Core",
+        "Minion"
+    ],
+    "Misc": [
+        "Arguments",
+        "Arguments",
+        "Loader",
+        "String",
+        "Table",
+        "Yesno"
+    ],
+    "Mob": [
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "Format",
+        "Arguments",
+        "Odds",
+        "Item",
+        "RarityTier",
+        "Sprite",
+        "Notice",
+        "Color",
+        "Statname/Data"
+    ],
+    "Mob/Aliases": [],
+    "Mob/Sprites": [],
+    "MultiRequire": [
+        "LibraryUtil"
+    ],
+    "NPC/Aliases": [],
+    "NPC/Sprites": [],
+    "NPCPriceSpread": [
+        "Arguments",
+        "Table",
+        "String",
+        "Yesno"
+    ],
+    "Namespace detect": [
+        "Dev:Namespace_detect"
+    ],
+    "Namespace detect/data": [],
+    "Navbar": [
+        "Arguments"
+    ],
+    "Navbox": [],
+    "Navigation Bar": [
+        "Arguments",
+        "Yesno"
+    ],
+    "Notice": [
+        "Arguments",
+        "Loader",
+        "Yesno",
+        "Color",
+        "Mainonly",
+        "Notice/Data"
+    ],
+    "Notice/Data": [],
+    "Number": [],
+    "NumberSpell": [
+        "Arguments"
+    ],
+    "Odds": [
+        "Arguments",
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "Color",
+        "LibraryUtil",
+        "Odds/Data",
+        "Odds/Aliases"
+    ],
+    "Odds/Aliases": [],
+    "Odds/Data": [],
+    "Page": [
+        "Arguments",
+        "LibU",
+        "CallAssert",
+        "Protect"
+    ],
+    "Page Actions": [
+        "Arguments",
+        "Arguments",
+        "String",
+        "Page Actions/Aliases",
+        "Page Actions/Data"
+    ],
+    "Page Actions/Aliases": [],
+    "Page Actions/Data": [],
+    "ParserFunctions": [
+        "Arguments",
+        "String",
+        "Yesno"
+    ],
+    "Pet": [
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "Color",
+        "Currency",
+        "Ability",
+        "RarityTier",
+        "Statname",
+        "Inventory slot",
+        "Inventory slot/Utils",
+        "Arguments",
+        "Pet/Utils",
+        "Pet/LevelingData",
+        "UIText/Data",
+        "Color/Aliases",
+        "RarityTier/Aliases"
+    ],
+    "Pet/Aliases": [],
+    "Pet/Data": [],
+    "Pet/Data/doc/Abilities": [],
+    "Pet/LevelingData": [
+        "Table"
+    ],
+    "Pet/Skins": [],
+    "Pet/Templates": [
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "RarityTier",
+        "Statname",
+        "Pet/Utils",
+        "Pet/Data",
+        "Pet/Skins",
+        "RarityTier/Aliases"
+    ],
+    "Pet/Utils": [
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "RarityTier",
+        "Inventory slot",
+        "Statname",
+        "Pet/Data",
+        "Pet/Aliases",
+        "RarityTier/Aliases"
+    ],
+    "Potion": [
+        "Loader",
+        "Arguments",
+        "String",
+        "Table",
+        "Yesno",
+        "UIText",
+        "Potion/Data",
+        "Potion/Aliases"
+    ],
+    "Potion/Aliases": [],
+    "Potion/Data": [],
+    "Potion/PotionPageRow": [
+        "Arguments",
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "UIText",
+        "Inventory slot",
+        "Link",
+        "RarityTier",
+        "Potion/Data",
+        "Potion/Aliases"
+    ],
+    "Potion/UI": [
+        "Arguments",
+        "Loader",
+        "Cache",
+        "String",
+        "Table",
+        "Yesno",
+        "Potion",
+        "UI/Core"
+    ],
+    "Power": [
+        "Arguments",
+        "Statname",
+        "Color",
+        "List",
+        "Statname/Aliases"
+    ],
+    "Protect": [],
+    "Quote": [
+        "Dev:Quote"
+    ],
+    "Random": [
+        "Yesno",
+        "Random/Dependencies"
+    ],
+    "Random/Dependencies": [
+        "LibraryUtil"
+    ],
+    "Random/Modifications/ThatIPEditor": [
+        "Yesno",
+        "List"
+    ],
+    "Rank": [
+        "Arguments",
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "Rank/Data",
+        "Rank/Aliases"
+    ],
+    "Rank/Aliases": [],
+    "Rank/Data": [],
+    "RarityTier": [
+        "Arguments",
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "Color",
+        "Mainonly",
+        "RarityTier/Aliases",
+        "RarityTier/Data",
+        "Color/Data"
+    ],
+    "RarityTier/Aliases": [],
+    "RarityTier/Data": [],
+    "Recipe table": [],
+    "Reforge": [
+        "LoadLib",
+        "Reforge/Data"
+    ],
+    "Reforge/Data": [],
+    "Relations": [
+        "Arguments",
+        "Arguments",
+        "Yesno",
+        "String"
+    ],
+    "Reply to": [
+        "String"
+    ],
+    "Report": [
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "LibU",
+        "Arguments",
+        "User"
+    ],
+    "RightBox": [
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "LibU",
+        "Arguments"
+    ],
+    "RomanNumeral": [
+        "Arguments"
+    ],
+    "SBTE": [
+        "Class"
+    ],
+    "Separated entries": [],
+    "Sidebar": [
+        "Arguments",
+        "Navbar"
+    ],
+    "Skillname": [
+        "Arguments",
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "Color",
+        "Skillname/Data",
+        "Skillname/Aliases"
+    ],
+    "Skillname/Aliases": [],
+    "Skillname/Data": [],
+    "Sprite": [
+        "Loader",
+        "Arguments",
+        "String",
+        "Yesno",
+        "LibU",
+        "Mob/Sprites",
+        "NPC/Sprites",
+        "Location/Sprites",
+        "Mob/Aliases",
+        "NPC/Aliases",
+        "Location/Aliases"
+    ],
+    "Staff": [
+        "Arguments",
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "LibU",
+        "User",
+        "Staff/Data",
+        "User/Data",
+        "Staff/Aliases",
+        "Staff/Members"
+    ],
+    "Staff/Aliases": [],
+    "Staff/Data": [],
+    "Staff/Members": [],
+    "Statname": [
+        "Arguments",
+        "Loader",
+        "String",
+        "Yesno",
+        "Color",
+        "Statname/Aliases",
+        "Statname/Data"
+    ],
+    "Statname/Aliases": [],
+    "Statname/Data": [],
+    "String": [
+        "Arguments",
+        "Yesno",
+        "LibraryUtil",
+        "Table",
+        "MakeClass",
+        "String/Lorem"
+    ],
+    "String/Lorem": [],
+    "String/Templates": [
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "Color",
+        "Mctxt",
+        "Arguments"
+    ],
+    "Sword upgrades": [
+        "Arguments",
+        "String",
+        "Sword upgrades/Upgrades",
+        "Sword upgrades/Reforges",
+        "Sword upgrades/Enchantments"
+    ],
+    "Sword upgrades/Enchantments": [
+        "Sword_upgrades/Enchantments/Data",
+        "String",
+        "Link",
+        "Pet",
+        "Color",
+        "LibraryUtil",
+        "Link"
+    ],
+    "Sword upgrades/Enchantments/Data": [
+        "String"
+    ],
+    "Sword upgrades/Pets": [],
+    "Sword upgrades/Reforges": [],
+    "Sword upgrades/Stats": [
+        "Loader",
+        "String",
+        "Table",
+        "Arguments",
+        "MakeClass",
+        "Color",
+        "Statname",
+        "Statname/Aliases",
+        "Statname/Data",
+        "Sword upgrades/Stats/Reforges",
+        "Sword upgrades/Stats/Reforges/Aliases",
+        "RarityTier/Aliases",
+        "Sword upgrades/Stats/Upgrades"
+    ],
+    "Sword upgrades/Stats/Reforges": [],
+    "Sword upgrades/Stats/Reforges/Aliases": [],
+    "Sword upgrades/Stats/Upgrades": [],
+    "Sword upgrades/Upgrades": [
+        "Sword_upgrades/Upgrades/Data",
+        "LibraryUtil",
+        "Statname/aliases"
+    ],
+    "Sword upgrades/Upgrades/Data": [
+        "Bazaar"
+    ],
+    "T": [
+        "Dev:Arguments",
+        "Dev:User error",
+        "Dev:Yesno"
+    ],
+    "Tabber": [
+        "Arguments"
+    ],
+    "Table": [
+        "LibraryUtil"
+    ],
+    "Tabview": [
+        "Arguments",
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "JSON"
+    ],
+    "Tag": [
+        "Arguments",
+        "String"
+    ],
+    "Template link general": [
+        "Arguments"
+    ],
+    "TemplateList": [
+        "Arguments"
+    ],
+    "Testharness": [
+        "Dev:Testharness"
+    ],
+    "Time ago": [
+        "NumberSpell",
+        "Yesno",
+        "Date",
+        "Arguments"
+    ],
+    "TooltipText": [
+        "Arguments",
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "UIText",
+        "Cache",
+        "Inventory slot/Aliases"
+    ],
+    "UI": [
+        "Arguments",
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "LibraryUtil",
+        "UIText",
+        "Inventory slot",
+        "Crafting",
+        "UI/Core",
+        "Random"
+    ],
+    "UI/Core": [
+        "Loader",
+        "Class",
+        "Yesno",
+        "Inventory slot",
+        "Random",
+        "Color/Data"
+    ],
+    "UIText": [
+        "Arguments",
+        "Loader",
+        "String",
+        "Table",
+        "LibraryUtil",
+        "Yesno",
+        "Statname",
+        "Statname/Aliases",
+        "RarityTier",
+        "Zone",
+        "Potion/Data",
+        "Potion/Aliases",
+        "Enchantment/Data",
+        "Enchantment/Aliases",
+        "RarityTier/Data",
+        "RarityTier/Aliases",
+        "Color/Aliases",
+        "UIText/Data",
+        "Gemstone/Data",
+        "Zone/Data"
+    ],
+    "UIText/Data": [],
+    "User": [
+        "Arguments",
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "LibU",
+        "User/Data",
+        "Staff/Aliases"
+    ],
+    "User/Data": [],
+    "Userbox": [
+        "String",
+        "Table",
+        "Arguments",
+        "Userbox/Skins"
+    ],
+    "Userbox/Skins": [],
+    "VariablesLuaUtil": [
+        "Binser"
+    ],
+    "VarsCacheMap": [
+        "VariablesLuaUtil",
+        "Class",
+        "LibraryUtil",
+        "Mw.ext.LuaCache"
+    ],
+    "Weapon": [
+        "Arguments",
+        "Loader",
+        "String",
+        "Table",
+        "Yesno",
+        "Statname",
+        "Currency",
+        "RarityTier",
+        "Mainonly",
+        "Color",
+        "Armor/StatsList",
+        "Weapon/Data",
+        "Weapon/Aliases",
+        "Statname/Data",
+        "Statname/Aliases"
+    ],
+    "Weapon/Aliases": [],
+    "Weapon/Data": [],
+    "Wikitable": [
+        "WP:Wikitable"
+    ],
+    "Yesno": [],
+    "Yesno/template": [
+        "String",
+        "Arguments",
+        "Yesno"
+    ],
+    "Zone": [
+        "Arguments",
+        "Loader",
+        "String",
+        "Table",
+        "Color",
+        "Zone/Data",
+        "Zone/Aliases"
+    ],
+    "Zone/Aliases": [],
+    "Zone/Data": [],
+    "Api/Item/Aliases": [],
+    "ArgsUtil": [],
+    "Mw.ext.LuaCache": [],
+    "Dev:Dialogue": [],
+    "Dev:Hatnote": [],
+    "Bit32": [],
+    "Statname/aliases": [],
+    "Dev:Mbox": [],
+    "Dev:Arguments": [],
+    "Dev:Namespace_detect": [],
+    "Dev:Quote": [],
+    "Sword_upgrades/Enchantments/Data": [
+        "String"
+    ],
+    "Sword_upgrades/Upgrades/Data": [
+        "Bazaar"
+    ],
+    "Dev:User error": [],
+    "Dev:Yesno": [],
+    "Dev:Testharness": [],
+    "Binser": [],
+    "WP:Wikitable": []
+}
