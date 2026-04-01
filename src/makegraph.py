@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import requestpage, pickle, json
-
 # This script is responsible for building the graph using BFS.
+
+import requestpage, pickle, json, os
 
 # Define a list of starting pages for BFS. In this case, we request all module pages from API
 # and filter it using custom rules
@@ -45,23 +45,25 @@ dataPages = list(set(dataPages))
 print(dependenciesGraph)
 print(len(dependenciesGraph))
 
-with open("dependencies-graph.txt", "w") as f:
+os.makedirs("build", exist_ok=True)
+
+with open("build/dependencies-graph.txt", "w") as f:
     f.write(json.dumps(dependenciesGraph, indent=4))
     f.close()
 
-with open('dependencies-graph.pickle', 'wb') as f:
+with open('build/dependencies-graph.pickle', 'wb') as f:
     pickle.dump(dependenciesGraph, f)
 
-with open("datapages.txt", "w") as f:
+with open("build/datapages.txt", "w") as f:
     f.write(json.dumps(dataPages, indent=4))
     f.close()
 
-with open('datapages.pickle', 'wb') as f:
+with open('build/datapages.pickle', 'wb') as f:
     pickle.dump(dataPages, f)
 
-with open("externalpages.txt", "w") as f:
+with open("build/externalpages.txt", "w") as f:
     f.write(json.dumps(externalPages, indent=4))
     f.close()
 
-with open('externalpages.pickle', 'wb') as f:
+with open('build/externalpages.pickle', 'wb') as f:
     pickle.dump(externalPages, f)

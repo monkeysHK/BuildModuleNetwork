@@ -1,0 +1,1028 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+                <link href="lib/tom-select/tom-select.css" rel="stylesheet">
+                <script src="lib/tom-select/tom-select.complete.min.js"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 750px;
+                 background-color: #222222;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+             #loadingBar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width: 100%;
+                 height: 750px;
+                 background-color:rgba(200,200,200,0.8);
+                 -webkit-transition: all 0.5s ease;
+                 -moz-transition: all 0.5s ease;
+                 -ms-transition: all 0.5s ease;
+                 -o-transition: all 0.5s ease;
+                 transition: all 0.5s ease;
+                 opacity:1;
+             }
+
+             #bar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width:20px;
+                 height:20px;
+                 margin:auto auto auto auto;
+                 border-radius:11px;
+                 border:2px solid rgba(30,30,30,0.05);
+                 background: rgb(0, 173, 246); /* Old browsers */
+                 box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+             }
+
+             #border {
+                 position:absolute;
+                 top:10px;
+                 left:10px;
+                 width:500px;
+                 height:23px;
+                 margin:auto auto auto auto;
+                 box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+                 border-radius:10px;
+             }
+
+             #text {
+                 position:absolute;
+                 top:8px;
+                 left:530px;
+                 width:30px;
+                 height:50px;
+                 margin:auto auto auto auto;
+                 font-size:22px;
+                 color: #000000;
+             }
+
+             div.outerBorder {
+                 position:relative;
+                 top:400px;
+                 width:600px;
+                 height:44px;
+                 margin:auto auto auto auto;
+                 border:8px solid rgba(0,0,0,0.1);
+                 background: rgb(252,252,252); /* Old browsers */
+                 background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+                 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+                 background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+                 background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+                 background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+                 background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+                 border-radius:72px;
+                 box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+             }
+             
+
+             
+             #config {
+                 float: left;
+                 width: 400px;
+                 height: 600px;
+             }
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+                <div id="select-menu" class="card-header">
+                    <div class="row no-gutters">
+                        <div class="col-10 pb-2">
+                            <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="selectNode([value]);"
+                            id="select-node"
+                            placeholder="Select node..."
+                            >
+                                <option selected>Select a Node by ID</option>
+                                
+                                    <option value="AIV">AIV</option>
+                                
+                                    <option value="LoadLib">LoadLib</option>
+                                
+                                    <option value="Ability">Ability</option>
+                                
+                                    <option value="Arguments">Arguments</option>
+                                
+                                    <option value="Yesno">Yesno</option>
+                                
+                                    <option value="AlphaStatus">AlphaStatus</option>
+                                
+                                    <option value="AlphaStatus/Data">AlphaStatus/Data</option>
+                                
+                                    <option value="Animate">Animate</option>
+                                
+                                    <option value="Loader">Loader</option>
+                                
+                                    <option value="String">String</option>
+                                
+                                    <option value="Table">Table</option>
+                                
+                                    <option value="Cache">Cache</option>
+                                
+                                    <option value="LibU">LibU</option>
+                                
+                                    <option value="Armor">Armor</option>
+                                
+                                    <option value="Inventory slot">Inventory slot</option>
+                                
+                                    <option value="RarityTier">RarityTier</option>
+                                
+                                    <option value="Color">Color</option>
+                                
+                                    <option value="Armor/StatsList">Armor/StatsList</option>
+                                
+                                    <option value="Element">Element</option>
+                                
+                                    <option value="Armor/Data/FairyArmorColors">Armor/Data/FairyArmorColors</option>
+                                
+                                    <option value="Statname">Statname</option>
+                                
+                                    <option value="Statname/Data">Statname/Data</option>
+                                
+                                    <option value="Attribute">Attribute</option>
+                                
+                                    <option value="Attribute/Data">Attribute/Data</option>
+                                
+                                    <option value="Bazaar">Bazaar</option>
+                                
+                                    <option value="Currency">Currency</option>
+                                
+                                    <option value="Bazaar/Data">Bazaar/Data</option>
+                                
+                                    <option value="Bazaar/Aliases">Bazaar/Aliases</option>
+                                
+                                    <option value="Bazaar/i18n">Bazaar/i18n</option>
+                                
+                                    <option value="VarsCacheMap">VarsCacheMap</option>
+                                
+                                    <option value="CacheUtil">CacheUtil</option>
+                                
+                                    <option value="ArgsUtil">ArgsUtil</option>
+                                
+                                    <option value="Mw.ext.LuaCache">Mw.ext.LuaCache</option>
+                                
+                                    <option value="Calculator">Calculator</option>
+                                
+                                    <option value="Collection">Collection</option>
+                                
+                                    <option value="Item">Item</option>
+                                
+                                    <option value="Skillname">Skillname</option>
+                                
+                                    <option value="Collection/Data">Collection/Data</option>
+                                
+                                    <option value="Collection/UI">Collection/UI</option>
+                                
+                                    <option value="UIText">UIText</option>
+                                
+                                    <option value="UI/Core">UI/Core</option>
+                                
+                                    <option value="Potion">Potion</option>
+                                
+                                    <option value="Potion/UI">Potion/UI</option>
+                                
+                                    <option value="Random">Random</option>
+                                
+                                    <option value="Pet">Pet</option>
+                                
+                                    <option value="Collection/UI/Data">Collection/UI/Data</option>
+                                
+                                    <option value="Armor/Sets">Armor/Sets</option>
+                                
+                                    <option value="Potion/Data">Potion/Data</option>
+                                
+                                    <option value="Color/Aliases">Color/Aliases</option>
+                                
+                                    <option value="Color/Data">Color/Data</option>
+                                
+                                    <option value="Color/Conversion">Color/Conversion</option>
+                                
+                                    <option value="Constructor">Constructor</option>
+                                
+                                    <option value="MakeClass">MakeClass</option>
+                                
+                                    <option value="Countdown">Countdown</option>
+                                
+                                    <option value="Crafting">Crafting</option>
+                                
+                                    <option value="Recipe table">Recipe table</option>
+                                
+                                    <option value="Crafting/Utils">Crafting/Utils</option>
+                                
+                                    <option value="Crafting/Aliases">Crafting/Aliases</option>
+                                
+                                    <option value="Minion">Minion</option>
+                                
+                                    <option value="Crafting/Data">Crafting/Data</option>
+                                
+                                    <option value="Crafting/Templates">Crafting/Templates</option>
+                                
+                                    <option value="Minion/Data">Minion/Data</option>
+                                
+                                    <option value="Crafting/UI">Crafting/UI</option>
+                                
+                                    <option value="Currency/Data">Currency/Data</option>
+                                
+                                    <option value="DPL">DPL</option>
+                                
+                                    <option value="DamageType">DamageType</option>
+                                
+                                    <option value="DamageType/Data">DamageType/Data</option>
+                                
+                                    <option value="DamageType/Aliases">DamageType/Aliases</option>
+                                
+                                    <option value="DetailedList">DetailedList</option>
+                                
+                                    <option value="DetailedList/Data">DetailedList/Data</option>
+                                
+                                    <option value="Dialogue">Dialogue</option>
+                                
+                                    <option value="Dev:Dialogue">Dev:Dialogue</option>
+                                
+                                    <option value="Docbunto">Docbunto</option>
+                                
+                                    <option value="Dev:Docbunto">Dev:Docbunto</option>
+                                
+                                    <option value="Documentation">Documentation</option>
+                                
+                                    <option value="Documentation/Core">Documentation/Core</option>
+                                
+                                    <option value="Class">Class</option>
+                                
+                                    <option value="LibraryUtil">LibraryUtil</option>
+                                
+                                    <option value="Documentation/Config">Documentation/Config</option>
+                                
+                                    <option value="Documentation/Parameters">Documentation/Parameters</option>
+                                
+                                    <option value="Number">Number</option>
+                                
+                                    <option value="Dungeon">Dungeon</option>
+                                
+                                    <option value="Mctxt">Mctxt</option>
+                                
+                                    <option value="Enchantment">Enchantment</option>
+                                
+                                    <option value="String/Templates">String/Templates</option>
+                                
+                                    <option value="Enchantment/Data">Enchantment/Data</option>
+                                
+                                    <option value="Enchantment/EnchantmentPageRow">Enchantment/EnchantmentPageRow</option>
+                                
+                                    <option value="Link">Link</option>
+                                
+                                    <option value="EnchantmentBazaarStats">EnchantmentBazaarStats</option>
+                                
+                                    <option value="Example">Example</option>
+                                
+                                    <option value="MultiRequire">MultiRequire</option>
+                                
+                                    <option value="Format">Format</option>
+                                
+                                    <option value="Gemstone">Gemstone</option>
+                                
+                                    <option value="Gemstone/Data">Gemstone/Data</option>
+                                
+                                    <option value="Gemstone/Aliases">Gemstone/Aliases</option>
+                                
+                                    <option value="Hatnote">Hatnote</option>
+                                
+                                    <option value="Dev:Hatnote">Dev:Hatnote</option>
+                                
+                                    <option value="Heart of the Mountain">Heart of the Mountain</option>
+                                
+                                    <option value="HypixelServerTime">HypixelServerTime</option>
+                                
+                                    <option value="History">History</option>
+                                
+                                    <option value="History/Datasheet">History/Datasheet</option>
+                                
+                                    <option value="History/Aliases">History/Aliases</option>
+                                
+                                    <option value="Html">Html</option>
+                                
+                                    <option value="IP">IP</option>
+                                
+                                    <option value="Bit32">Bit32</option>
+                                
+                                    <option value="IPAddress">IPAddress</option>
+                                
+                                    <option value="Image">Image</option>
+                                
+                                    <option value="Infobox">Infobox</option>
+                                
+                                    <option value="Infobox/Item">Infobox/Item</option>
+                                
+                                    <option value="Odds">Odds</option>
+                                
+                                    <option value="List">List</option>
+                                
+                                    <option value="Pet/Utils">Pet/Utils</option>
+                                
+                                    <option value="Infobox/Data">Infobox/Data</option>
+                                
+                                    <option value="Infobox/Mechanic">Infobox/Mechanic</option>
+                                
+                                    <option value="Minimap">Minimap</option>
+                                
+                                    <option value="Sprite">Sprite</option>
+                                
+                                    <option value="Mayor">Mayor</option>
+                                
+                                    <option value="Infobox/Testcases">Infobox/Testcases</option>
+                                
+                                    <option value="Inventory slot/Aliases">Inventory slot/Aliases</option>
+                                
+                                    <option value="Inventory slot/Datasheet">Inventory slot/Datasheet</option>
+                                
+                                    <option value="Inventory slot/Utils">Inventory slot/Utils</option>
+                                
+                                    <option value="Inventory slot/Tooltips">Inventory slot/Tooltips</option>
+                                
+                                    <option value="Inventory slot/Templates">Inventory slot/Templates</option>
+                                
+                                    <option value="Minion/Templates">Minion/Templates</option>
+                                
+                                    <option value="Pet/Templates">Pet/Templates</option>
+                                
+                                    <option value="Item/ApiData">Item/ApiData</option>
+                                
+                                    <option value="Item/ApiAliases">Item/ApiAliases</option>
+                                
+                                    <option value="Item/Data">Item/Data</option>
+                                
+                                    <option value="Item/Aliases">Item/Aliases</option>
+                                
+                                    <option value="Item/ApiData/AsCacheTable">Item/ApiData/AsCacheTable</option>
+                                
+                                    <option value="Item/Variants">Item/Variants</option>
+                                
+                                    <option value="ItemInfo">ItemInfo</option>
+                                
+                                    <option value="IterativeInventorySlot">IterativeInventorySlot</option>
+                                
+                                    <option value="JSON">JSON</option>
+                                
+                                    <option value="Kat">Kat</option>
+                                
+                                    <option value="Keypress">Keypress</option>
+                                
+                                    <option value="Enchantment/Aliases">Enchantment/Aliases</option>
+                                
+                                    <option value="Potion/Aliases">Potion/Aliases</option>
+                                
+                                    <option value="Zone">Zone</option>
+                                
+                                    <option value="LoadLib/Autoloads">LoadLib/Autoloads</option>
+                                
+                                    <option value="LuaFunction">LuaFunction</option>
+                                
+                                    <option value="MaintenanceChecker">MaintenanceChecker</option>
+                                
+                                    <option value="Pet/Data">Pet/Data</option>
+                                
+                                    <option value="Minion/Aliases">Minion/Aliases</option>
+                                
+                                    <option value="RarityTier/Data">RarityTier/Data</option>
+                                
+                                    <option value="Skillname/Data">Skillname/Data</option>
+                                
+                                    <option value="Staff/Members">Staff/Members</option>
+                                
+                                    <option value="Mayor/Elections/Data">Mayor/Elections/Data</option>
+                                
+                                    <option value="Mayor/Elections/ApiData">Mayor/Elections/ApiData</option>
+                                
+                                    <option value="Mayor/Data">Mayor/Data</option>
+                                
+                                    <option value="SBTE">SBTE</option>
+                                
+                                    <option value="Mayor/UI">Mayor/UI</option>
+                                
+                                    <option value="Mayor/Elections">Mayor/Elections</option>
+                                
+                                    <option value="Mbox">Mbox</option>
+                                
+                                    <option value="Dev:Mbox">Dev:Mbox</option>
+                                
+                                    <option value="Dev:Arguments">Dev:Arguments</option>
+                                
+                                    <option value="Mbox/data">Mbox/data</option>
+                                
+                                    <option value="SafeResponse">SafeResponse</option>
+                                
+                                    <option value="Minimap/Data">Minimap/Data</option>
+                                
+                                    <option value="Minimap/Datasheet">Minimap/Datasheet</option>
+                                
+                                    <option value="Minimap/Aliases">Minimap/Aliases</option>
+                                
+                                    <option value="Zone/Data">Zone/Data</option>
+                                
+                                    <option value="Zone/Aliases">Zone/Aliases</option>
+                                
+                                    <option value="Minion/MinionPageRow">Minion/MinionPageRow</option>
+                                
+                                    <option value="Minion/UI">Minion/UI</option>
+                                
+                                    <option value="Misc">Misc</option>
+                                
+                                    <option value="Mob">Mob</option>
+                                
+                                    <option value="Notice">Notice</option>
+                                
+                                    <option value="NPCPriceSpread">NPCPriceSpread</option>
+                                
+                                    <option value="Namespace detect">Namespace detect</option>
+                                
+                                    <option value="Dev:Namespace detect">Dev:Namespace detect</option>
+                                
+                                    <option value="Navbar">Navbar</option>
+                                
+                                    <option value="Navigation Bar">Navigation Bar</option>
+                                
+                                    <option value="NoteSequence">NoteSequence</option>
+                                
+                                    <option value="NoteSequence/testcases">NoteSequence/testcases</option>
+                                
+                                    <option value="ScribuntoUnit">ScribuntoUnit</option>
+                                
+                                    <option value="Mainonly">Mainonly</option>
+                                
+                                    <option value="Notice/Data">Notice/Data</option>
+                                
+                                    <option value="NumberSpell">NumberSpell</option>
+                                
+                                    <option value="Odds/Data">Odds/Data</option>
+                                
+                                    <option value="Odds/Aliases">Odds/Aliases</option>
+                                
+                                    <option value="Page">Page</option>
+                                
+                                    <option value="CallAssert">CallAssert</option>
+                                
+                                    <option value="Protect">Protect</option>
+                                
+                                    <option value="Page Actions">Page Actions</option>
+                                
+                                    <option value="Page Actions/Aliases">Page Actions/Aliases</option>
+                                
+                                    <option value="Page Actions/Data">Page Actions/Data</option>
+                                
+                                    <option value="ParserFunctions">ParserFunctions</option>
+                                
+                                    <option value="Pet/LevelingData">Pet/LevelingData</option>
+                                
+                                    <option value="UIText/Data">UIText/Data</option>
+                                
+                                    <option value="RarityTier/Aliases">RarityTier/Aliases</option>
+                                
+                                    <option value="Pet Item">Pet Item</option>
+                                
+                                    <option value="Pet Item/Data">Pet Item/Data</option>
+                                
+                                    <option value="Pet/Skins">Pet/Skins</option>
+                                
+                                    <option value="Pet/UI">Pet/UI</option>
+                                
+                                    <option value="Pet/Aliases">Pet/Aliases</option>
+                                
+                                    <option value="Potion/PotionPageRow">Potion/PotionPageRow</option>
+                                
+                                    <option value="Power">Power</option>
+                                
+                                    <option value="Statname/Aliases">Statname/Aliases</option>
+                                
+                                    <option value="Quote">Quote</option>
+                                
+                                    <option value="Dev:Quote">Dev:Quote</option>
+                                
+                                    <option value="Random/Dependencies">Random/Dependencies</option>
+                                
+                                    <option value="Random/Modifications/ThatIPEditor">Random/Modifications/ThatIPEditor</option>
+                                
+                                    <option value="Rank">Rank</option>
+                                
+                                    <option value="Rank/Data">Rank/Data</option>
+                                
+                                    <option value="Rank/Aliases">Rank/Aliases</option>
+                                
+                                    <option value="Reforge">Reforge</option>
+                                
+                                    <option value="Reforge/Data">Reforge/Data</option>
+                                
+                                    <option value="Relations">Relations</option>
+                                
+                                    <option value="Reply to">Reply to</option>
+                                
+                                    <option value="Report">Report</option>
+                                
+                                    <option value="User">User</option>
+                                
+                                    <option value="RightBox">RightBox</option>
+                                
+                                    <option value="RomanNumeral">RomanNumeral</option>
+                                
+                                    <option value="SBTC">SBTC</option>
+                                
+                                    <option value="SafeResponse/Data">SafeResponse/Data</option>
+                                
+                                    <option value="Dev:ScribuntoUnit">Dev:ScribuntoUnit</option>
+                                
+                                    <option value="ScribuntoUnit/config">ScribuntoUnit/config</option>
+                                
+                                    <option value="Dev:ScribuntoUnit/config">Dev:ScribuntoUnit/config</option>
+                                
+                                    <option value="SeaCreature">SeaCreature</option>
+                                
+                                    <option value="SeaCreature/Datasheet">SeaCreature/Datasheet</option>
+                                
+                                    <option value="Sidebar">Sidebar</option>
+                                
+                                    <option value="Skillname/Aliases">Skillname/Aliases</option>
+                                
+                                    <option value="Mob/Sprites">Mob/Sprites</option>
+                                
+                                    <option value="NPC/Sprites">NPC/Sprites</option>
+                                
+                                    <option value="Location/Sprites">Location/Sprites</option>
+                                
+                                    <option value="Mob/Aliases">Mob/Aliases</option>
+                                
+                                    <option value="NPC/Aliases">NPC/Aliases</option>
+                                
+                                    <option value="Location/Aliases">Location/Aliases</option>
+                                
+                                    <option value="Staff">Staff</option>
+                                
+                                    <option value="Staff/Data">Staff/Data</option>
+                                
+                                    <option value="User/Data">User/Data</option>
+                                
+                                    <option value="User/Aliases">User/Aliases</option>
+                                
+                                    <option value="Statname/GenerateTemplateInfo">Statname/GenerateTemplateInfo</option>
+                                
+                                    <option value="String/Lorem">String/Lorem</option>
+                                
+                                    <option value="T">T</option>
+                                
+                                    <option value="Dev:User error">Dev:User error</option>
+                                
+                                    <option value="Dev:Yesno">Dev:Yesno</option>
+                                
+                                    <option value="Tabber">Tabber</option>
+                                
+                                    <option value="Tabview">Tabview</option>
+                                
+                                    <option value="Tag">Tag</option>
+                                
+                                    <option value="Template link general">Template link general</option>
+                                
+                                    <option value="TemplateList">TemplateList</option>
+                                
+                                    <option value="Testharness">Testharness</option>
+                                
+                                    <option value="Dev:Testharness">Dev:Testharness</option>
+                                
+                                    <option value="Time ago">Time ago</option>
+                                
+                                    <option value="Date">Date</option>
+                                
+                                    <option value="TooltipText">TooltipText</option>
+                                
+                                    <option value="UI">UI</option>
+                                
+                                    <option value="Userbox">Userbox</option>
+                                
+                                    <option value="Userbox/Skins">Userbox/Skins</option>
+                                
+                                    <option value="VariablesLuaUtil">VariablesLuaUtil</option>
+                                
+                                    <option value="Binser">Binser</option>
+                                
+                                    <option value="Weapon">Weapon</option>
+                                
+                                    <option value="Weapon/Data">Weapon/Data</option>
+                                
+                                    <option value="Weapon/Aliases">Weapon/Aliases</option>
+                                
+                                    <option value="Wikitable">Wikitable</option>
+                                
+                                    <option value="WP:Wikitable">WP:Wikitable</option>
+                                
+                                    <option value="Yesno/template">Yesno/template</option>
+                                
+                                    <option value="Armor/Data">Armor/Data</option>
+                                
+                                    <option value="Checkbox">Checkbox</option>
+                                
+                                    <option value="Color contrast/colors">Color contrast/colors</option>
+                                
+                                    <option value="ItemInfo/Armor Data">ItemInfo/Armor Data</option>
+                                
+                                    <option value="ItemInfo/Item Data">ItemInfo/Item Data</option>
+                                
+                                    <option value="ItemInfo/Weapon Data">ItemInfo/Weapon Data</option>
+                                
+                                    <option value="Mayor/Elections/Automated">Mayor/Elections/Automated</option>
+                                
+                                    <option value="Namespace detect/data">Namespace detect/data</option>
+                                
+                                    <option value="Navbox">Navbox</option>
+                                
+                                    <option value="Separated entries">Separated entries</option>
+                                
+                                    <option value="Statname/Order">Statname/Order</option>
+                                
+                                    <option value="Top">Top</option>
+                                
+                            </select>
+                        </div>
+                        <div class="col-2 pb-2">
+                            <button type="button" class="btn btn-primary btn-block" onclick="neighbourhoodHighlight({nodes: []});">Reset Selection</button>
+                        </div>
+                    </div>
+                </div>
+            
+            
+              <div id="filter-menu" class="card-header">
+                <div class="row no-gutters">
+                  <div class="col-3 pb-2">
+                    <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="updateFilter(value, 'item')"
+                            id="select-item"
+                        >
+                        <option value="">Select a network item</option>
+                        <option value="edge">edge</option>
+                        <option value="node">node</option>
+                    </select>
+                  </div>
+                  <div class="col-3 pb-2">
+                    <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="updateFilter(value, 'property')"
+                            id="select-property"
+                        >
+                        <option value="">Select a property...</option>
+                    </select>
+                  </div>
+                  <div class="col-3 pb-2">
+                    <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            id="select-value"
+                        >
+                        <option value="">Select value(s)...</option>
+                    </select>
+                  </div>
+                  <div class="col-1 pb-2">
+                    <button type="button" class="btn btn-primary btn-block" onclick="highlightFilter(filter);">Filter</button>
+                  </div>
+                  <div class="col-2 pb-2">
+                    <button type="button" class="btn btn-primary btn-block" onclick="clearFilter(true)">Reset Selection</button>
+                  </div>
+                </div>
+              </div>
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+            <div id="loadingBar">
+              <div class="outerBorder">
+                <div id="text">0%</div>
+                <div id="border">
+                  <div id="bar"></div>
+                </div>
+              </div>
+            </div>
+        
+        
+            <div id="config"></div>
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+                  new TomSelect("#select-node",{
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      }
+                  });
+              
+
+              
+                  // explicitly using onItemAdd and this function as we need to save multiple values
+                  let updateValueFilter = function() {
+                      return function () {
+                      filter['value'].push(arguments[0])
+                      }
+                  }
+
+                  let valueControl = new TomSelect("#select-value",{
+                      maxItems: null,
+                      valueField: 'id',
+                      labelField: 'title',
+                      searchField: 'title',
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      },
+                      onItemAdd: updateValueFilter()
+                  });
+
+                  let addValues = function() {
+                      return function () {
+                          // clear the current value options and add the selected attribute values
+                          // tom-select handles duplicates
+                          let selectedProperty = arguments[0];
+                          valueControl.clear();
+                          valueControl.clearOptions();
+                          filter['value'] = []
+                          if (filter['item'] === 'node') {
+                              for (let each in allNodes) {
+                                  valueControl.addOption({
+                                      id:allNodes[each][selectedProperty],
+                                      title:allNodes[each][selectedProperty]
+                                  })
+                              }
+                          }
+                          else if (filter['item'] === 'edge') {
+                              for (let each in allEdges) {
+                                  valueControl.addOption({
+                                      id:allEdges[each][selectedProperty],
+                                      title:allEdges[each][selectedProperty]
+                                  })
+                              }
+                          }
+                      }
+                  };
+
+                  let propControl = new TomSelect("#select-property",{
+                      valueField: 'id',
+                      labelField: 'title',
+                      searchField: 'title',
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      },
+                      onItemAdd: addValues()
+                  });
+
+                  let addProperties = function() {
+                      return function () {
+                          // loops through the selected network item and adds the attributes to dropdown
+                          // tom-select handles duplicates
+                          clearFilter(false)
+                          if (arguments[0] === 'edge') {
+                              for (let each in allEdges) {
+                                  if (allEdges.hasOwnProperty(each)) {
+                                      for (let eachProp in allEdges[each]) {
+                                          if (allEdges[each].hasOwnProperty(eachProp)) {
+                                              propControl.addOption({id: eachProp, title: eachProp})
+                                          }
+                                      }
+                                  }
+                              }
+                          }
+                          else if (arguments[0] === 'node') {
+                              for (let each in allNodes) {
+                                  if (allNodes.hasOwnProperty(each)) {
+                                      for (let eachProp in allNodes[each]) {
+                                          if (allNodes[each].hasOwnProperty(eachProp)
+                                              && (eachProp !== 'hidden' && eachProp !== 'savedLabel'
+                                                  && eachProp !== 'hiddenLabel')) {
+                                              propControl.addOption({id: eachProp, title: eachProp})
+
+                                          }
+                                      }
+                                  }
+                              }
+                          }
+                      }
+                  };
+
+                  let itemControl = new TomSelect("#select-item",{
+                      create: false,
+                      sortField:{
+                          field: "text",
+                          direction: "asc"
+                      },
+                      onItemAdd: addProperties()
+                  });
+
+                  function clearFilter(reset) {
+                      // utility function to clear all the selected filter options
+                      // if reset is set to true, the existing filter will be removed
+                      // else, only the dropdown options are cleared
+                      propControl.clear();
+                      propControl.clearOptions();
+                      valueControl.clear();
+                      valueControl.clearOptions();
+                      filter = {
+                          item : '',
+                          property : '',
+                          value : []
+                      }
+                      if (reset) {
+                          itemControl.clear();
+                          filterHighlight({nodes: []})
+                      }
+                  }
+
+                  function updateFilter(value, key) {
+                      // key could be 'item' or 'property' and value is as selected in dropdown
+                      filter[key] = value
+                  }
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"font": {"color": "white"}, "group": 3, "id": "AIV", "label": "AIV", "level": 3, "shape": "dot", "size": 10, "title": "Name: AIV\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 0\nLevel: 3", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "LoadLib", "label": "LoadLib", "level": 2, "shape": "dot", "size": 10, "title": "Name: LoadLib\nType: Module\nUses (Outdegree): 2\nUsed By (Indegree): 3\nLevel: 2", "value": 3}, {"font": {"color": "white"}, "group": 3, "id": "Ability", "label": "Ability", "level": 2, "shape": "dot", "size": 10, "title": "Name: Ability\nType: Module\nUses (Outdegree): 2\nUsed By (Indegree): 5\nLevel: 2", "value": 5}, {"font": {"color": "white"}, "group": 3, "id": "Arguments", "label": "Arguments", "level": 1, "shape": "dot", "size": 10, "title": "Name: Arguments\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 102\nLevel: 1", "value": 102}, {"font": {"color": "white"}, "group": 3, "id": "Yesno", "label": "Yesno", "level": 0, "shape": "dot", "size": 10, "title": "Name: Yesno\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 70\nLevel: 0", "value": 70}, {"font": {"color": "white"}, "group": 3, "id": "AlphaStatus", "label": "AlphaStatus", "level": 1, "shape": "dot", "size": 10, "title": "Name: AlphaStatus\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 0\nLevel: 1", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "AlphaStatus/Data", "label": "AlphaStatus/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: AlphaStatus/Data\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Animate", "label": "Animate", "level": 4, "shape": "dot", "size": 10, "title": "Name: Animate\nType: Module\nUses (Outdegree): 7\nUsed By (Indegree): 2\nLevel: 4", "value": 2}, {"font": {"color": "white"}, "group": 3, "id": "Loader", "label": "Loader", "level": 3, "shape": "dot", "size": 10, "title": "Name: Loader\nType: Module\nUses (Outdegree): 3\nUsed By (Indegree): 68\nLevel: 3", "value": 68}, {"font": {"color": "white"}, "group": 3, "id": "String", "label": "String", "level": 2, "shape": "dot", "size": 10, "title": "Name: String\nType: Module\nUses (Outdegree): 5\nUsed By (Indegree): 84\nLevel: 2", "value": 84}, {"font": {"color": "white"}, "group": 3, "id": "Table", "label": "Table", "level": 1, "shape": "dot", "size": 10, "title": "Name: Table\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 78\nLevel: 1", "value": 78}, {"font": {"color": "white"}, "group": 3, "id": "Cache", "label": "Cache", "level": 3, "shape": "dot", "size": 10, "title": "Name: Cache\nType: Module\nUses (Outdegree): 2\nUsed By (Indegree): 7\nLevel: 3", "value": 7}, {"font": {"color": "white"}, "group": 3, "id": "LibU", "label": "LibU", "level": 0, "shape": "dot", "size": 10, "title": "Name: LibU\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 27\nLevel: 0", "value": 27}, {"font": {"color": "white"}, "group": 3, "id": "Armor", "label": "Armor", "level": 9, "shape": "dot", "size": 10, "title": "Name: Armor\nType: Module\nUses (Outdegree): 11\nUsed By (Indegree): 0\nLevel: 9", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Inventory slot", "label": "Inventory slot", "level": 8, "shape": "dot", "size": 10, "title": "Name: Inventory slot\nType: Module\nUses (Outdegree): 10\nUsed By (Indegree): 13\nLevel: 8", "value": 13}, {"font": {"color": "white"}, "group": 3, "id": "RarityTier", "label": "RarityTier", "level": 4, "shape": "dot", "size": 10, "title": "Name: RarityTier\nType: Module\nUses (Outdegree): 10\nUsed By (Indegree): 15\nLevel: 4", "value": 15}, {"font": {"color": "white"}, "group": 3, "id": "Color", "label": "Color", "level": 3, "shape": "dot", "size": 10, "title": "Name: Color\nType: Module\nUses (Outdegree): 7\nUsed By (Indegree): 24\nLevel: 3", "value": 24}, {"font": {"color": "white"}, "group": 3, "id": "Armor/StatsList", "label": "Armor/StatsList", "level": 7, "shape": "dot", "size": 10, "title": "Name: Armor/StatsList\nType: Module\nUses (Outdegree): 3\nUsed By (Indegree): 2\nLevel: 7", "value": 2}, {"font": {"color": "white"}, "group": 3, "id": "Element", "label": "Element", "level": 3, "shape": "dot", "size": 10, "title": "Name: Element\nType: Module\nUses (Outdegree): 4\nUsed By (Indegree): 2\nLevel: 3", "value": 2}, {"font": {"color": "white"}, "group": 1, "id": "Armor/Data/FairyArmorColors", "label": "Armor/Data/FairyArmorColors", "level": 0, "shape": "dot", "size": 10, "title": "Name: Armor/Data/FairyArmorColors\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Statname", "label": "Statname", "level": 6, "shape": "dot", "size": 10, "title": "Name: Statname\nType: Module\nUses (Outdegree): 9\nUsed By (Indegree): 13\nLevel: 6", "value": 13}, {"font": {"color": "white"}, "group": 1, "id": "Statname/Data", "label": "Statname/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Statname/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 6\nLevel: 0", "value": 6}, {"font": {"color": "white"}, "group": 3, "id": "Attribute", "label": "Attribute", "level": 3, "shape": "dot", "size": 10, "title": "Name: Attribute\nType: Module\nUses (Outdegree): 2\nUsed By (Indegree): 1\nLevel: 3", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "Attribute/Data", "label": "Attribute/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Attribute/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Bazaar", "label": "Bazaar", "level": 5, "shape": "dot", "size": 10, "title": "Name: Bazaar\nType: Module\nUses (Outdegree): 10\nUsed By (Indegree): 2\nLevel: 5", "value": 2}, {"font": {"color": "white"}, "group": 3, "id": "Currency", "label": "Currency", "level": 4, "shape": "dot", "size": 10, "title": "Name: Currency\nType: Module\nUses (Outdegree): 8\nUsed By (Indegree): 7\nLevel: 4", "value": 7}, {"font": {"color": "white"}, "group": 1, "id": "Bazaar/Data", "label": "Bazaar/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Bazaar/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 2\nLevel: 0", "value": 2}, {"font": {"color": "white"}, "group": 1, "id": "Bazaar/Aliases", "label": "Bazaar/Aliases", "level": 0, "shape": "dot", "size": 10, "title": "Name: Bazaar/Aliases\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "Bazaar/i18n", "label": "Bazaar/i18n", "level": 0, "shape": "dot", "size": 10, "title": "Name: Bazaar/i18n\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "VarsCacheMap", "label": "VarsCacheMap", "level": 1, "shape": "dot", "size": 10, "title": "Name: VarsCacheMap\nType: Module\nUses (Outdegree): 4\nUsed By (Indegree): 2\nLevel: 1", "value": 2}, {"font": {"color": "white"}, "group": 3, "id": "CacheUtil", "label": "CacheUtil", "level": 2, "shape": "dot", "size": 10, "title": "Name: CacheUtil\nType: Module\nUses (Outdegree): 4\nUsed By (Indegree): 1\nLevel: 2", "value": 1}, {"font": {"color": "white"}, "group": 2, "id": "ArgsUtil", "label": "ArgsUtil", "level": -1, "shape": "dot", "size": 10, "title": "Name: ArgsUtil\nType: Data Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: -1", "value": 1}, {"font": {"color": "white"}, "group": 2, "id": "Mw.ext.LuaCache", "label": "Mw.ext.LuaCache", "level": -1, "shape": "dot", "size": 10, "title": "Name: Mw.ext.LuaCache\nType: Data Module\nUses (Outdegree): 0\nUsed By (Indegree): 2\nLevel: -1", "value": 2}, {"font": {"color": "white"}, "group": 3, "id": "Calculator", "label": "Calculator", "level": 2, "shape": "dot", "size": 10, "title": "Name: Calculator\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 0\nLevel: 2", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Collection", "label": "Collection", "level": 6, "shape": "dot", "size": 10, "title": "Name: Collection\nType: Module\nUses (Outdegree): 9\nUsed By (Indegree): 0\nLevel: 6", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Item", "label": "Item", "level": 5, "shape": "dot", "size": 10, "title": "Name: Item\nType: Module\nUses (Outdegree): 15\nUsed By (Indegree): 7\nLevel: 5", "value": 7}, {"font": {"color": "white"}, "group": 3, "id": "Skillname", "label": "Skillname", "level": 4, "shape": "dot", "size": 10, "title": "Name: Skillname\nType: Module\nUses (Outdegree): 9\nUsed By (Indegree): 3\nLevel: 4", "value": 3}, {"font": {"color": "white"}, "group": 1, "id": "Collection/Data", "label": "Collection/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Collection/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 4\nLevel: 0", "value": 4}, {"font": {"color": "white"}, "group": 3, "id": "Collection/UI", "label": "Collection/UI", "level": 16, "shape": "dot", "size": 10, "title": "Name: Collection/UI\nType: Module\nUses (Outdegree): 17\nUsed By (Indegree): 0\nLevel: 16", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "UIText", "label": "UIText", "level": 7, "shape": "dot", "size": 10, "title": "Name: UIText\nType: Module\nUses (Outdegree): 20\nUsed By (Indegree): 9\nLevel: 7", "value": 9}, {"font": {"color": "white"}, "group": 3, "id": "UI/Core", "label": "UI/Core", "level": 9, "shape": "dot", "size": 10, "title": "Name: UI/Core\nType: Module\nUses (Outdegree): 6\nUsed By (Indegree): 6\nLevel: 9", "value": 6}, {"font": {"color": "white"}, "group": 3, "id": "Potion", "label": "Potion", "level": 8, "shape": "dot", "size": 10, "title": "Name: Potion\nType: Module\nUses (Outdegree): 8\nUsed By (Indegree): 4\nLevel: 8", "value": 4}, {"font": {"color": "white"}, "group": 3, "id": "Potion/UI", "label": "Potion/UI", "level": 10, "shape": "dot", "size": 10, "title": "Name: Potion/UI\nType: Module\nUses (Outdegree): 8\nUsed By (Indegree): 1\nLevel: 10", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Random", "label": "Random", "level": 3, "shape": "dot", "size": 10, "title": "Name: Random\nType: Module\nUses (Outdegree): 2\nUsed By (Indegree): 4\nLevel: 3", "value": 4}, {"font": {"color": "white"}, "group": 3, "id": "Pet", "label": "Pet", "level": 15, "shape": "dot", "size": 10, "title": "Name: Pet\nType: Module\nUses (Outdegree): 18\nUsed By (Indegree): 2\nLevel: 15", "value": 2}, {"font": {"color": "white"}, "group": 1, "id": "Collection/UI/Data", "label": "Collection/UI/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Collection/UI/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "Armor/Sets", "label": "Armor/Sets", "level": 0, "shape": "dot", "size": 10, "title": "Name: Armor/Sets\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 3\nLevel: 0", "value": 3}, {"font": {"color": "white"}, "group": 1, "id": "Potion/Data", "label": "Potion/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Potion/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 6\nLevel: 0", "value": 6}, {"font": {"color": "white"}, "group": 1, "id": "Color/Aliases", "label": "Color/Aliases", "level": 0, "shape": "dot", "size": 10, "title": "Name: Color/Aliases\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 4\nLevel: 0", "value": 4}, {"font": {"color": "white"}, "group": 1, "id": "Color/Data", "label": "Color/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Color/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 6\nLevel: 0", "value": 6}, {"font": {"color": "white"}, "group": 3, "id": "Color/Conversion", "label": "Color/Conversion", "level": 2, "shape": "dot", "size": 10, "title": "Name: Color/Conversion\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 0\nLevel: 2", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Constructor", "label": "Constructor", "level": 4, "shape": "dot", "size": 10, "title": "Name: Constructor\nType: Module\nUses (Outdegree): 7\nUsed By (Indegree): 0\nLevel: 4", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "MakeClass", "label": "MakeClass", "level": 2, "shape": "dot", "size": 10, "title": "Name: MakeClass\nType: Module\nUses (Outdegree): 2\nUsed By (Indegree): 2\nLevel: 2", "value": 2}, {"font": {"color": "white"}, "group": 3, "id": "Countdown", "label": "Countdown", "level": 2, "shape": "dot", "size": 10, "title": "Name: Countdown\nType: Module\nUses (Outdegree): 2\nUsed By (Indegree): 0\nLevel: 2", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Crafting", "label": "Crafting", "level": 9, "shape": "dot", "size": 10, "title": "Name: Crafting\nType: Module\nUses (Outdegree): 9\nUsed By (Indegree): 2\nLevel: 9", "value": 2}, {"font": {"color": "white"}, "group": 3, "id": "Recipe table", "label": "Recipe table", "level": 0, "shape": "dot", "size": 10, "title": "Name: Recipe table\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Crafting/Utils", "label": "Crafting/Utils", "level": 4, "shape": "dot", "size": 10, "title": "Name: Crafting/Utils\nType: Module\nUses (Outdegree): 3\nUsed By (Indegree): 2\nLevel: 4", "value": 2}, {"font": {"color": "white"}, "group": 3, "id": "Crafting/Aliases", "label": "Crafting/Aliases", "level": 12, "shape": "dot", "size": 10, "title": "Name: Crafting/Aliases\nType: Module\nUses (Outdegree): 8\nUsed By (Indegree): 0\nLevel: 12", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Minion", "label": "Minion", "level": 11, "shape": "dot", "size": 10, "title": "Name: Minion\nType: Module\nUses (Outdegree): 19\nUsed By (Indegree): 4\nLevel: 11", "value": 4}, {"font": {"color": "white"}, "group": 3, "id": "Crafting/Data", "label": "Crafting/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Crafting/Data\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Crafting/Templates", "label": "Crafting/Templates", "level": 0, "shape": "dot", "size": 10, "title": "Name: Crafting/Templates\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "Minion/Data", "label": "Minion/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Minion/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 5\nLevel: 0", "value": 5}, {"font": {"color": "white"}, "group": 3, "id": "Crafting/UI", "label": "Crafting/UI", "level": 10, "shape": "dot", "size": 10, "title": "Name: Crafting/UI\nType: Module\nUses (Outdegree): 8\nUsed By (Indegree): 2\nLevel: 10", "value": 2}, {"font": {"color": "white"}, "group": 1, "id": "Currency/Data", "label": "Currency/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Currency/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "DPL", "label": "DPL", "level": 3, "shape": "dot", "size": 10, "title": "Name: DPL\nType: Module\nUses (Outdegree): 3\nUsed By (Indegree): 0\nLevel: 3", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "DamageType", "label": "DamageType", "level": 4, "shape": "dot", "size": 10, "title": "Name: DamageType\nType: Module\nUses (Outdegree): 8\nUsed By (Indegree): 0\nLevel: 4", "value": 0}, {"font": {"color": "white"}, "group": 1, "id": "DamageType/Data", "label": "DamageType/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: DamageType/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "DamageType/Aliases", "label": "DamageType/Aliases", "level": 0, "shape": "dot", "size": 10, "title": "Name: DamageType/Aliases\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "DetailedList", "label": "DetailedList", "level": 4, "shape": "dot", "size": 10, "title": "Name: DetailedList\nType: Module\nUses (Outdegree): 7\nUsed By (Indegree): 0\nLevel: 4", "value": 0}, {"font": {"color": "white"}, "group": 1, "id": "DetailedList/Data", "label": "DetailedList/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: DetailedList/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Dialogue", "label": "Dialogue", "level": 0, "shape": "dot", "size": 10, "title": "Name: Dialogue\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 0\nLevel: 0", "value": 0}, {"font": {"color": "white"}, "group": 2, "id": "Dev:Dialogue", "label": "Dev:Dialogue", "level": -1, "shape": "dot", "size": 10, "title": "Name: Dev:Dialogue\nType: Data Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: -1", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Docbunto", "label": "Docbunto", "level": 0, "shape": "dot", "size": 10, "title": "Name: Docbunto\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 0\nLevel: 0", "value": 0}, {"font": {"color": "white"}, "group": 2, "id": "Dev:Docbunto", "label": "Dev:Docbunto", "level": -1, "shape": "dot", "size": 10, "title": "Name: Dev:Docbunto\nType: Data Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: -1", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Documentation", "label": "Documentation", "level": 5, "shape": "dot", "size": 10, "title": "Name: Documentation\nType: Module\nUses (Outdegree): 2\nUsed By (Indegree): 0\nLevel: 5", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Documentation/Core", "label": "Documentation/Core", "level": 4, "shape": "dot", "size": 10, "title": "Name: Documentation/Core\nType: Module\nUses (Outdegree): 6\nUsed By (Indegree): 1\nLevel: 4", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Class", "label": "Class", "level": 0, "shape": "dot", "size": 10, "title": "Name: Class\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 7\nLevel: 0", "value": 7}, {"font": {"color": "white"}, "group": 3, "id": "LibraryUtil", "label": "LibraryUtil", "level": 1, "shape": "dot", "size": 10, "title": "Name: LibraryUtil\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 11\nLevel: 1", "value": 11}, {"font": {"color": "white"}, "group": 1, "id": "Documentation/Config", "label": "Documentation/Config", "level": 0, "shape": "dot", "size": 10, "title": "Name: Documentation/Config\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Documentation/Parameters", "label": "Documentation/Parameters", "level": 3, "shape": "dot", "size": 10, "title": "Name: Documentation/Parameters\nType: Module\nUses (Outdegree): 6\nUsed By (Indegree): 0\nLevel: 3", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Number", "label": "Number", "level": 0, "shape": "dot", "size": 10, "title": "Name: Number\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Dungeon", "label": "Dungeon", "level": 6, "shape": "dot", "size": 10, "title": "Name: Dungeon\nType: Module\nUses (Outdegree): 9\nUsed By (Indegree): 0\nLevel: 6", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Mctxt", "label": "Mctxt", "level": 2, "shape": "dot", "size": 10, "title": "Name: Mctxt\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 4\nLevel: 2", "value": 4}, {"font": {"color": "white"}, "group": 3, "id": "Enchantment", "label": "Enchantment", "level": 5, "shape": "dot", "size": 10, "title": "Name: Enchantment\nType: Module\nUses (Outdegree): 9\nUsed By (Indegree): 2\nLevel: 5", "value": 2}, {"font": {"color": "white"}, "group": 3, "id": "String/Templates", "label": "String/Templates", "level": 4, "shape": "dot", "size": 10, "title": "Name: String/Templates\nType: Module\nUses (Outdegree): 7\nUsed By (Indegree): 7\nLevel: 4", "value": 7}, {"font": {"color": "white"}, "group": 1, "id": "Enchantment/Data", "label": "Enchantment/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Enchantment/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 5\nLevel: 0", "value": 5}, {"font": {"color": "white"}, "group": 3, "id": "Enchantment/EnchantmentPageRow", "label": "Enchantment/EnchantmentPageRow", "level": 5, "shape": "dot", "size": 10, "title": "Name: Enchantment/EnchantmentPageRow\nType: Module\nUses (Outdegree): 8\nUsed By (Indegree): 0\nLevel: 5", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Link", "label": "Link", "level": 4, "shape": "dot", "size": 10, "title": "Name: Link\nType: Module\nUses (Outdegree): 11\nUsed By (Indegree): 4\nLevel: 4", "value": 4}, {"font": {"color": "white"}, "group": 3, "id": "EnchantmentBazaarStats", "label": "EnchantmentBazaarStats", "level": 3, "shape": "dot", "size": 10, "title": "Name: EnchantmentBazaarStats\nType: Module\nUses (Outdegree): 2\nUsed By (Indegree): 0\nLevel: 3", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Example", "label": "Example", "level": 3, "shape": "dot", "size": 10, "title": "Name: Example\nType: Module\nUses (Outdegree): 2\nUsed By (Indegree): 0\nLevel: 3", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "MultiRequire", "label": "MultiRequire", "level": 2, "shape": "dot", "size": 10, "title": "Name: MultiRequire\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 2\nLevel: 2", "value": 2}, {"font": {"color": "white"}, "group": 3, "id": "Format", "label": "Format", "level": 2, "shape": "dot", "size": 10, "title": "Name: Format\nType: Module\nUses (Outdegree): 2\nUsed By (Indegree): 1\nLevel: 2", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Gemstone", "label": "Gemstone", "level": 4, "shape": "dot", "size": 10, "title": "Name: Gemstone\nType: Module\nUses (Outdegree): 7\nUsed By (Indegree): 1\nLevel: 4", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "Gemstone/Data", "label": "Gemstone/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Gemstone/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 2\nLevel: 0", "value": 2}, {"font": {"color": "white"}, "group": 1, "id": "Gemstone/Aliases", "label": "Gemstone/Aliases", "level": 0, "shape": "dot", "size": 10, "title": "Name: Gemstone/Aliases\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Hatnote", "label": "Hatnote", "level": 0, "shape": "dot", "size": 10, "title": "Name: Hatnote\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 0\nLevel: 0", "value": 0}, {"font": {"color": "white"}, "group": 2, "id": "Dev:Hatnote", "label": "Dev:Hatnote", "level": -1, "shape": "dot", "size": 10, "title": "Name: Dev:Hatnote\nType: Data Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: -1", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Heart of the Mountain", "label": "Heart of the Mountain", "level": 6, "shape": "dot", "size": 10, "title": "Name: Heart of the Mountain\nType: Module\nUses (Outdegree): 6\nUsed By (Indegree): 0\nLevel: 6", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "HypixelServerTime", "label": "HypixelServerTime", "level": 0, "shape": "dot", "size": 10, "title": "Name: HypixelServerTime\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "History", "label": "History", "level": 4, "shape": "dot", "size": 10, "title": "Name: History\nType: Module\nUses (Outdegree): 6\nUsed By (Indegree): 0\nLevel: 4", "value": 0}, {"font": {"color": "white"}, "group": 1, "id": "History/Datasheet", "label": "History/Datasheet", "level": 0, "shape": "dot", "size": 10, "title": "Name: History/Datasheet\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "History/Aliases", "label": "History/Aliases", "level": 0, "shape": "dot", "size": 10, "title": "Name: History/Aliases\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Html", "label": "Html", "level": 3, "shape": "dot", "size": 10, "title": "Name: Html\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 0\nLevel: 3", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "IP", "label": "IP", "level": 2, "shape": "dot", "size": 10, "title": "Name: IP\nType: Module\nUses (Outdegree): 2\nUsed By (Indegree): 1\nLevel: 2", "value": 1}, {"font": {"color": "white"}, "group": 2, "id": "Bit32", "label": "Bit32", "level": -1, "shape": "dot", "size": 10, "title": "Name: Bit32\nType: Data Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: -1", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "IPAddress", "label": "IPAddress", "level": 3, "shape": "dot", "size": 10, "title": "Name: IPAddress\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 0\nLevel: 3", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Image", "label": "Image", "level": 3, "shape": "dot", "size": 10, "title": "Name: Image\nType: Module\nUses (Outdegree): 3\nUsed By (Indegree): 0\nLevel: 3", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Infobox", "label": "Infobox", "level": 4, "shape": "dot", "size": 10, "title": "Name: Infobox\nType: Module\nUses (Outdegree): 5\nUsed By (Indegree): 3\nLevel: 4", "value": 3}, {"font": {"color": "white"}, "group": 3, "id": "Infobox/Item", "label": "Infobox/Item", "level": 16, "shape": "dot", "size": 10, "title": "Name: Infobox/Item\nType: Module\nUses (Outdegree): 21\nUsed By (Indegree): 0\nLevel: 16", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Odds", "label": "Odds", "level": 4, "shape": "dot", "size": 10, "title": "Name: Odds\nType: Module\nUses (Outdegree): 9\nUsed By (Indegree): 2\nLevel: 4", "value": 2}, {"font": {"color": "white"}, "group": 3, "id": "List", "label": "List", "level": 7, "shape": "dot", "size": 10, "title": "Name: List\nType: Module\nUses (Outdegree): 11\nUsed By (Indegree): 3\nLevel: 7", "value": 3}, {"font": {"color": "white"}, "group": 3, "id": "Pet/Utils", "label": "Pet/Utils", "level": 9, "shape": "dot", "size": 10, "title": "Name: Pet/Utils\nType: Module\nUses (Outdegree): 11\nUsed By (Indegree): 4\nLevel: 9", "value": 4}, {"font": {"color": "white"}, "group": 1, "id": "Infobox/Data", "label": "Infobox/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Infobox/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 2\nLevel: 0", "value": 2}, {"font": {"color": "white"}, "group": 3, "id": "Infobox/Mechanic", "label": "Infobox/Mechanic", "level": 9, "shape": "dot", "size": 10, "title": "Name: Infobox/Mechanic\nType: Module\nUses (Outdegree): 14\nUsed By (Indegree): 0\nLevel: 9", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Minimap", "label": "Minimap", "level": 6, "shape": "dot", "size": 10, "title": "Name: Minimap\nType: Module\nUses (Outdegree): 10\nUsed By (Indegree): 1\nLevel: 6", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Sprite", "label": "Sprite", "level": 4, "shape": "dot", "size": 10, "title": "Name: Sprite\nType: Module\nUses (Outdegree): 11\nUsed By (Indegree): 3\nLevel: 4", "value": 3}, {"font": {"color": "white"}, "group": 3, "id": "Mayor", "label": "Mayor", "level": 4, "shape": "dot", "size": 10, "title": "Name: Mayor\nType: Module\nUses (Outdegree): 9\nUsed By (Indegree): 3\nLevel: 4", "value": 3}, {"font": {"color": "white"}, "group": 3, "id": "Infobox/Testcases", "label": "Infobox/Testcases", "level": 5, "shape": "dot", "size": 10, "title": "Name: Infobox/Testcases\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 0\nLevel: 5", "value": 0}, {"font": {"color": "white"}, "group": 1, "id": "Inventory slot/Aliases", "label": "Inventory slot/Aliases", "level": 0, "shape": "dot", "size": 10, "title": "Name: Inventory slot/Aliases\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "Inventory slot/Datasheet", "label": "Inventory slot/Datasheet", "level": 15, "shape": "dot", "size": 10, "title": "Name: Inventory slot/Datasheet\nType: External Module\nUses (Outdegree): 7\nUsed By (Indegree): 1\nLevel: 15", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Inventory slot/Utils", "label": "Inventory slot/Utils", "level": 14, "shape": "dot", "size": 10, "title": "Name: Inventory slot/Utils\nType: Module\nUses (Outdegree): 6\nUsed By (Indegree): 3\nLevel: 14", "value": 3}, {"font": {"color": "white"}, "group": 3, "id": "Inventory slot/Tooltips", "label": "Inventory slot/Tooltips", "level": 0, "shape": "dot", "size": 10, "title": "Name: Inventory slot/Tooltips\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "Inventory slot/Templates", "label": "Inventory slot/Templates", "level": 13, "shape": "dot", "size": 10, "title": "Name: Inventory slot/Templates\nType: External Module\nUses (Outdegree): 8\nUsed By (Indegree): 2\nLevel: 13", "value": 2}, {"font": {"color": "white"}, "group": 3, "id": "Minion/Templates", "label": "Minion/Templates", "level": 12, "shape": "dot", "size": 10, "title": "Name: Minion/Templates\nType: Module\nUses (Outdegree): 4\nUsed By (Indegree): 2\nLevel: 12", "value": 2}, {"font": {"color": "white"}, "group": 3, "id": "Pet/Templates", "label": "Pet/Templates", "level": 10, "shape": "dot", "size": 10, "title": "Name: Pet/Templates\nType: Module\nUses (Outdegree): 10\nUsed By (Indegree): 2\nLevel: 10", "value": 2}, {"font": {"color": "white"}, "group": 1, "id": "Item/ApiData", "label": "Item/ApiData", "level": 0, "shape": "dot", "size": 10, "title": "Name: Item/ApiData\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 2\nLevel: 0", "value": 2}, {"font": {"color": "white"}, "group": 1, "id": "Item/ApiAliases", "label": "Item/ApiAliases", "level": 0, "shape": "dot", "size": 10, "title": "Name: Item/ApiAliases\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "Item/Data", "label": "Item/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Item/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "Item/Aliases", "label": "Item/Aliases", "level": 0, "shape": "dot", "size": 10, "title": "Name: Item/Aliases\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Item/ApiData/AsCacheTable", "label": "Item/ApiData/AsCacheTable", "level": 1, "shape": "dot", "size": 10, "title": "Name: Item/ApiData/AsCacheTable\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 0\nLevel: 1", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Item/Variants", "label": "Item/Variants", "level": 13, "shape": "dot", "size": 10, "title": "Name: Item/Variants\nType: Module\nUses (Outdegree): 8\nUsed By (Indegree): 0\nLevel: 13", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "ItemInfo", "label": "ItemInfo", "level": 9, "shape": "dot", "size": 10, "title": "Name: ItemInfo\nType: Module\nUses (Outdegree): 9\nUsed By (Indegree): 0\nLevel: 9", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "IterativeInventorySlot", "label": "IterativeInventorySlot", "level": 3, "shape": "dot", "size": 10, "title": "Name: IterativeInventorySlot\nType: Module\nUses (Outdegree): 3\nUsed By (Indegree): 0\nLevel: 3", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "JSON", "label": "JSON", "level": 2, "shape": "dot", "size": 10, "title": "Name: JSON\nType: Module\nUses (Outdegree): 2\nUsed By (Indegree): 2\nLevel: 2", "value": 2}, {"font": {"color": "white"}, "group": 3, "id": "Kat", "label": "Kat", "level": 3, "shape": "dot", "size": 10, "title": "Name: Kat\nType: Module\nUses (Outdegree): 4\nUsed By (Indegree): 0\nLevel: 3", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Keypress", "label": "Keypress", "level": 2, "shape": "dot", "size": 10, "title": "Name: Keypress\nType: Module\nUses (Outdegree): 2\nUsed By (Indegree): 0\nLevel: 2", "value": 0}, {"font": {"color": "white"}, "group": 1, "id": "Enchantment/Aliases", "label": "Enchantment/Aliases", "level": 0, "shape": "dot", "size": 10, "title": "Name: Enchantment/Aliases\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 2\nLevel: 0", "value": 2}, {"font": {"color": "white"}, "group": 1, "id": "Potion/Aliases", "label": "Potion/Aliases", "level": 0, "shape": "dot", "size": 10, "title": "Name: Potion/Aliases\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 4\nLevel: 0", "value": 4}, {"font": {"color": "white"}, "group": 3, "id": "Zone", "label": "Zone", "level": 4, "shape": "dot", "size": 10, "title": "Name: Zone\nType: Module\nUses (Outdegree): 7\nUsed By (Indegree): 2\nLevel: 4", "value": 2}, {"font": {"color": "white"}, "group": 3, "id": "LoadLib/Autoloads", "label": "LoadLib/Autoloads", "level": 0, "shape": "dot", "size": 10, "title": "Name: LoadLib/Autoloads\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "LuaFunction", "label": "LuaFunction", "level": 4, "shape": "dot", "size": 10, "title": "Name: LuaFunction\nType: Module\nUses (Outdegree): 8\nUsed By (Indegree): 0\nLevel: 4", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "MaintenanceChecker", "label": "MaintenanceChecker", "level": 16, "shape": "dot", "size": 10, "title": "Name: MaintenanceChecker\nType: Module\nUses (Outdegree): 15\nUsed By (Indegree): 0\nLevel: 16", "value": 0}, {"font": {"color": "white"}, "group": 1, "id": "Pet/Data", "label": "Pet/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Pet/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 4\nLevel: 0", "value": 4}, {"font": {"color": "white"}, "group": 1, "id": "Minion/Aliases", "label": "Minion/Aliases", "level": 0, "shape": "dot", "size": 10, "title": "Name: Minion/Aliases\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 3\nLevel: 0", "value": 3}, {"font": {"color": "white"}, "group": 1, "id": "RarityTier/Data", "label": "RarityTier/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: RarityTier/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 4\nLevel: 0", "value": 4}, {"font": {"color": "white"}, "group": 1, "id": "Skillname/Data", "label": "Skillname/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Skillname/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 2\nLevel: 0", "value": 2}, {"font": {"color": "white"}, "group": 1, "id": "Staff/Members", "label": "Staff/Members", "level": 0, "shape": "dot", "size": 10, "title": "Name: Staff/Members\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 2\nLevel: 0", "value": 2}, {"font": {"color": "white"}, "group": 3, "id": "Mayor/Elections/Data", "label": "Mayor/Elections/Data", "level": 1, "shape": "dot", "size": 10, "title": "Name: Mayor/Elections/Data\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 1\nLevel: 1", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Mayor/Elections/ApiData", "label": "Mayor/Elections/ApiData", "level": 1, "shape": "dot", "size": 10, "title": "Name: Mayor/Elections/ApiData\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 1\nLevel: 1", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "Mayor/Data", "label": "Mayor/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Mayor/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 4\nLevel: 0", "value": 4}, {"font": {"color": "white"}, "group": 3, "id": "SBTE", "label": "SBTE", "level": 1, "shape": "dot", "size": 10, "title": "Name: SBTE\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 2\nLevel: 1", "value": 2}, {"font": {"color": "white"}, "group": 3, "id": "Mayor/UI", "label": "Mayor/UI", "level": 15, "shape": "dot", "size": 10, "title": "Name: Mayor/UI\nType: Module\nUses (Outdegree): 10\nUsed By (Indegree): 0\nLevel: 15", "value": 0}, {"font": {"color": "white"}, "group": 1, "id": "Mayor/Elections", "label": "Mayor/Elections", "level": 0, "shape": "dot", "size": 10, "title": "Name: Mayor/Elections\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Mbox", "label": "Mbox", "level": 1, "shape": "dot", "size": 10, "title": "Name: Mbox\nType: Module\nUses (Outdegree): 3\nUsed By (Indegree): 0\nLevel: 1", "value": 0}, {"font": {"color": "white"}, "group": 2, "id": "Dev:Mbox", "label": "Dev:Mbox", "level": -1, "shape": "dot", "size": 10, "title": "Name: Dev:Mbox\nType: Data Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: -1", "value": 1}, {"font": {"color": "white"}, "group": 2, "id": "Dev:Arguments", "label": "Dev:Arguments", "level": -1, "shape": "dot", "size": 10, "title": "Name: Dev:Arguments\nType: Data Module\nUses (Outdegree): 0\nUsed By (Indegree): 2\nLevel: -1", "value": 2}, {"font": {"color": "white"}, "group": 1, "id": "Mbox/data", "label": "Mbox/data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Mbox/data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "SafeResponse", "label": "SafeResponse", "level": 5, "shape": "dot", "size": 10, "title": "Name: SafeResponse\nType: Module\nUses (Outdegree): 4\nUsed By (Indegree): 3\nLevel: 5", "value": 3}, {"font": {"color": "white"}, "group": 1, "id": "Minimap/Data", "label": "Minimap/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Minimap/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "Minimap/Datasheet", "label": "Minimap/Datasheet", "level": 0, "shape": "dot", "size": 10, "title": "Name: Minimap/Datasheet\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "Minimap/Aliases", "label": "Minimap/Aliases", "level": 0, "shape": "dot", "size": 10, "title": "Name: Minimap/Aliases\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "Zone/Data", "label": "Zone/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Zone/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 3\nLevel: 0", "value": 3}, {"font": {"color": "white"}, "group": 1, "id": "Zone/Aliases", "label": "Zone/Aliases", "level": 0, "shape": "dot", "size": 10, "title": "Name: Zone/Aliases\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 2\nLevel: 0", "value": 2}, {"font": {"color": "white"}, "group": 3, "id": "Minion/MinionPageRow", "label": "Minion/MinionPageRow", "level": 12, "shape": "dot", "size": 10, "title": "Name: Minion/MinionPageRow\nType: Module\nUses (Outdegree): 9\nUsed By (Indegree): 0\nLevel: 12", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Minion/UI", "label": "Minion/UI", "level": 12, "shape": "dot", "size": 10, "title": "Name: Minion/UI\nType: Module\nUses (Outdegree): 9\nUsed By (Indegree): 0\nLevel: 12", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Misc", "label": "Misc", "level": 4, "shape": "dot", "size": 10, "title": "Name: Misc\nType: Module\nUses (Outdegree): 6\nUsed By (Indegree): 0\nLevel: 4", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Mob", "label": "Mob", "level": 6, "shape": "dot", "size": 10, "title": "Name: Mob\nType: Module\nUses (Outdegree): 13\nUsed By (Indegree): 0\nLevel: 6", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Notice", "label": "Notice", "level": 4, "shape": "dot", "size": 10, "title": "Name: Notice\nType: Module\nUses (Outdegree): 6\nUsed By (Indegree): 1\nLevel: 4", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "NPCPriceSpread", "label": "NPCPriceSpread", "level": 3, "shape": "dot", "size": 10, "title": "Name: NPCPriceSpread\nType: Module\nUses (Outdegree): 4\nUsed By (Indegree): 0\nLevel: 3", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Namespace detect", "label": "Namespace detect", "level": 0, "shape": "dot", "size": 10, "title": "Name: Namespace detect\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 0\nLevel: 0", "value": 0}, {"font": {"color": "white"}, "group": 2, "id": "Dev:Namespace detect", "label": "Dev:Namespace detect", "level": -1, "shape": "dot", "size": 10, "title": "Name: Dev:Namespace detect\nType: Data Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: -1", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Navbar", "label": "Navbar", "level": 2, "shape": "dot", "size": 10, "title": "Name: Navbar\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 1\nLevel: 2", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Navigation Bar", "label": "Navigation Bar", "level": 2, "shape": "dot", "size": 10, "title": "Name: Navigation Bar\nType: Module\nUses (Outdegree): 2\nUsed By (Indegree): 0\nLevel: 2", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "NoteSequence", "label": "NoteSequence", "level": 4, "shape": "dot", "size": 10, "title": "Name: NoteSequence\nType: Module\nUses (Outdegree): 4\nUsed By (Indegree): 1\nLevel: 4", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "NoteSequence/testcases", "label": "NoteSequence/testcases", "level": 5, "shape": "dot", "size": 10, "title": "Name: NoteSequence/testcases\nType: Module\nUses (Outdegree): 2\nUsed By (Indegree): 0\nLevel: 5", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "ScribuntoUnit", "label": "ScribuntoUnit", "level": 0, "shape": "dot", "size": 10, "title": "Name: ScribuntoUnit\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Mainonly", "label": "Mainonly", "level": 0, "shape": "dot", "size": 10, "title": "Name: Mainonly\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 3\nLevel: 0", "value": 3}, {"font": {"color": "white"}, "group": 1, "id": "Notice/Data", "label": "Notice/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Notice/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "NumberSpell", "label": "NumberSpell", "level": 2, "shape": "dot", "size": 10, "title": "Name: NumberSpell\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 1\nLevel: 2", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "Odds/Data", "label": "Odds/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Odds/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "Odds/Aliases", "label": "Odds/Aliases", "level": 0, "shape": "dot", "size": 10, "title": "Name: Odds/Aliases\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Page", "label": "Page", "level": 2, "shape": "dot", "size": 10, "title": "Name: Page\nType: Module\nUses (Outdegree): 4\nUsed By (Indegree): 0\nLevel: 2", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "CallAssert", "label": "CallAssert", "level": 0, "shape": "dot", "size": 10, "title": "Name: CallAssert\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Protect", "label": "Protect", "level": 0, "shape": "dot", "size": 10, "title": "Name: Protect\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Page Actions", "label": "Page Actions", "level": 3, "shape": "dot", "size": 10, "title": "Name: Page Actions\nType: Module\nUses (Outdegree): 5\nUsed By (Indegree): 0\nLevel: 3", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Page Actions/Aliases", "label": "Page Actions/Aliases", "level": 0, "shape": "dot", "size": 10, "title": "Name: Page Actions/Aliases\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Page Actions/Data", "label": "Page Actions/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Page Actions/Data\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "ParserFunctions", "label": "ParserFunctions", "level": 3, "shape": "dot", "size": 10, "title": "Name: ParserFunctions\nType: Module\nUses (Outdegree): 3\nUsed By (Indegree): 0\nLevel: 3", "value": 0}, {"font": {"color": "white"}, "group": 1, "id": "Pet/LevelingData", "label": "Pet/LevelingData", "level": 2, "shape": "dot", "size": 10, "title": "Name: Pet/LevelingData\nType: External Module\nUses (Outdegree): 1\nUsed By (Indegree): 1\nLevel: 2", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "UIText/Data", "label": "UIText/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: UIText/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 2\nLevel: 0", "value": 2}, {"font": {"color": "white"}, "group": 1, "id": "RarityTier/Aliases", "label": "RarityTier/Aliases", "level": 0, "shape": "dot", "size": 10, "title": "Name: RarityTier/Aliases\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 6\nLevel: 0", "value": 6}, {"font": {"color": "white"}, "group": 3, "id": "Pet Item", "label": "Pet Item", "level": 8, "shape": "dot", "size": 10, "title": "Name: Pet Item\nType: Module\nUses (Outdegree): 4\nUsed By (Indegree): 1\nLevel: 8", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "Pet Item/Data", "label": "Pet Item/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Pet Item/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "Pet/Skins", "label": "Pet/Skins", "level": 0, "shape": "dot", "size": 10, "title": "Name: Pet/Skins\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Pet/UI", "label": "Pet/UI", "level": 10, "shape": "dot", "size": 10, "title": "Name: Pet/UI\nType: Module\nUses (Outdegree): 17\nUsed By (Indegree): 0\nLevel: 10", "value": 0}, {"font": {"color": "white"}, "group": 1, "id": "Pet/Aliases", "label": "Pet/Aliases", "level": 0, "shape": "dot", "size": 10, "title": "Name: Pet/Aliases\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Potion/PotionPageRow", "label": "Potion/PotionPageRow", "level": 9, "shape": "dot", "size": 10, "title": "Name: Potion/PotionPageRow\nType: Module\nUses (Outdegree): 11\nUsed By (Indegree): 0\nLevel: 9", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Power", "label": "Power", "level": 8, "shape": "dot", "size": 10, "title": "Name: Power\nType: Module\nUses (Outdegree): 5\nUsed By (Indegree): 0\nLevel: 8", "value": 0}, {"font": {"color": "white"}, "group": 1, "id": "Statname/Aliases", "label": "Statname/Aliases", "level": 0, "shape": "dot", "size": 10, "title": "Name: Statname/Aliases\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 4\nLevel: 0", "value": 4}, {"font": {"color": "white"}, "group": 3, "id": "Quote", "label": "Quote", "level": 0, "shape": "dot", "size": 10, "title": "Name: Quote\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 0\nLevel: 0", "value": 0}, {"font": {"color": "white"}, "group": 2, "id": "Dev:Quote", "label": "Dev:Quote", "level": -1, "shape": "dot", "size": 10, "title": "Name: Dev:Quote\nType: Data Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: -1", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Random/Dependencies", "label": "Random/Dependencies", "level": 2, "shape": "dot", "size": 10, "title": "Name: Random/Dependencies\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 1\nLevel: 2", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Random/Modifications/ThatIPEditor", "label": "Random/Modifications/ThatIPEditor", "level": 8, "shape": "dot", "size": 10, "title": "Name: Random/Modifications/ThatIPEditor\nType: Module\nUses (Outdegree): 2\nUsed By (Indegree): 0\nLevel: 8", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Rank", "label": "Rank", "level": 4, "shape": "dot", "size": 10, "title": "Name: Rank\nType: Module\nUses (Outdegree): 7\nUsed By (Indegree): 0\nLevel: 4", "value": 0}, {"font": {"color": "white"}, "group": 1, "id": "Rank/Data", "label": "Rank/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Rank/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "Rank/Aliases", "label": "Rank/Aliases", "level": 0, "shape": "dot", "size": 10, "title": "Name: Rank/Aliases\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Reforge", "label": "Reforge", "level": 3, "shape": "dot", "size": 10, "title": "Name: Reforge\nType: Module\nUses (Outdegree): 2\nUsed By (Indegree): 0\nLevel: 3", "value": 0}, {"font": {"color": "white"}, "group": 1, "id": "Reforge/Data", "label": "Reforge/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Reforge/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Relations", "label": "Relations", "level": 3, "shape": "dot", "size": 10, "title": "Name: Relations\nType: Module\nUses (Outdegree): 4\nUsed By (Indegree): 0\nLevel: 3", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Reply to", "label": "Reply to", "level": 3, "shape": "dot", "size": 10, "title": "Name: Reply to\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 0\nLevel: 3", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Report", "label": "Report", "level": 5, "shape": "dot", "size": 10, "title": "Name: Report\nType: Module\nUses (Outdegree): 7\nUsed By (Indegree): 0\nLevel: 5", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "User", "label": "User", "level": 4, "shape": "dot", "size": 10, "title": "Name: User\nType: Module\nUses (Outdegree): 8\nUsed By (Indegree): 2\nLevel: 4", "value": 2}, {"font": {"color": "white"}, "group": 3, "id": "RightBox", "label": "RightBox", "level": 4, "shape": "dot", "size": 10, "title": "Name: RightBox\nType: Module\nUses (Outdegree): 6\nUsed By (Indegree): 0\nLevel: 4", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "RomanNumeral", "label": "RomanNumeral", "level": 2, "shape": "dot", "size": 10, "title": "Name: RomanNumeral\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 0\nLevel: 2", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "SBTC", "label": "SBTC", "level": 2, "shape": "dot", "size": 10, "title": "Name: SBTC\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 0\nLevel: 2", "value": 0}, {"font": {"color": "white"}, "group": 1, "id": "SafeResponse/Data", "label": "SafeResponse/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: SafeResponse/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 2, "id": "Dev:ScribuntoUnit", "label": "Dev:ScribuntoUnit", "level": -1, "shape": "dot", "size": 10, "title": "Name: Dev:ScribuntoUnit\nType: Data Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: -1", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "ScribuntoUnit/config", "label": "ScribuntoUnit/config", "level": 0, "shape": "dot", "size": 10, "title": "Name: ScribuntoUnit/config\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 0\nLevel: 0", "value": 0}, {"font": {"color": "white"}, "group": 2, "id": "Dev:ScribuntoUnit/config", "label": "Dev:ScribuntoUnit/config", "level": -1, "shape": "dot", "size": 10, "title": "Name: Dev:ScribuntoUnit/config\nType: Data Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: -1", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "SeaCreature", "label": "SeaCreature", "level": 3, "shape": "dot", "size": 10, "title": "Name: SeaCreature\nType: Module\nUses (Outdegree): 4\nUsed By (Indegree): 0\nLevel: 3", "value": 0}, {"font": {"color": "white"}, "group": 1, "id": "SeaCreature/Datasheet", "label": "SeaCreature/Datasheet", "level": 0, "shape": "dot", "size": 10, "title": "Name: SeaCreature/Datasheet\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Sidebar", "label": "Sidebar", "level": 3, "shape": "dot", "size": 10, "title": "Name: Sidebar\nType: Module\nUses (Outdegree): 2\nUsed By (Indegree): 0\nLevel: 3", "value": 0}, {"font": {"color": "white"}, "group": 1, "id": "Skillname/Aliases", "label": "Skillname/Aliases", "level": 0, "shape": "dot", "size": 10, "title": "Name: Skillname/Aliases\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "Mob/Sprites", "label": "Mob/Sprites", "level": 0, "shape": "dot", "size": 10, "title": "Name: Mob/Sprites\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "NPC/Sprites", "label": "NPC/Sprites", "level": 0, "shape": "dot", "size": 10, "title": "Name: NPC/Sprites\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "Location/Sprites", "label": "Location/Sprites", "level": 0, "shape": "dot", "size": 10, "title": "Name: Location/Sprites\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "Mob/Aliases", "label": "Mob/Aliases", "level": 0, "shape": "dot", "size": 10, "title": "Name: Mob/Aliases\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "NPC/Aliases", "label": "NPC/Aliases", "level": 0, "shape": "dot", "size": 10, "title": "Name: NPC/Aliases\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "Location/Aliases", "label": "Location/Aliases", "level": 0, "shape": "dot", "size": 10, "title": "Name: Location/Aliases\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Staff", "label": "Staff", "level": 5, "shape": "dot", "size": 10, "title": "Name: Staff\nType: Module\nUses (Outdegree): 11\nUsed By (Indegree): 0\nLevel: 5", "value": 0}, {"font": {"color": "white"}, "group": 1, "id": "Staff/Data", "label": "Staff/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Staff/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "User/Data", "label": "User/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: User/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 2\nLevel: 0", "value": 2}, {"font": {"color": "white"}, "group": 1, "id": "User/Aliases", "label": "User/Aliases", "level": 0, "shape": "dot", "size": 10, "title": "Name: User/Aliases\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 2\nLevel: 0", "value": 2}, {"font": {"color": "white"}, "group": 3, "id": "Statname/GenerateTemplateInfo", "label": "Statname/GenerateTemplateInfo", "level": 7, "shape": "dot", "size": 10, "title": "Name: Statname/GenerateTemplateInfo\nType: Module\nUses (Outdegree): 2\nUsed By (Indegree): 0\nLevel: 7", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "String/Lorem", "label": "String/Lorem", "level": 0, "shape": "dot", "size": 10, "title": "Name: String/Lorem\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "T", "label": "T", "level": 0, "shape": "dot", "size": 10, "title": "Name: T\nType: Module\nUses (Outdegree): 3\nUsed By (Indegree): 0\nLevel: 0", "value": 0}, {"font": {"color": "white"}, "group": 2, "id": "Dev:User error", "label": "Dev:User error", "level": -1, "shape": "dot", "size": 10, "title": "Name: Dev:User error\nType: Data Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: -1", "value": 1}, {"font": {"color": "white"}, "group": 2, "id": "Dev:Yesno", "label": "Dev:Yesno", "level": -1, "shape": "dot", "size": 10, "title": "Name: Dev:Yesno\nType: Data Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: -1", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Tabber", "label": "Tabber", "level": 2, "shape": "dot", "size": 10, "title": "Name: Tabber\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 0\nLevel: 2", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Tabview", "label": "Tabview", "level": 4, "shape": "dot", "size": 10, "title": "Name: Tabview\nType: Module\nUses (Outdegree): 6\nUsed By (Indegree): 0\nLevel: 4", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Tag", "label": "Tag", "level": 3, "shape": "dot", "size": 10, "title": "Name: Tag\nType: Module\nUses (Outdegree): 2\nUsed By (Indegree): 0\nLevel: 3", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Template link general", "label": "Template link general", "level": 2, "shape": "dot", "size": 10, "title": "Name: Template link general\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 0\nLevel: 2", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "TemplateList", "label": "TemplateList", "level": 2, "shape": "dot", "size": 10, "title": "Name: TemplateList\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 0\nLevel: 2", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Testharness", "label": "Testharness", "level": 0, "shape": "dot", "size": 10, "title": "Name: Testharness\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 0\nLevel: 0", "value": 0}, {"font": {"color": "white"}, "group": 2, "id": "Dev:Testharness", "label": "Dev:Testharness", "level": -1, "shape": "dot", "size": 10, "title": "Name: Dev:Testharness\nType: Data Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: -1", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Time ago", "label": "Time ago", "level": 3, "shape": "dot", "size": 10, "title": "Name: Time ago\nType: Module\nUses (Outdegree): 4\nUsed By (Indegree): 0\nLevel: 3", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Date", "label": "Date", "level": 0, "shape": "dot", "size": 10, "title": "Name: Date\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "TooltipText", "label": "TooltipText", "level": 8, "shape": "dot", "size": 10, "title": "Name: TooltipText\nType: Module\nUses (Outdegree): 7\nUsed By (Indegree): 0\nLevel: 8", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "UI", "label": "UI", "level": 10, "shape": "dot", "size": 10, "title": "Name: UI\nType: Module\nUses (Outdegree): 12\nUsed By (Indegree): 0\nLevel: 10", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Userbox", "label": "Userbox", "level": 3, "shape": "dot", "size": 10, "title": "Name: Userbox\nType: Module\nUses (Outdegree): 4\nUsed By (Indegree): 0\nLevel: 3", "value": 0}, {"font": {"color": "white"}, "group": 1, "id": "Userbox/Skins", "label": "Userbox/Skins", "level": 0, "shape": "dot", "size": 10, "title": "Name: Userbox/Skins\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "VariablesLuaUtil", "label": "VariablesLuaUtil", "level": 0, "shape": "dot", "size": 10, "title": "Name: VariablesLuaUtil\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 2, "id": "Binser", "label": "Binser", "level": -1, "shape": "dot", "size": 10, "title": "Name: Binser\nType: Data Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: -1", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Weapon", "label": "Weapon", "level": 8, "shape": "dot", "size": 10, "title": "Name: Weapon\nType: Module\nUses (Outdegree): 15\nUsed By (Indegree): 0\nLevel: 8", "value": 0}, {"font": {"color": "white"}, "group": 1, "id": "Weapon/Data", "label": "Weapon/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Weapon/Data\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 1, "id": "Weapon/Aliases", "label": "Weapon/Aliases", "level": 0, "shape": "dot", "size": 10, "title": "Name: Weapon/Aliases\nType: External Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: 0", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Wikitable", "label": "Wikitable", "level": 0, "shape": "dot", "size": 10, "title": "Name: Wikitable\nType: Module\nUses (Outdegree): 1\nUsed By (Indegree): 0\nLevel: 0", "value": 0}, {"font": {"color": "white"}, "group": 2, "id": "WP:Wikitable", "label": "WP:Wikitable", "level": -1, "shape": "dot", "size": 10, "title": "Name: WP:Wikitable\nType: Data Module\nUses (Outdegree): 0\nUsed By (Indegree): 1\nLevel: -1", "value": 1}, {"font": {"color": "white"}, "group": 3, "id": "Yesno/template", "label": "Yesno/template", "level": 3, "shape": "dot", "size": 10, "title": "Name: Yesno/template\nType: Module\nUses (Outdegree): 3\nUsed By (Indegree): 0\nLevel: 3", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Armor/Data", "label": "Armor/Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Armor/Data\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 0\nLevel: 0", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Checkbox", "label": "Checkbox", "level": 0, "shape": "dot", "size": 10, "title": "Name: Checkbox\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 0\nLevel: 0", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Color contrast/colors", "label": "Color contrast/colors", "level": 0, "shape": "dot", "size": 10, "title": "Name: Color contrast/colors\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 0\nLevel: 0", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "ItemInfo/Armor Data", "label": "ItemInfo/Armor Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: ItemInfo/Armor Data\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 0\nLevel: 0", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "ItemInfo/Item Data", "label": "ItemInfo/Item Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: ItemInfo/Item Data\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 0\nLevel: 0", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "ItemInfo/Weapon Data", "label": "ItemInfo/Weapon Data", "level": 0, "shape": "dot", "size": 10, "title": "Name: ItemInfo/Weapon Data\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 0\nLevel: 0", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Mayor/Elections/Automated", "label": "Mayor/Elections/Automated", "level": 0, "shape": "dot", "size": 10, "title": "Name: Mayor/Elections/Automated\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 0\nLevel: 0", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Namespace detect/data", "label": "Namespace detect/data", "level": 0, "shape": "dot", "size": 10, "title": "Name: Namespace detect/data\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 0\nLevel: 0", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Navbox", "label": "Navbox", "level": 0, "shape": "dot", "size": 10, "title": "Name: Navbox\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 0\nLevel: 0", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Separated entries", "label": "Separated entries", "level": 0, "shape": "dot", "size": 10, "title": "Name: Separated entries\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 0\nLevel: 0", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Statname/Order", "label": "Statname/Order", "level": 0, "shape": "dot", "size": 10, "title": "Name: Statname/Order\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 0\nLevel: 0", "value": 0}, {"font": {"color": "white"}, "group": 3, "id": "Top", "label": "Top", "level": 0, "shape": "dot", "size": 10, "title": "Name: Top\nType: Module\nUses (Outdegree): 0\nUsed By (Indegree): 0\nLevel: 0", "value": 0}]);
+                  edges = new vis.DataSet([{"arrows": "to", "from": "AIV", "to": "LoadLib", "width": 1}, {"arrows": "to", "from": "Ability", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Ability", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "AlphaStatus", "to": "AlphaStatus/Data", "width": 1}, {"arrows": "to", "from": "Animate", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Animate", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Animate", "to": "String", "width": 1}, {"arrows": "to", "from": "Animate", "to": "Table", "width": 1}, {"arrows": "to", "from": "Animate", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Animate", "to": "Cache", "width": 1}, {"arrows": "to", "from": "Animate", "to": "LibU", "width": 1}, {"arrows": "to", "from": "Arguments", "to": "LibU", "width": 1}, {"arrows": "to", "from": "Armor", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Armor", "to": "String", "width": 1}, {"arrows": "to", "from": "Armor", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Armor", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Armor", "to": "Inventory slot", "width": 1}, {"arrows": "to", "from": "Armor", "to": "RarityTier", "width": 1}, {"arrows": "to", "from": "Armor", "to": "Color", "width": 1}, {"arrows": "to", "from": "Armor", "to": "Ability", "width": 1}, {"arrows": "to", "from": "Armor", "to": "Armor/StatsList", "width": 1}, {"arrows": "to", "from": "Armor", "to": "Element", "width": 1}, {"arrows": "to", "from": "Armor", "to": "Armor/Data/FairyArmorColors", "width": 1}, {"arrows": "to", "from": "Armor/StatsList", "to": "Statname", "width": 1}, {"arrows": "to", "from": "Armor/StatsList", "to": "String", "width": 1}, {"arrows": "to", "from": "Armor/StatsList", "to": "Statname/Data", "width": 1}, {"arrows": "to", "from": "Attribute", "to": "String", "width": 1}, {"arrows": "to", "from": "Attribute", "to": "Attribute/Data", "width": 1}, {"arrows": "to", "from": "Bazaar", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Bazaar", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Bazaar", "to": "String", "width": 1}, {"arrows": "to", "from": "Bazaar", "to": "Table", "width": 1}, {"arrows": "to", "from": "Bazaar", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Bazaar", "to": "Currency", "width": 1}, {"arrows": "to", "from": "Bazaar", "to": "Color", "width": 1}, {"arrows": "to", "from": "Bazaar", "to": "Bazaar/Data", "width": 1}, {"arrows": "to", "from": "Bazaar", "to": "Bazaar/Aliases", "width": 1}, {"arrows": "to", "from": "Bazaar", "to": "Bazaar/i18n", "width": 1}, {"arrows": "to", "from": "Cache", "to": "VarsCacheMap", "width": 1}, {"arrows": "to", "from": "Cache", "to": "CacheUtil", "width": 1}, {"arrows": "to", "from": "CacheUtil", "to": "ArgsUtil", "width": 1}, {"arrows": "to", "from": "CacheUtil", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "CacheUtil", "to": "Mw.ext.LuaCache", "width": 1}, {"arrows": "to", "from": "CacheUtil", "to": "VarsCacheMap", "width": 1}, {"arrows": "to", "from": "Calculator", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Collection", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Collection", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Collection", "to": "String", "width": 1}, {"arrows": "to", "from": "Collection", "to": "Table", "width": 1}, {"arrows": "to", "from": "Collection", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Collection", "to": "Item", "width": 1}, {"arrows": "to", "from": "Collection", "to": "Color", "width": 1}, {"arrows": "to", "from": "Collection", "to": "Skillname", "width": 1}, {"arrows": "to", "from": "Collection", "to": "Collection/Data", "width": 1}, {"arrows": "to", "from": "Collection/UI", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Collection/UI", "to": "String", "width": 1}, {"arrows": "to", "from": "Collection/UI", "to": "Table", "width": 1}, {"arrows": "to", "from": "Collection/UI", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Collection/UI", "to": "LibU", "width": 1}, {"arrows": "to", "from": "Collection/UI", "to": "Cache", "width": 1}, {"arrows": "to", "from": "Collection/UI", "to": "UIText", "width": 1}, {"arrows": "to", "from": "Collection/UI", "to": "UI/Core", "width": 1}, {"arrows": "to", "from": "Collection/UI", "to": "Potion", "width": 1}, {"arrows": "to", "from": "Collection/UI", "to": "Potion/UI", "width": 1}, {"arrows": "to", "from": "Collection/UI", "to": "Random", "width": 1}, {"arrows": "to", "from": "Collection/UI", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Collection/UI", "to": "Pet", "width": 1}, {"arrows": "to", "from": "Collection/UI", "to": "Collection/Data", "width": 1}, {"arrows": "to", "from": "Collection/UI", "to": "Collection/UI/Data", "width": 1}, {"arrows": "to", "from": "Collection/UI", "to": "Armor/Sets", "width": 1}, {"arrows": "to", "from": "Collection/UI", "to": "Potion/Data", "width": 1}, {"arrows": "to", "from": "Color", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Color", "to": "String", "width": 1}, {"arrows": "to", "from": "Color", "to": "Table", "width": 1}, {"arrows": "to", "from": "Color", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Color", "to": "LibU", "width": 1}, {"arrows": "to", "from": "Color", "to": "Color/Aliases", "width": 1}, {"arrows": "to", "from": "Color", "to": "Color/Data", "width": 1}, {"arrows": "to", "from": "Color/Conversion", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Constructor", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Constructor", "to": "String", "width": 1}, {"arrows": "to", "from": "Constructor", "to": "Table", "width": 1}, {"arrows": "to", "from": "Constructor", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Constructor", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Constructor", "to": "MakeClass", "width": 1}, {"arrows": "to", "from": "Constructor", "to": "LibU", "width": 1}, {"arrows": "to", "from": "Countdown", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Countdown", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Crafting", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Crafting", "to": "Recipe table", "width": 1}, {"arrows": "to", "from": "Crafting", "to": "Cache", "width": 1}, {"arrows": "to", "from": "Crafting", "to": "String", "width": 1}, {"arrows": "to", "from": "Crafting", "to": "Table", "width": 1}, {"arrows": "to", "from": "Crafting", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Crafting", "to": "Inventory slot", "width": 1}, {"arrows": "to", "from": "Crafting", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Crafting", "to": "Crafting/Utils", "width": 1}, {"arrows": "to", "from": "Crafting/Aliases", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Crafting/Aliases", "to": "String", "width": 1}, {"arrows": "to", "from": "Crafting/Aliases", "to": "Table", "width": 1}, {"arrows": "to", "from": "Crafting/Aliases", "to": "Minion", "width": 1}, {"arrows": "to", "from": "Crafting/Aliases", "to": "Crafting/Data", "width": 1}, {"arrows": "to", "from": "Crafting/Aliases", "to": "Crafting/Templates", "width": 1}, {"arrows": "to", "from": "Crafting/Aliases", "to": "Crafting/Utils", "width": 1}, {"arrows": "to", "from": "Crafting/Aliases", "to": "Minion/Data", "width": 1}, {"arrows": "to", "from": "Crafting/UI", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Crafting/UI", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Crafting/UI", "to": "String", "width": 1}, {"arrows": "to", "from": "Crafting/UI", "to": "Table", "width": 1}, {"arrows": "to", "from": "Crafting/UI", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Crafting/UI", "to": "Crafting", "width": 1}, {"arrows": "to", "from": "Crafting/UI", "to": "UI/Core", "width": 1}, {"arrows": "to", "from": "Crafting/UI", "to": "Element", "width": 1}, {"arrows": "to", "from": "Crafting/Utils", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Crafting/Utils", "to": "String", "width": 1}, {"arrows": "to", "from": "Crafting/Utils", "to": "Table", "width": 1}, {"arrows": "to", "from": "Currency", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Currency", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Currency", "to": "String", "width": 1}, {"arrows": "to", "from": "Currency", "to": "Table", "width": 1}, {"arrows": "to", "from": "Currency", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Currency", "to": "Color", "width": 1}, {"arrows": "to", "from": "Currency", "to": "Currency/Data", "width": 1}, {"arrows": "to", "from": "Currency", "to": "Bazaar/Data", "width": 1}, {"arrows": "to", "from": "DPL", "to": "Table", "width": 1}, {"arrows": "to", "from": "DPL", "to": "String", "width": 1}, {"arrows": "to", "from": "DPL", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "DamageType", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "DamageType", "to": "Loader", "width": 1}, {"arrows": "to", "from": "DamageType", "to": "String", "width": 1}, {"arrows": "to", "from": "DamageType", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "DamageType", "to": "Color", "width": 1}, {"arrows": "to", "from": "DamageType", "to": "LibU", "width": 1}, {"arrows": "to", "from": "DamageType", "to": "DamageType/Data", "width": 1}, {"arrows": "to", "from": "DamageType", "to": "DamageType/Aliases", "width": 1}, {"arrows": "to", "from": "DetailedList", "to": "Loader", "width": 1}, {"arrows": "to", "from": "DetailedList", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "DetailedList", "to": "String", "width": 1}, {"arrows": "to", "from": "DetailedList", "to": "Table", "width": 1}, {"arrows": "to", "from": "DetailedList", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "DetailedList", "to": "LibU", "width": 1}, {"arrows": "to", "from": "DetailedList", "to": "DetailedList/Data", "width": 1}, {"arrows": "to", "from": "Dialogue", "to": "Dev:Dialogue", "width": 1}, {"arrows": "to", "from": "Docbunto", "to": "Dev:Docbunto", "width": 1}, {"arrows": "to", "from": "Documentation", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Documentation", "to": "Documentation/Core", "width": 1}, {"arrows": "to", "from": "Documentation/Core", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Documentation/Core", "to": "String", "width": 1}, {"arrows": "to", "from": "Documentation/Core", "to": "Table", "width": 1}, {"arrows": "to", "from": "Documentation/Core", "to": "Class", "width": 1}, {"arrows": "to", "from": "Documentation/Core", "to": "LibraryUtil", "width": 1}, {"arrows": "to", "from": "Documentation/Core", "to": "Documentation/Config", "width": 1}, {"arrows": "to", "from": "Documentation/Parameters", "to": "Class", "width": 1}, {"arrows": "to", "from": "Documentation/Parameters", "to": "Table", "width": 1}, {"arrows": "to", "from": "Documentation/Parameters", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Documentation/Parameters", "to": "Number", "width": 1}, {"arrows": "to", "from": "Documentation/Parameters", "to": "String", "width": 1}, {"arrows": "to", "from": "Documentation/Parameters", "to": "LibU", "width": 1}, {"arrows": "to", "from": "Dungeon", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Dungeon", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Dungeon", "to": "String", "width": 1}, {"arrows": "to", "from": "Dungeon", "to": "Table", "width": 1}, {"arrows": "to", "from": "Dungeon", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Dungeon", "to": "LibraryUtil", "width": 1}, {"arrows": "to", "from": "Dungeon", "to": "Color", "width": 1}, {"arrows": "to", "from": "Dungeon", "to": "Item", "width": 1}, {"arrows": "to", "from": "Dungeon", "to": "Mctxt", "width": 1}, {"arrows": "to", "from": "Element", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Element", "to": "String", "width": 1}, {"arrows": "to", "from": "Element", "to": "Table", "width": 1}, {"arrows": "to", "from": "Element", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Enchantment", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Enchantment", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Enchantment", "to": "String", "width": 1}, {"arrows": "to", "from": "Enchantment", "to": "String/Templates", "width": 1}, {"arrows": "to", "from": "Enchantment", "to": "Table", "width": 1}, {"arrows": "to", "from": "Enchantment", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Enchantment", "to": "Mctxt", "width": 1}, {"arrows": "to", "from": "Enchantment", "to": "RarityTier", "width": 1}, {"arrows": "to", "from": "Enchantment", "to": "Enchantment/Data", "width": 1}, {"arrows": "to", "from": "Enchantment/EnchantmentPageRow", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Enchantment/EnchantmentPageRow", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Enchantment/EnchantmentPageRow", "to": "String", "width": 1}, {"arrows": "to", "from": "Enchantment/EnchantmentPageRow", "to": "Table", "width": 1}, {"arrows": "to", "from": "Enchantment/EnchantmentPageRow", "to": "RarityTier", "width": 1}, {"arrows": "to", "from": "Enchantment/EnchantmentPageRow", "to": "Link", "width": 1}, {"arrows": "to", "from": "Enchantment/EnchantmentPageRow", "to": "Skillname", "width": 1}, {"arrows": "to", "from": "Enchantment/EnchantmentPageRow", "to": "Enchantment/Data", "width": 1}, {"arrows": "to", "from": "EnchantmentBazaarStats", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "EnchantmentBazaarStats", "to": "String", "width": 1}, {"arrows": "to", "from": "Example", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Example", "to": "MultiRequire", "width": 1}, {"arrows": "to", "from": "Format", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Format", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Gemstone", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Gemstone", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Gemstone", "to": "String", "width": 1}, {"arrows": "to", "from": "Gemstone", "to": "Table", "width": 1}, {"arrows": "to", "from": "Gemstone", "to": "Gemstone/Data", "width": 1}, {"arrows": "to", "from": "Gemstone", "to": "Gemstone/Aliases", "width": 1}, {"arrows": "to", "from": "Hatnote", "to": "Dev:Hatnote", "width": 1}, {"arrows": "to", "from": "Heart of the Mountain", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Heart of the Mountain", "to": "HypixelServerTime", "width": 1}, {"arrows": "to", "from": "Heart of the Mountain", "to": "String", "width": 1}, {"arrows": "to", "from": "Heart of the Mountain", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Heart of the Mountain", "to": "LibU", "width": 1}, {"arrows": "to", "from": "Heart of the Mountain", "to": "Item", "width": 1}, {"arrows": "to", "from": "History", "to": "Loader", "width": 1}, {"arrows": "to", "from": "History", "to": "String", "width": 1}, {"arrows": "to", "from": "History", "to": "Table", "width": 1}, {"arrows": "to", "from": "History", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "History", "to": "History/Datasheet", "width": 1}, {"arrows": "to", "from": "History", "to": "History/Aliases", "width": 1}, {"arrows": "to", "from": "Html", "to": "LoadLib", "width": 1}, {"arrows": "to", "from": "IP", "to": "Bit32", "width": 1}, {"arrows": "to", "from": "IP", "to": "LibraryUtil", "width": 1}, {"arrows": "to", "from": "IPAddress", "to": "IP", "width": 1}, {"arrows": "to", "from": "Image", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Image", "to": "String", "width": 1}, {"arrows": "to", "from": "Image", "to": "Table", "width": 1}, {"arrows": "to", "from": "Infobox", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Infobox", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Infobox", "to": "LibU", "width": 1}, {"arrows": "to", "from": "Infobox", "to": "Table", "width": 1}, {"arrows": "to", "from": "Infobox", "to": "Class", "width": 1}, {"arrows": "to", "from": "Infobox/Item", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Infobox/Item", "to": "String", "width": 1}, {"arrows": "to", "from": "Infobox/Item", "to": "Table", "width": 1}, {"arrows": "to", "from": "Infobox/Item", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Infobox/Item", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Infobox/Item", "to": "Statname", "width": 1}, {"arrows": "to", "from": "Infobox/Item", "to": "Infobox", "width": 1}, {"arrows": "to", "from": "Infobox/Item", "to": "RarityTier", "width": 1}, {"arrows": "to", "from": "Infobox/Item", "to": "Link", "width": 1}, {"arrows": "to", "from": "Infobox/Item", "to": "Odds", "width": 1}, {"arrows": "to", "from": "Infobox/Item", "to": "Bazaar", "width": 1}, {"arrows": "to", "from": "Infobox/Item", "to": "String/Templates", "width": 1}, {"arrows": "to", "from": "Infobox/Item", "to": "List", "width": 1}, {"arrows": "to", "from": "Infobox/Item", "to": "Ability", "width": 1}, {"arrows": "to", "from": "Infobox/Item", "to": "Currency", "width": 1}, {"arrows": "to", "from": "Infobox/Item", "to": "Animate", "width": 1}, {"arrows": "to", "from": "Infobox/Item", "to": "Item", "width": 1}, {"arrows": "to", "from": "Infobox/Item", "to": "Pet", "width": 1}, {"arrows": "to", "from": "Infobox/Item", "to": "Pet/Utils", "width": 1}, {"arrows": "to", "from": "Infobox/Item", "to": "Inventory slot", "width": 1}, {"arrows": "to", "from": "Infobox/Item", "to": "Infobox/Data", "width": 1}, {"arrows": "to", "from": "Infobox/Mechanic", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Infobox/Mechanic", "to": "String", "width": 1}, {"arrows": "to", "from": "Infobox/Mechanic", "to": "Table", "width": 1}, {"arrows": "to", "from": "Infobox/Mechanic", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Infobox/Mechanic", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Infobox/Mechanic", "to": "Statname", "width": 1}, {"arrows": "to", "from": "Infobox/Mechanic", "to": "Infobox", "width": 1}, {"arrows": "to", "from": "Infobox/Mechanic", "to": "Inventory slot", "width": 1}, {"arrows": "to", "from": "Infobox/Mechanic", "to": "String/Templates", "width": 1}, {"arrows": "to", "from": "Infobox/Mechanic", "to": "Minimap", "width": 1}, {"arrows": "to", "from": "Infobox/Mechanic", "to": "Animate", "width": 1}, {"arrows": "to", "from": "Infobox/Mechanic", "to": "Sprite", "width": 1}, {"arrows": "to", "from": "Infobox/Mechanic", "to": "Mayor", "width": 1}, {"arrows": "to", "from": "Infobox/Mechanic", "to": "Infobox/Data", "width": 1}, {"arrows": "to", "from": "Infobox/Testcases", "to": "Infobox", "width": 1}, {"arrows": "to", "from": "Inventory slot", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Inventory slot", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Inventory slot", "to": "String", "width": 1}, {"arrows": "to", "from": "Inventory slot", "to": "Table", "width": 1}, {"arrows": "to", "from": "Inventory slot", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Inventory slot", "to": "Currency", "width": 1}, {"arrows": "to", "from": "Inventory slot", "to": "Random", "width": 1}, {"arrows": "to", "from": "Inventory slot", "to": "UIText", "width": 1}, {"arrows": "to", "from": "Inventory slot", "to": "Cache", "width": 1}, {"arrows": "to", "from": "Inventory slot", "to": "Inventory slot/Aliases", "width": 1}, {"arrows": "to", "from": "Inventory slot/Datasheet", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Inventory slot/Datasheet", "to": "String", "width": 1}, {"arrows": "to", "from": "Inventory slot/Datasheet", "to": "Table", "width": 1}, {"arrows": "to", "from": "Inventory slot/Datasheet", "to": "Inventory slot/Utils", "width": 1}, {"arrows": "to", "from": "Inventory slot/Datasheet", "to": "Inventory slot/Tooltips", "width": 1}, {"arrows": "to", "from": "Inventory slot/Datasheet", "to": "Inventory slot/Templates", "width": 1}, {"arrows": "to", "from": "Inventory slot/Datasheet", "to": "Color/Data", "width": 1}, {"arrows": "to", "from": "Inventory slot/Templates", "to": "Table", "width": 1}, {"arrows": "to", "from": "Inventory slot/Templates", "to": "Color/Data", "width": 1}, {"arrows": "to", "from": "Inventory slot/Templates", "to": "Minion/Templates", "width": 1}, {"arrows": "to", "from": "Inventory slot/Templates", "to": "Pet/Templates", "width": 1}, {"arrows": "to", "from": "Inventory slot/Templates", "to": "Enchantment", "width": 1}, {"arrows": "to", "from": "Inventory slot/Templates", "to": "Potion", "width": 1}, {"arrows": "to", "from": "Inventory slot/Templates", "to": "Attribute", "width": 1}, {"arrows": "to", "from": "Inventory slot/Templates", "to": "Mayor", "width": 1}, {"arrows": "to", "from": "Inventory slot/Utils", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Inventory slot/Utils", "to": "String", "width": 1}, {"arrows": "to", "from": "Inventory slot/Utils", "to": "Table", "width": 1}, {"arrows": "to", "from": "Inventory slot/Utils", "to": "UIText", "width": 1}, {"arrows": "to", "from": "Inventory slot/Utils", "to": "RarityTier", "width": 1}, {"arrows": "to", "from": "Inventory slot/Utils", "to": "Inventory slot/Templates", "width": 1}, {"arrows": "to", "from": "Item", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Item", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Item", "to": "String", "width": 1}, {"arrows": "to", "from": "Item", "to": "Table", "width": 1}, {"arrows": "to", "from": "Item", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Item", "to": "RarityTier", "width": 1}, {"arrows": "to", "from": "Item", "to": "Currency", "width": 1}, {"arrows": "to", "from": "Item", "to": "Link", "width": 1}, {"arrows": "to", "from": "Item", "to": "Color", "width": 1}, {"arrows": "to", "from": "Item", "to": "Cache", "width": 1}, {"arrows": "to", "from": "Item", "to": "Item/ApiData", "width": 1}, {"arrows": "to", "from": "Item", "to": "Item/ApiAliases", "width": 1}, {"arrows": "to", "from": "Item", "to": "Item/Data", "width": 1}, {"arrows": "to", "from": "Item", "to": "Item/Aliases", "width": 1}, {"arrows": "to", "from": "Item", "to": "Armor/Sets", "width": 1}, {"arrows": "to", "from": "Item/ApiData/AsCacheTable", "to": "Item/ApiData", "width": 1}, {"arrows": "to", "from": "Item/Variants", "to": "Table", "width": 1}, {"arrows": "to", "from": "Item/Variants", "to": "String", "width": 1}, {"arrows": "to", "from": "Item/Variants", "to": "Color/Data", "width": 1}, {"arrows": "to", "from": "Item/Variants", "to": "Pet/Templates", "width": 1}, {"arrows": "to", "from": "Item/Variants", "to": "Minion/Templates", "width": 1}, {"arrows": "to", "from": "Item/Variants", "to": "Potion", "width": 1}, {"arrows": "to", "from": "Item/Variants", "to": "Enchantment", "width": 1}, {"arrows": "to", "from": "Item/Variants", "to": "Armor/Sets", "width": 1}, {"arrows": "to", "from": "ItemInfo", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "ItemInfo", "to": "Loader", "width": 1}, {"arrows": "to", "from": "ItemInfo", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "ItemInfo", "to": "Color", "width": 1}, {"arrows": "to", "from": "ItemInfo", "to": "Statname", "width": 1}, {"arrows": "to", "from": "ItemInfo", "to": "RarityTier", "width": 1}, {"arrows": "to", "from": "ItemInfo", "to": "Ability", "width": 1}, {"arrows": "to", "from": "ItemInfo", "to": "Inventory slot", "width": 1}, {"arrows": "to", "from": "ItemInfo", "to": "Statname/Data", "width": 1}, {"arrows": "to", "from": "IterativeInventorySlot", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "IterativeInventorySlot", "to": "Table", "width": 1}, {"arrows": "to", "from": "IterativeInventorySlot", "to": "String", "width": 1}, {"arrows": "to", "from": "JSON", "to": "Table", "width": 1}, {"arrows": "to", "from": "JSON", "to": "LibU", "width": 1}, {"arrows": "to", "from": "Kat", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Kat", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Kat", "to": "Table", "width": 1}, {"arrows": "to", "from": "Kat", "to": "String", "width": 1}, {"arrows": "to", "from": "Keypress", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Keypress", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "LibraryUtil", "to": "LibU", "width": 1}, {"arrows": "to", "from": "Link", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Link", "to": "String", "width": 1}, {"arrows": "to", "from": "Link", "to": "Table", "width": 1}, {"arrows": "to", "from": "Link", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Link", "to": "Color", "width": 1}, {"arrows": "to", "from": "Link", "to": "LibraryUtil", "width": 1}, {"arrows": "to", "from": "Link", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Link", "to": "Enchantment/Data", "width": 1}, {"arrows": "to", "from": "Link", "to": "Enchantment/Aliases", "width": 1}, {"arrows": "to", "from": "Link", "to": "Potion/Data", "width": 1}, {"arrows": "to", "from": "Link", "to": "Potion/Aliases", "width": 1}, {"arrows": "to", "from": "List", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "List", "to": "Loader", "width": 1}, {"arrows": "to", "from": "List", "to": "String", "width": 1}, {"arrows": "to", "from": "List", "to": "Table", "width": 1}, {"arrows": "to", "from": "List", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "List", "to": "Statname", "width": 1}, {"arrows": "to", "from": "List", "to": "Sprite", "width": 1}, {"arrows": "to", "from": "List", "to": "Item", "width": 1}, {"arrows": "to", "from": "List", "to": "Gemstone", "width": 1}, {"arrows": "to", "from": "List", "to": "Zone", "width": 1}, {"arrows": "to", "from": "LoadLib", "to": "LibraryUtil", "width": 1}, {"arrows": "to", "from": "LoadLib", "to": "LoadLib/Autoloads", "width": 1}, {"arrows": "to", "from": "Loader", "to": "Table", "width": 1}, {"arrows": "to", "from": "Loader", "to": "MakeClass", "width": 1}, {"arrows": "to", "from": "Loader", "to": "LibU", "width": 1}, {"arrows": "to", "from": "LuaFunction", "to": "Loader", "width": 1}, {"arrows": "to", "from": "LuaFunction", "to": "String", "width": 1}, {"arrows": "to", "from": "LuaFunction", "to": "Table", "width": 1}, {"arrows": "to", "from": "LuaFunction", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "LuaFunction", "to": "LibraryUtil", "width": 1}, {"arrows": "to", "from": "LuaFunction", "to": "Class", "width": 1}, {"arrows": "to", "from": "LuaFunction", "to": "Color", "width": 1}, {"arrows": "to", "from": "LuaFunction", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "MaintenanceChecker", "to": "Loader", "width": 1}, {"arrows": "to", "from": "MaintenanceChecker", "to": "String", "width": 1}, {"arrows": "to", "from": "MaintenanceChecker", "to": "Table", "width": 1}, {"arrows": "to", "from": "MaintenanceChecker", "to": "LibU", "width": 1}, {"arrows": "to", "from": "MaintenanceChecker", "to": "Pet/Data", "width": 1}, {"arrows": "to", "from": "MaintenanceChecker", "to": "Minion/Data", "width": 1}, {"arrows": "to", "from": "MaintenanceChecker", "to": "Minion/Aliases", "width": 1}, {"arrows": "to", "from": "MaintenanceChecker", "to": "RarityTier/Data", "width": 1}, {"arrows": "to", "from": "MaintenanceChecker", "to": "Statname/Data", "width": 1}, {"arrows": "to", "from": "MaintenanceChecker", "to": "Skillname/Data", "width": 1}, {"arrows": "to", "from": "MaintenanceChecker", "to": "Collection/Data", "width": 1}, {"arrows": "to", "from": "MaintenanceChecker", "to": "Staff/Members", "width": 1}, {"arrows": "to", "from": "MaintenanceChecker", "to": "Enchantment/Data", "width": 1}, {"arrows": "to", "from": "MaintenanceChecker", "to": "Potion/Data", "width": 1}, {"arrows": "to", "from": "MaintenanceChecker", "to": "Inventory slot/Datasheet", "width": 1}, {"arrows": "to", "from": "MakeClass", "to": "Table", "width": 1}, {"arrows": "to", "from": "MakeClass", "to": "LibU", "width": 1}, {"arrows": "to", "from": "Mayor", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Mayor", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Mayor", "to": "Mayor/Elections/Data", "width": 1}, {"arrows": "to", "from": "Mayor", "to": "Mayor/Elections/ApiData", "width": 1}, {"arrows": "to", "from": "Mayor", "to": "Mayor/Data", "width": 1}, {"arrows": "to", "from": "Mayor", "to": "String", "width": 1}, {"arrows": "to", "from": "Mayor", "to": "Table", "width": 1}, {"arrows": "to", "from": "Mayor", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Mayor", "to": "SBTE", "width": 1}, {"arrows": "to", "from": "Mayor/Elections/ApiData", "to": "Mayor/Data", "width": 1}, {"arrows": "to", "from": "Mayor/Elections/Data", "to": "Mayor/Data", "width": 1}, {"arrows": "to", "from": "Mayor/UI", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Mayor/UI", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Mayor/UI", "to": "String", "width": 1}, {"arrows": "to", "from": "Mayor/UI", "to": "Table", "width": 1}, {"arrows": "to", "from": "Mayor/UI", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Mayor/UI", "to": "Mayor", "width": 1}, {"arrows": "to", "from": "Mayor/UI", "to": "Inventory slot/Utils", "width": 1}, {"arrows": "to", "from": "Mayor/UI", "to": "LibraryUtil", "width": 1}, {"arrows": "to", "from": "Mayor/UI", "to": "Mayor/Data", "width": 1}, {"arrows": "to", "from": "Mayor/UI", "to": "Mayor/Elections", "width": 1}, {"arrows": "to", "from": "Mbox", "to": "Dev:Mbox", "width": 1}, {"arrows": "to", "from": "Mbox", "to": "Dev:Arguments", "width": 1}, {"arrows": "to", "from": "Mbox", "to": "Mbox/data", "width": 1}, {"arrows": "to", "from": "Mctxt", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Minimap", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Minimap", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Minimap", "to": "String", "width": 1}, {"arrows": "to", "from": "Minimap", "to": "Table", "width": 1}, {"arrows": "to", "from": "Minimap", "to": "SafeResponse", "width": 1}, {"arrows": "to", "from": "Minimap", "to": "Minimap/Data", "width": 1}, {"arrows": "to", "from": "Minimap", "to": "Minimap/Datasheet", "width": 1}, {"arrows": "to", "from": "Minimap", "to": "Minimap/Aliases", "width": 1}, {"arrows": "to", "from": "Minimap", "to": "Zone/Data", "width": 1}, {"arrows": "to", "from": "Minimap", "to": "Zone/Aliases", "width": 1}, {"arrows": "to", "from": "Minion", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Minion", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Minion", "to": "String", "width": 1}, {"arrows": "to", "from": "Minion", "to": "Table", "width": 1}, {"arrows": "to", "from": "Minion", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Minion", "to": "LibU", "width": 1}, {"arrows": "to", "from": "Minion", "to": "SafeResponse", "width": 1}, {"arrows": "to", "from": "Minion", "to": "String/Templates", "width": 1}, {"arrows": "to", "from": "Minion", "to": "Inventory slot", "width": 1}, {"arrows": "to", "from": "Minion", "to": "Bazaar", "width": 1}, {"arrows": "to", "from": "Minion", "to": "Color", "width": 1}, {"arrows": "to", "from": "Minion", "to": "Currency", "width": 1}, {"arrows": "to", "from": "Minion", "to": "Item", "width": 1}, {"arrows": "to", "from": "Minion", "to": "Crafting/UI", "width": 1}, {"arrows": "to", "from": "Minion", "to": "Skillname", "width": 1}, {"arrows": "to", "from": "Minion", "to": "Minion/Data", "width": 1}, {"arrows": "to", "from": "Minion", "to": "Collection/Data", "width": 1}, {"arrows": "to", "from": "Minion", "to": "Minion/Aliases", "width": 1}, {"arrows": "to", "from": "Minion/MinionPageRow", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Minion/MinionPageRow", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Minion/MinionPageRow", "to": "String", "width": 1}, {"arrows": "to", "from": "Minion/MinionPageRow", "to": "Table", "width": 1}, {"arrows": "to", "from": "Minion/MinionPageRow", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Minion/MinionPageRow", "to": "String/Templates", "width": 1}, {"arrows": "to", "from": "Minion/MinionPageRow", "to": "Minion", "width": 1}, {"arrows": "to", "from": "Minion/MinionPageRow", "to": "Minion/Data", "width": 1}, {"arrows": "to", "from": "Minion/MinionPageRow", "to": "Minion/Aliases", "width": 1}, {"arrows": "to", "from": "Minion/Templates", "to": "String", "width": 1}, {"arrows": "to", "from": "Minion/Templates", "to": "Table", "width": 1}, {"arrows": "to", "from": "Minion/Templates", "to": "Minion", "width": 1}, {"arrows": "to", "from": "Minion/Templates", "to": "Minion/Data", "width": 1}, {"arrows": "to", "from": "Minion/UI", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Minion/UI", "to": "String", "width": 1}, {"arrows": "to", "from": "Minion/UI", "to": "Table", "width": 1}, {"arrows": "to", "from": "Minion/UI", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Minion/UI", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Minion/UI", "to": "Inventory slot", "width": 1}, {"arrows": "to", "from": "Minion/UI", "to": "Crafting/UI", "width": 1}, {"arrows": "to", "from": "Minion/UI", "to": "UI/Core", "width": 1}, {"arrows": "to", "from": "Minion/UI", "to": "Minion", "width": 1}, {"arrows": "to", "from": "Misc", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Misc", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Misc", "to": "String", "width": 1}, {"arrows": "to", "from": "Misc", "to": "Table", "width": 1}, {"arrows": "to", "from": "Misc", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Mob", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Mob", "to": "String", "width": 1}, {"arrows": "to", "from": "Mob", "to": "Table", "width": 1}, {"arrows": "to", "from": "Mob", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Mob", "to": "Format", "width": 1}, {"arrows": "to", "from": "Mob", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Mob", "to": "Odds", "width": 1}, {"arrows": "to", "from": "Mob", "to": "Item", "width": 1}, {"arrows": "to", "from": "Mob", "to": "RarityTier", "width": 1}, {"arrows": "to", "from": "Mob", "to": "Sprite", "width": 1}, {"arrows": "to", "from": "Mob", "to": "Notice", "width": 1}, {"arrows": "to", "from": "Mob", "to": "Color", "width": 1}, {"arrows": "to", "from": "Mob", "to": "Statname/Data", "width": 1}, {"arrows": "to", "from": "MultiRequire", "to": "LibraryUtil", "width": 1}, {"arrows": "to", "from": "NPCPriceSpread", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "NPCPriceSpread", "to": "Table", "width": 1}, {"arrows": "to", "from": "NPCPriceSpread", "to": "String", "width": 1}, {"arrows": "to", "from": "NPCPriceSpread", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Namespace detect", "to": "Dev:Namespace detect", "width": 1}, {"arrows": "to", "from": "Navbar", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Navigation Bar", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Navigation Bar", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "NoteSequence", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "NoteSequence", "to": "String", "width": 1}, {"arrows": "to", "from": "NoteSequence", "to": "Table", "width": 1}, {"arrows": "to", "from": "NoteSequence", "to": "Color", "width": 1}, {"arrows": "to", "from": "NoteSequence/testcases", "to": "NoteSequence", "width": 1}, {"arrows": "to", "from": "NoteSequence/testcases", "to": "ScribuntoUnit", "width": 1}, {"arrows": "to", "from": "Notice", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Notice", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Notice", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Notice", "to": "Color", "width": 1}, {"arrows": "to", "from": "Notice", "to": "Mainonly", "width": 1}, {"arrows": "to", "from": "Notice", "to": "Notice/Data", "width": 1}, {"arrows": "to", "from": "NumberSpell", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Odds", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Odds", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Odds", "to": "String", "width": 1}, {"arrows": "to", "from": "Odds", "to": "Table", "width": 1}, {"arrows": "to", "from": "Odds", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Odds", "to": "Color", "width": 1}, {"arrows": "to", "from": "Odds", "to": "LibraryUtil", "width": 1}, {"arrows": "to", "from": "Odds", "to": "Odds/Data", "width": 1}, {"arrows": "to", "from": "Odds", "to": "Odds/Aliases", "width": 1}, {"arrows": "to", "from": "Page", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Page", "to": "LibU", "width": 1}, {"arrows": "to", "from": "Page", "to": "CallAssert", "width": 1}, {"arrows": "to", "from": "Page", "to": "Protect", "width": 1}, {"arrows": "to", "from": "Page Actions", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Page Actions", "to": "String", "width": 1}, {"arrows": "to", "from": "Page Actions", "to": "Page Actions/Aliases", "width": 1}, {"arrows": "to", "from": "Page Actions", "to": "Page Actions/Data", "width": 1}, {"arrows": "to", "from": "ParserFunctions", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "ParserFunctions", "to": "String", "width": 1}, {"arrows": "to", "from": "ParserFunctions", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Pet", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Pet", "to": "String", "width": 1}, {"arrows": "to", "from": "Pet", "to": "Table", "width": 1}, {"arrows": "to", "from": "Pet", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Pet", "to": "LibU", "width": 1}, {"arrows": "to", "from": "Pet", "to": "Color", "width": 1}, {"arrows": "to", "from": "Pet", "to": "Currency", "width": 1}, {"arrows": "to", "from": "Pet", "to": "Ability", "width": 1}, {"arrows": "to", "from": "Pet", "to": "RarityTier", "width": 1}, {"arrows": "to", "from": "Pet", "to": "Statname", "width": 1}, {"arrows": "to", "from": "Pet", "to": "Inventory slot", "width": 1}, {"arrows": "to", "from": "Pet", "to": "Inventory slot/Utils", "width": 1}, {"arrows": "to", "from": "Pet", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Pet", "to": "Pet/Utils", "width": 1}, {"arrows": "to", "from": "Pet", "to": "Pet/LevelingData", "width": 1}, {"arrows": "to", "from": "Pet", "to": "UIText/Data", "width": 1}, {"arrows": "to", "from": "Pet", "to": "Color/Aliases", "width": 1}, {"arrows": "to", "from": "Pet", "to": "RarityTier/Aliases", "width": 1}, {"arrows": "to", "from": "Pet Item", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Pet Item", "to": "Table", "width": 1}, {"arrows": "to", "from": "Pet Item", "to": "UIText", "width": 1}, {"arrows": "to", "from": "Pet Item", "to": "Pet Item/Data", "width": 1}, {"arrows": "to", "from": "Pet/LevelingData", "to": "Table", "width": 1}, {"arrows": "to", "from": "Pet/Templates", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Pet/Templates", "to": "String", "width": 1}, {"arrows": "to", "from": "Pet/Templates", "to": "Table", "width": 1}, {"arrows": "to", "from": "Pet/Templates", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Pet/Templates", "to": "RarityTier", "width": 1}, {"arrows": "to", "from": "Pet/Templates", "to": "Statname", "width": 1}, {"arrows": "to", "from": "Pet/Templates", "to": "Pet/Utils", "width": 1}, {"arrows": "to", "from": "Pet/Templates", "to": "Pet/Data", "width": 1}, {"arrows": "to", "from": "Pet/Templates", "to": "Pet/Skins", "width": 1}, {"arrows": "to", "from": "Pet/Templates", "to": "RarityTier/Aliases", "width": 1}, {"arrows": "to", "from": "Pet/UI", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Pet/UI", "to": "Pet/Data", "width": 1}, {"arrows": "to", "from": "Pet/UI", "to": "RarityTier/Data", "width": 1}, {"arrows": "to", "from": "Pet/UI", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Pet/UI", "to": "String", "width": 1}, {"arrows": "to", "from": "Pet/UI", "to": "Table", "width": 1}, {"arrows": "to", "from": "Pet/UI", "to": "RarityTier", "width": 1}, {"arrows": "to", "from": "Pet/UI", "to": "UI/Core", "width": 1}, {"arrows": "to", "from": "Pet/UI", "to": "Pet/Utils", "width": 1}, {"arrows": "to", "from": "Pet/UI", "to": "UIText", "width": 1}, {"arrows": "to", "from": "Pet/UI", "to": "RarityTier/Aliases", "width": 1}, {"arrows": "to", "from": "Pet/UI", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Pet/UI", "to": "Inventory slot", "width": 1}, {"arrows": "to", "from": "Pet/UI", "to": "Statname", "width": 1}, {"arrows": "to", "from": "Pet/UI", "to": "Ability", "width": 1}, {"arrows": "to", "from": "Pet/UI", "to": "Color", "width": 1}, {"arrows": "to", "from": "Pet/UI", "to": "Color/Aliases", "width": 1}, {"arrows": "to", "from": "Pet/Utils", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Pet/Utils", "to": "String", "width": 1}, {"arrows": "to", "from": "Pet/Utils", "to": "Table", "width": 1}, {"arrows": "to", "from": "Pet/Utils", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Pet/Utils", "to": "RarityTier", "width": 1}, {"arrows": "to", "from": "Pet/Utils", "to": "Inventory slot", "width": 1}, {"arrows": "to", "from": "Pet/Utils", "to": "Statname", "width": 1}, {"arrows": "to", "from": "Pet/Utils", "to": "Pet Item", "width": 1}, {"arrows": "to", "from": "Pet/Utils", "to": "Pet/Data", "width": 1}, {"arrows": "to", "from": "Pet/Utils", "to": "Pet/Aliases", "width": 1}, {"arrows": "to", "from": "Pet/Utils", "to": "RarityTier/Aliases", "width": 1}, {"arrows": "to", "from": "Potion", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Potion", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Potion", "to": "String", "width": 1}, {"arrows": "to", "from": "Potion", "to": "Table", "width": 1}, {"arrows": "to", "from": "Potion", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Potion", "to": "UIText", "width": 1}, {"arrows": "to", "from": "Potion", "to": "Potion/Data", "width": 1}, {"arrows": "to", "from": "Potion", "to": "Potion/Aliases", "width": 1}, {"arrows": "to", "from": "Potion/PotionPageRow", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Potion/PotionPageRow", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Potion/PotionPageRow", "to": "String", "width": 1}, {"arrows": "to", "from": "Potion/PotionPageRow", "to": "Table", "width": 1}, {"arrows": "to", "from": "Potion/PotionPageRow", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Potion/PotionPageRow", "to": "UIText", "width": 1}, {"arrows": "to", "from": "Potion/PotionPageRow", "to": "Inventory slot", "width": 1}, {"arrows": "to", "from": "Potion/PotionPageRow", "to": "Link", "width": 1}, {"arrows": "to", "from": "Potion/PotionPageRow", "to": "RarityTier", "width": 1}, {"arrows": "to", "from": "Potion/PotionPageRow", "to": "Potion/Data", "width": 1}, {"arrows": "to", "from": "Potion/PotionPageRow", "to": "Potion/Aliases", "width": 1}, {"arrows": "to", "from": "Potion/UI", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Potion/UI", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Potion/UI", "to": "Cache", "width": 1}, {"arrows": "to", "from": "Potion/UI", "to": "String", "width": 1}, {"arrows": "to", "from": "Potion/UI", "to": "Table", "width": 1}, {"arrows": "to", "from": "Potion/UI", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Potion/UI", "to": "Potion", "width": 1}, {"arrows": "to", "from": "Potion/UI", "to": "UI/Core", "width": 1}, {"arrows": "to", "from": "Power", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Power", "to": "Statname", "width": 1}, {"arrows": "to", "from": "Power", "to": "Color", "width": 1}, {"arrows": "to", "from": "Power", "to": "List", "width": 1}, {"arrows": "to", "from": "Power", "to": "Statname/Aliases", "width": 1}, {"arrows": "to", "from": "Quote", "to": "Dev:Quote", "width": 1}, {"arrows": "to", "from": "Random", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Random", "to": "Random/Dependencies", "width": 1}, {"arrows": "to", "from": "Random/Dependencies", "to": "LibraryUtil", "width": 1}, {"arrows": "to", "from": "Random/Modifications/ThatIPEditor", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Random/Modifications/ThatIPEditor", "to": "List", "width": 1}, {"arrows": "to", "from": "Rank", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Rank", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Rank", "to": "String", "width": 1}, {"arrows": "to", "from": "Rank", "to": "Table", "width": 1}, {"arrows": "to", "from": "Rank", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Rank", "to": "Rank/Data", "width": 1}, {"arrows": "to", "from": "Rank", "to": "Rank/Aliases", "width": 1}, {"arrows": "to", "from": "RarityTier", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "RarityTier", "to": "Loader", "width": 1}, {"arrows": "to", "from": "RarityTier", "to": "String", "width": 1}, {"arrows": "to", "from": "RarityTier", "to": "Table", "width": 1}, {"arrows": "to", "from": "RarityTier", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "RarityTier", "to": "Color", "width": 1}, {"arrows": "to", "from": "RarityTier", "to": "Mainonly", "width": 1}, {"arrows": "to", "from": "RarityTier", "to": "RarityTier/Aliases", "width": 1}, {"arrows": "to", "from": "RarityTier", "to": "RarityTier/Data", "width": 1}, {"arrows": "to", "from": "RarityTier", "to": "Color/Data", "width": 1}, {"arrows": "to", "from": "Reforge", "to": "LoadLib", "width": 1}, {"arrows": "to", "from": "Reforge", "to": "Reforge/Data", "width": 1}, {"arrows": "to", "from": "Relations", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Relations", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Relations", "to": "String", "width": 1}, {"arrows": "to", "from": "Reply to", "to": "String", "width": 1}, {"arrows": "to", "from": "Report", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Report", "to": "String", "width": 1}, {"arrows": "to", "from": "Report", "to": "Table", "width": 1}, {"arrows": "to", "from": "Report", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Report", "to": "LibU", "width": 1}, {"arrows": "to", "from": "Report", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Report", "to": "User", "width": 1}, {"arrows": "to", "from": "RightBox", "to": "Loader", "width": 1}, {"arrows": "to", "from": "RightBox", "to": "String", "width": 1}, {"arrows": "to", "from": "RightBox", "to": "Table", "width": 1}, {"arrows": "to", "from": "RightBox", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "RightBox", "to": "LibU", "width": 1}, {"arrows": "to", "from": "RightBox", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "RomanNumeral", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "SBTC", "to": "SBTE", "width": 1}, {"arrows": "to", "from": "SBTE", "to": "Class", "width": 1}, {"arrows": "to", "from": "SafeResponse", "to": "Loader", "width": 1}, {"arrows": "to", "from": "SafeResponse", "to": "String/Templates", "width": 1}, {"arrows": "to", "from": "SafeResponse", "to": "JSON", "width": 1}, {"arrows": "to", "from": "SafeResponse", "to": "SafeResponse/Data", "width": 1}, {"arrows": "to", "from": "ScribuntoUnit", "to": "Dev:ScribuntoUnit", "width": 1}, {"arrows": "to", "from": "ScribuntoUnit/config", "to": "Dev:ScribuntoUnit/config", "width": 1}, {"arrows": "to", "from": "SeaCreature", "to": "String", "width": 1}, {"arrows": "to", "from": "SeaCreature", "to": "Table", "width": 1}, {"arrows": "to", "from": "SeaCreature", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "SeaCreature", "to": "SeaCreature/Datasheet", "width": 1}, {"arrows": "to", "from": "Sidebar", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Sidebar", "to": "Navbar", "width": 1}, {"arrows": "to", "from": "Skillname", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Skillname", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Skillname", "to": "String", "width": 1}, {"arrows": "to", "from": "Skillname", "to": "Table", "width": 1}, {"arrows": "to", "from": "Skillname", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Skillname", "to": "Color", "width": 1}, {"arrows": "to", "from": "Skillname", "to": "LibU", "width": 1}, {"arrows": "to", "from": "Skillname", "to": "Skillname/Data", "width": 1}, {"arrows": "to", "from": "Skillname", "to": "Skillname/Aliases", "width": 1}, {"arrows": "to", "from": "Sprite", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Sprite", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Sprite", "to": "String", "width": 1}, {"arrows": "to", "from": "Sprite", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Sprite", "to": "LibU", "width": 1}, {"arrows": "to", "from": "Sprite", "to": "Mob/Sprites", "width": 1}, {"arrows": "to", "from": "Sprite", "to": "NPC/Sprites", "width": 1}, {"arrows": "to", "from": "Sprite", "to": "Location/Sprites", "width": 1}, {"arrows": "to", "from": "Sprite", "to": "Mob/Aliases", "width": 1}, {"arrows": "to", "from": "Sprite", "to": "NPC/Aliases", "width": 1}, {"arrows": "to", "from": "Sprite", "to": "Location/Aliases", "width": 1}, {"arrows": "to", "from": "Staff", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Staff", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Staff", "to": "String", "width": 1}, {"arrows": "to", "from": "Staff", "to": "Table", "width": 1}, {"arrows": "to", "from": "Staff", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Staff", "to": "LibU", "width": 1}, {"arrows": "to", "from": "Staff", "to": "User", "width": 1}, {"arrows": "to", "from": "Staff", "to": "Staff/Data", "width": 1}, {"arrows": "to", "from": "Staff", "to": "User/Data", "width": 1}, {"arrows": "to", "from": "Staff", "to": "User/Aliases", "width": 1}, {"arrows": "to", "from": "Staff", "to": "Staff/Members", "width": 1}, {"arrows": "to", "from": "Statname", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Statname", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Statname", "to": "String", "width": 1}, {"arrows": "to", "from": "Statname", "to": "String/Templates", "width": 1}, {"arrows": "to", "from": "Statname", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Statname", "to": "Color", "width": 1}, {"arrows": "to", "from": "Statname", "to": "SafeResponse", "width": 1}, {"arrows": "to", "from": "Statname", "to": "Statname/Aliases", "width": 1}, {"arrows": "to", "from": "Statname", "to": "Statname/Data", "width": 1}, {"arrows": "to", "from": "Statname/GenerateTemplateInfo", "to": "MultiRequire", "width": 1}, {"arrows": "to", "from": "Statname/GenerateTemplateInfo", "to": "Statname", "width": 1}, {"arrows": "to", "from": "String", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "String", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "String", "to": "LibU", "width": 1}, {"arrows": "to", "from": "String", "to": "Table", "width": 1}, {"arrows": "to", "from": "String", "to": "String/Lorem", "width": 1}, {"arrows": "to", "from": "String/Templates", "to": "Loader", "width": 1}, {"arrows": "to", "from": "String/Templates", "to": "String", "width": 1}, {"arrows": "to", "from": "String/Templates", "to": "Table", "width": 1}, {"arrows": "to", "from": "String/Templates", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "String/Templates", "to": "Color", "width": 1}, {"arrows": "to", "from": "String/Templates", "to": "Mctxt", "width": 1}, {"arrows": "to", "from": "String/Templates", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "T", "to": "Dev:Arguments", "width": 1}, {"arrows": "to", "from": "T", "to": "Dev:User error", "width": 1}, {"arrows": "to", "from": "T", "to": "Dev:Yesno", "width": 1}, {"arrows": "to", "from": "Tabber", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Table", "to": "LibU", "width": 1}, {"arrows": "to", "from": "Tabview", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Tabview", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Tabview", "to": "String", "width": 1}, {"arrows": "to", "from": "Tabview", "to": "Table", "width": 1}, {"arrows": "to", "from": "Tabview", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Tabview", "to": "JSON", "width": 1}, {"arrows": "to", "from": "Tag", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Tag", "to": "String", "width": 1}, {"arrows": "to", "from": "Template link general", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "TemplateList", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Testharness", "to": "Dev:Testharness", "width": 1}, {"arrows": "to", "from": "Time ago", "to": "NumberSpell", "width": 1}, {"arrows": "to", "from": "Time ago", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Time ago", "to": "Date", "width": 1}, {"arrows": "to", "from": "Time ago", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "TooltipText", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "TooltipText", "to": "Loader", "width": 1}, {"arrows": "to", "from": "TooltipText", "to": "String", "width": 1}, {"arrows": "to", "from": "TooltipText", "to": "Table", "width": 1}, {"arrows": "to", "from": "TooltipText", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "TooltipText", "to": "UIText", "width": 1}, {"arrows": "to", "from": "TooltipText", "to": "Cache", "width": 1}, {"arrows": "to", "from": "UI", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "UI", "to": "Loader", "width": 1}, {"arrows": "to", "from": "UI", "to": "String", "width": 1}, {"arrows": "to", "from": "UI", "to": "Table", "width": 1}, {"arrows": "to", "from": "UI", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "UI", "to": "UIText", "width": 1}, {"arrows": "to", "from": "UI", "to": "Inventory slot", "width": 1}, {"arrows": "to", "from": "UI", "to": "Crafting", "width": 1}, {"arrows": "to", "from": "UI", "to": "UI/Core", "width": 1}, {"arrows": "to", "from": "UI", "to": "Random", "width": 1}, {"arrows": "to", "from": "UI", "to": "Mctxt", "width": 1}, {"arrows": "to", "from": "UI/Core", "to": "Loader", "width": 1}, {"arrows": "to", "from": "UI/Core", "to": "Class", "width": 1}, {"arrows": "to", "from": "UI/Core", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "UI/Core", "to": "Inventory slot", "width": 1}, {"arrows": "to", "from": "UI/Core", "to": "Random", "width": 1}, {"arrows": "to", "from": "UI/Core", "to": "Color/Data", "width": 1}, {"arrows": "to", "from": "UIText", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "UIText", "to": "Loader", "width": 1}, {"arrows": "to", "from": "UIText", "to": "String", "width": 1}, {"arrows": "to", "from": "UIText", "to": "Table", "width": 1}, {"arrows": "to", "from": "UIText", "to": "LibraryUtil", "width": 1}, {"arrows": "to", "from": "UIText", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "UIText", "to": "Statname", "width": 1}, {"arrows": "to", "from": "UIText", "to": "Statname/Aliases", "width": 1}, {"arrows": "to", "from": "UIText", "to": "RarityTier", "width": 1}, {"arrows": "to", "from": "UIText", "to": "Zone", "width": 1}, {"arrows": "to", "from": "UIText", "to": "Potion/Data", "width": 1}, {"arrows": "to", "from": "UIText", "to": "Potion/Aliases", "width": 1}, {"arrows": "to", "from": "UIText", "to": "Enchantment/Data", "width": 1}, {"arrows": "to", "from": "UIText", "to": "Enchantment/Aliases", "width": 1}, {"arrows": "to", "from": "UIText", "to": "RarityTier/Data", "width": 1}, {"arrows": "to", "from": "UIText", "to": "RarityTier/Aliases", "width": 1}, {"arrows": "to", "from": "UIText", "to": "Color/Aliases", "width": 1}, {"arrows": "to", "from": "UIText", "to": "UIText/Data", "width": 1}, {"arrows": "to", "from": "UIText", "to": "Gemstone/Data", "width": 1}, {"arrows": "to", "from": "UIText", "to": "Zone/Data", "width": 1}, {"arrows": "to", "from": "User", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "User", "to": "Loader", "width": 1}, {"arrows": "to", "from": "User", "to": "String", "width": 1}, {"arrows": "to", "from": "User", "to": "Table", "width": 1}, {"arrows": "to", "from": "User", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "User", "to": "LibU", "width": 1}, {"arrows": "to", "from": "User", "to": "User/Data", "width": 1}, {"arrows": "to", "from": "User", "to": "User/Aliases", "width": 1}, {"arrows": "to", "from": "Userbox", "to": "String", "width": 1}, {"arrows": "to", "from": "Userbox", "to": "Table", "width": 1}, {"arrows": "to", "from": "Userbox", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Userbox", "to": "Userbox/Skins", "width": 1}, {"arrows": "to", "from": "VariablesLuaUtil", "to": "Binser", "width": 1}, {"arrows": "to", "from": "VarsCacheMap", "to": "VariablesLuaUtil", "width": 1}, {"arrows": "to", "from": "VarsCacheMap", "to": "Class", "width": 1}, {"arrows": "to", "from": "VarsCacheMap", "to": "LibU", "width": 1}, {"arrows": "to", "from": "VarsCacheMap", "to": "Mw.ext.LuaCache", "width": 1}, {"arrows": "to", "from": "Weapon", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Weapon", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Weapon", "to": "String", "width": 1}, {"arrows": "to", "from": "Weapon", "to": "Table", "width": 1}, {"arrows": "to", "from": "Weapon", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Weapon", "to": "Statname", "width": 1}, {"arrows": "to", "from": "Weapon", "to": "Currency", "width": 1}, {"arrows": "to", "from": "Weapon", "to": "RarityTier", "width": 1}, {"arrows": "to", "from": "Weapon", "to": "Mainonly", "width": 1}, {"arrows": "to", "from": "Weapon", "to": "Color", "width": 1}, {"arrows": "to", "from": "Weapon", "to": "Armor/StatsList", "width": 1}, {"arrows": "to", "from": "Weapon", "to": "Weapon/Data", "width": 1}, {"arrows": "to", "from": "Weapon", "to": "Weapon/Aliases", "width": 1}, {"arrows": "to", "from": "Weapon", "to": "Statname/Data", "width": 1}, {"arrows": "to", "from": "Weapon", "to": "Statname/Aliases", "width": 1}, {"arrows": "to", "from": "Wikitable", "to": "WP:Wikitable", "width": 1}, {"arrows": "to", "from": "Yesno/template", "to": "String", "width": 1}, {"arrows": "to", "from": "Yesno/template", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Yesno/template", "to": "Yesno", "width": 1}, {"arrows": "to", "from": "Zone", "to": "Arguments", "width": 1}, {"arrows": "to", "from": "Zone", "to": "Loader", "width": 1}, {"arrows": "to", "from": "Zone", "to": "String", "width": 1}, {"arrows": "to", "from": "Zone", "to": "Table", "width": 1}, {"arrows": "to", "from": "Zone", "to": "Color", "width": 1}, {"arrows": "to", "from": "Zone", "to": "Zone/Data", "width": 1}, {"arrows": "to", "from": "Zone", "to": "Zone/Aliases", "width": 1}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "layout": {
+        "hierarchical": {
+            "blockShifting": true,
+            "edgeMinimization": true,
+            "enabled": true,
+            "levelSeparation": 150,
+            "parentCentralization": true,
+            "sortMethod": "hubsize",
+            "treeSpacing": 200
+        },
+        "improvedLayout": true,
+        "randomSeed": 0
+    },
+    "physics": {
+        "enabled": true,
+        "hierarchicalRepulsion": {
+            "centralGravity": 10,
+            "damping": 0.09,
+            "nodeDistance": 300,
+            "springConstant": 0.01,
+            "springLength": 100
+        },
+        "solver": "hierarchicalRepulsion",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+                  // if this network requires displaying the configure window,
+                  // put it in its div
+                  options.configure["container"] = document.getElementById("config");
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+                    network.on("click", neighbourhoodHighlight);
+                  
+
+                  
+                    network.on("selectNode", neighbourhoodHighlight);
+                  
+
+                  
+
+
+                  
+                      network.on("stabilizationProgress", function(params) {
+                          document.getElementById('loadingBar').removeAttribute("style");
+                          var maxWidth = 496;
+                          var minWidth = 20;
+                          var widthFactor = params.iterations/params.total;
+                          var width = Math.max(minWidth,maxWidth * widthFactor);
+                          document.getElementById('bar').style.width = width + 'px';
+                          document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+                      });
+                      network.once("stabilizationIterationsDone", function() {
+                          document.getElementById('text').innerHTML = '100%';
+                          document.getElementById('bar').style.width = '496px';
+                          document.getElementById('loadingBar').style.opacity = 0;
+                          // really clean the dom element
+                          setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+                      });
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

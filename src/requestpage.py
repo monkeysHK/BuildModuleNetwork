@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import requests, re, sys
-
 # This module is to support `makegraph.py`.
+
+import requests, re, sys
 
 # Since we have no loadlib support,
 # loadlib dependencies has to be added to this list
@@ -40,6 +40,7 @@ def makePageListRequest(apcontinue, apnamespace):
         "aplimit": "1000",
         "apcontinue": apcontinue,
         "apnamespace": apnamespace,
+        "maxlag": 5,
     }
     try:
         resp = requests.get("https://hypixel-skyblock.fandom.com/api.php", params=payload)
@@ -48,7 +49,7 @@ def makePageListRequest(apcontinue, apnamespace):
     except Exception as e:
         print("Errored in requesting list from page: " + apcontinue)
         print(e)
-        print(data)
+        print(resp)
         print("Exiting")
         sys.exit()
 
