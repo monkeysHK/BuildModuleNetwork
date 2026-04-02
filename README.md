@@ -2,14 +2,14 @@
 
 This is a fun project to build a graph visualization for the module dependencies of Hypixel SkyBlock Wiki.
 
-View it on:  
+You can view the demo on:  
 https://monkeyshk.github.io/BuildModuleNetwork/default.html  
 https://monkeyshk.github.io/BuildModuleNetwork/hierarchical.html  
 
 ## Screenshots
 
-![Screenshot for Default Version](/screenshot-default.jpg)
-![Screenshot for Hierarchical Version](/screenshot-hierarchical.jpg)
+![Screenshot for Default Version](./assets/screenshot-default.jpg)
+![Screenshot for Hierarchical Version](./assets/screenshot-hierarchical.jpg)
 
 ## Structure
 
