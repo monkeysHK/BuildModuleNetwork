@@ -13,7 +13,7 @@ https://monkeyshk.github.io/BuildModuleNetwork/hierarchical.html
 
 ## Structure
 
-The source files are in the `src` directory. The generated intermediate files are in the `build` directory. The generated HTML file is in the `docs` directory.
+The source files are in the `src` directory. The generated intermediate files are in the `build` directory. The generated HTML files is in the `docs` directory.
 
 ## Running
 
@@ -25,7 +25,7 @@ conda activate buildmodulenetwork
 conda install --file requirements.txt -y
 ```
 
-First, generate the module dependency graph:
+First, generate the module dependency graph information:
 
 ```
 python src/makegraph.py
@@ -33,23 +33,27 @@ python src/makegraph.py
 
 This updates the intermediate files in the `build` directory.
 
-Then, generate the HTML file:
+Then, generate the HTML files:
 
 ```
 python src/buildnetwork.py
 ```
 
-This creates the HTML file in the `docs` directory.
+This updates the HTML files in the `docs` directory.
 
 ## How It Works
 
-With a user-defined list or an API requested list of all module pages as starting pages, using BFS, the program will crawl through its dependencies, dependencies of dependencies, and so on.
+With a user-defined list or an API requested list of all module pages as starting pages, using BFS, the program crawls through its dependencies, dependencies of dependencies, and so on.
 
-To get the dependencies, the program will first request the page content using MediaWiki's API, then detect its module dependencies.
+To get the dependencies, the program first requests the page content using MediaWiki's API, then detects its module dependencies. The detection of module dependencies is solely string pattern detection based on how wiki users import their modules.
 
-The detection of module dependencies is solely string pattern detection based on how wiki users import their modules.
+The module types are also detected. A module is categorized as a data module if it is imported with `loadData` at any time. A module is categorized as an external module if the page cannot be found on the wiki.
 
 After that, it builds the nodes and edges in a directed graph following the USES and COMPRISES relation. Note that this program cannot differentiate between USES and COMPRISES relations. We call all of them USES relations for convenience. If module A imports (USES) module B, an arrow points from A to B.
+
+The nodes are colored differently based on their types (module, data module, external module). The size of the node is proportional to on the number of modules that USES it.
+
+The node levels are calculated to support the hierarchical version. Here, a node is at level N if all its outgoing neighbors are at no more than level N-1, among which at least one is at level N-1. Non-external modules that do not USE any other non-external module have nodes at level 0. External module nodes are at a special level of -1.
 
 ## Changelog
 
