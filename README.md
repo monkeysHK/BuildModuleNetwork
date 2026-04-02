@@ -49,9 +49,9 @@ To get the dependencies, the program first requests the page content using Media
 
 The module types are also detected. A module is categorized as a data module if it is imported with `loadData` at any time. A module is categorized as an external module if the page cannot be found on the wiki.
 
-After that, it builds the nodes and edges in a directed graph following the USES and COMPRISES relation. Note that this program cannot differentiate between USES and COMPRISES relations. We call all of them USES relations for convenience. If module A imports (USES) module B, an arrow points from A to B.
+After that, it builds the nodes and edges in a directed graph following the USES and COMPRISES relation. Note that this program cannot differentiate between USES and COMPRISES relations. We call all of them USES relations for convenience. If module A imports (USES) module B, an arrow points from the node of A to the node of B.
 
-The nodes are colored differently based on their types (module, data module, external module). The size of the node is proportional to on the number of modules that USES it.
+The nodes are colored differently based on the module type (module, data module, external module). The size of the node is proportional to on the number of incoming neighbors.
 
 The node levels are calculated to support the hierarchical version. Here, a node is at level N if all its outgoing neighbors are at no more than level N-1, among which at least one is at level N-1. Non-external modules that do not USE any other non-external module have nodes at level 0. External module nodes are at a special level of -1.
 
