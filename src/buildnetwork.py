@@ -37,9 +37,9 @@ def findNodeLevels(usesRelationsMap: dict[str, list[str]], externalPages: list[s
         if node in nodeLevels:
             return nodeLevels[node]
         if node in visiting:
-            raise ValueError(f"Cycle detected at node: {node}")
+            raise ValueError(f"Cycle detected at node {node}: {' -> '.join(visiting)} -> {node}")
 
-        visiting.add(node)
+        visiting.append(node)
         try:
             if node in externalPages:
                 level = -1 # External modules
@@ -50,10 +50,10 @@ def findNodeLevels(usesRelationsMap: dict[str, list[str]], externalPages: list[s
             nodeLevels[node] = level
             return level
         finally:
-            visiting.remove(node)
+            visiting.pop()
 
     for node in usesRelationsMap.keys():
-        findLevel(node, set())
+        findLevel(node, list())
 
     return nodeLevels
 

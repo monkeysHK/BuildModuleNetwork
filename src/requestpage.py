@@ -4,17 +4,6 @@
 
 import requests, re, sys
 
-# Since we have no loadlib support,
-# loadlib dependencies has to be added to this list
-# Example: for Module:Name with dependencies Module:Name1 and Module:Name2,
-# ["Name"] = ["Name1", "Name2"]
-additionalDependenciesList = {
-
-}
-additionalDataDependenciesList = {
-
-}
-
 # A common filter rule for pages
 # This is based on the wiki's convention
 # on testing modules
@@ -43,7 +32,7 @@ def makePageListRequest(apcontinue, apnamespace):
         "maxlag": 5,
     }
     try:
-        resp = requests.get("https://hypixel-skyblock.fandom.com/api.php", params=payload)
+        resp = requests.get("https://hypixelskyblock.minecraft.wiki/api.php", params=payload)
         data = resp.json()
         pageList = [page["title"] for page in data["query"]["allpages"]]
     except Exception as e:
@@ -79,9 +68,10 @@ def makePageContentRequest(page):
         "formatversion": 2,
         "rvprop": "content",
         "rvslots": "*",
+        "maxlag": 5,
     }
     try:
-        resp = requests.get("https://hypixel-skyblock.fandom.com/api.php", params=payload)
+        resp = requests.get("https://hypixelskyblock.minecraft.wiki/api.php", params=payload)
         data = resp.json()
         if "missing" in data["query"]["pages"][0]:
             returnedContent = ("", True)
@@ -96,9 +86,6 @@ def makePageContentRequest(page):
 
     return returnedContent
 
-# scan page, return all required modules
-# returns a tuple (normal_pages_detected, data_pages_detected, is_external_page)
-# 
 # require(...)
 # loader.require(...)
 # loader.lazy.require(...)
@@ -107,6 +94,7 @@ lineFormats = [
     r'loader\.require\((.*?)\)',
     r'loader\.lazy\.require\((.*?)\)',
 ]
+
 # mw.loadData(...)
 # loader.loadData(...)
 # loader.lazy.loadData(...)
@@ -115,6 +103,7 @@ dataLineFormats = [
     r'loader\.loadData\((.*?)\)',
     r'loader\.lazy\.loadData\((.*?)\)',
 ]
+
 # "..."
 # '...'
 # [[...]]
@@ -123,6 +112,9 @@ importFormats = [
     r"'([^']+)'",
     r"\[\[(.+)\]\]",
 ]
+
+# scan page, return all required modules
+# returns a tuple (normal_pages_detected, data_pages_detected, is_external_page)
 def findDependencies(page):
     page = page.replace("Module:", "")
 
@@ -131,38 +123,36 @@ def findDependencies(page):
 
     # Search for all require/loadData calls in the content
     callStrings = []
-    for pattern in lineFormats:
-        callStrings += re.findall(pattern, content)
     dataCallStrings = []
-    for pattern in dataLineFormats:
-        dataCallStrings += re.findall(pattern, content)
+
+    for line in content.split("\n"):
+        is_comment = line.strip().startswith("--")
+        if is_comment:
+            continue
+
+        for pattern in lineFormats:
+            callStrings += re.findall(pattern, line)
+
+        for pattern in dataLineFormats:
+            dataCallStrings += re.findall(pattern, line)
 
     # Match the page names
     pageNames = []
     for match in callStrings:
         for pattern in importFormats:
             pageNames += re.findall(pattern, match)
+
     dataPageNames = []
     for match in dataCallStrings:
         for pattern in importFormats:
             dataPageNames += re.findall(pattern, match)
 
-    # Get additional dependencies
-    additional = []
-    if page in additionalDependenciesList:
-        additional = additionalDependenciesList[page]
-    if ("Module:" + page) in additionalDependenciesList:
-        additional = additionalDependenciesList["Module:" + page]
-    dataAdditional = []
-    if page in additionalDataDependenciesList:
-        dataAdditional = additionalDataDependenciesList[page]
-    if ("Module:" + page) in additionalDataDependenciesList:
-        dataAdditional = additionalDataDependenciesList["Module:" + page]
-
     # Return a list with all "Module:" removed, and then with all empty string removed
-    return (list(filter(validPageFilterRule, [standardizeName(name) for name in (pageNames + additional)])),
-        list(filter(validPageFilterRule, [standardizeName(name) for name in (dataPageNames + dataAdditional)])),
-        isMissing)
+    return (
+        list(filter(validPageFilterRule, [standardizeName(name) for name in pageNames])),
+        list(filter(validPageFilterRule, [standardizeName(name) for name in dataPageNames])),
+        isMissing,
+    )
 
 if __name__ == "__main__":
     print(findDependencies("Api/Item/Aliases"))

@@ -1,6 +1,8 @@
 {
     "AIV": [
-        "LoadLib"
+        "Loader",
+        "String",
+        "Table"
     ],
     "Ability": [
         "Arguments",
@@ -16,38 +18,21 @@
         "String",
         "Table",
         "Yesno",
-        "Cache",
-        "LibU"
+        "LibU",
+        "Item/Variants"
     ],
     "Arguments": [
         "LibU"
     ],
-    "Armor": [
-        "Loader",
-        "String",
-        "Yesno",
-        "Arguments",
-        "Inventory slot",
-        "RarityTier",
-        "Color",
-        "Ability",
-        "Armor/StatsList",
-        "Element",
-        "Armor/Data/FairyArmorColors"
-    ],
-    "Armor/Data": [],
-    "Armor/Data/FairyArmorColors": [],
     "Armor/Sets": [],
-    "Armor/StatsList": [
-        "Statname",
-        "String",
-        "Statname/Data"
-    ],
     "Attribute": [
         "String",
         "Attribute/Data"
     ],
     "Attribute/Data": [],
+    "AuctionHouse/Aliases": [],
+    "AuctionHouse/Data": [],
+    "Base64": [],
     "Bazaar": [
         "Arguments",
         "Loader",
@@ -63,22 +48,16 @@
     "Bazaar/Aliases": [],
     "Bazaar/Data": [],
     "Bazaar/i18n": [],
-    "Cache": [
-        "VarsCacheMap",
-        "CacheUtil"
-    ],
-    "CacheUtil": [
-        "ArgsUtil",
-        "Arguments",
-        "Mw.ext.LuaCache",
-        "VarsCacheMap"
-    ],
+    "BucketPut": [],
     "Calculator": [
         "Arguments"
     ],
     "CallAssert": [],
     "Checkbox": [],
     "Class": [],
+    "Class/testcases": [
+        "Class"
+    ],
     "Collection": [
         "Arguments",
         "Loader",
@@ -97,7 +76,6 @@
         "Table",
         "Yesno",
         "LibU",
-        "Cache",
         "UIText",
         "UI/Core",
         "Potion",
@@ -107,18 +85,19 @@
         "Pet",
         "Collection/Data",
         "Collection/UI/Data",
+        "Inventory slot/Datasheet",
         "Armor/Sets",
         "Potion/Data"
     ],
     "Collection/UI/Data": [],
     "Color": [
         "Arguments",
-        "String",
-        "Table",
         "Yesno",
-        "LibU",
         "Color/Aliases",
         "Color/Data"
+    ],
+    "Color Conversion": [
+        "Arguments"
     ],
     "Color contrast/colors": [],
     "Color/Aliases": [],
@@ -126,29 +105,19 @@
         "Arguments"
     ],
     "Color/Data": [],
-    "Constructor": [
-        "Loader",
-        "String",
-        "Table",
-        "Yesno",
-        "Arguments",
-        "MakeClass",
-        "LibU"
-    ],
     "Countdown": [
         "Arguments",
         "Yesno"
     ],
     "Crafting": [
         "Loader",
-        "Recipe table",
-        "Cache",
         "String",
         "Table",
         "Yesno",
         "Inventory slot",
         "Arguments",
-        "Crafting/Utils"
+        "Crafting/Utils",
+        "Crafting/Aliases"
     ],
     "Crafting/Aliases": [
         "Loader",
@@ -177,6 +146,7 @@
         "String",
         "Table"
     ],
+    "Crop Milestone Table": [],
     "Currency": [
         "Loader",
         "Arguments",
@@ -184,14 +154,23 @@
         "Table",
         "Yesno",
         "Color",
-        "Currency/Data",
+        "Currency/Data"
+    ],
+    "Currency/Conversions": [
+        "Loader",
+        "Arguments",
+        "String",
+        "Table",
+        "Yesno",
+        "Currency",
         "Bazaar/Data"
     ],
     "Currency/Data": [],
     "DPL": [
         "Table",
         "String",
-        "Yesno"
+        "Yesno",
+        "LibU"
     ],
     "DamageType": [
         "Arguments",
@@ -206,6 +185,7 @@
     "DamageType/Aliases": [],
     "DamageType/Data": [],
     "Date": [],
+    "Debug": [],
     "DetailedList": [
         "Loader",
         "Arguments",
@@ -220,8 +200,17 @@
         "Dev:Dialogue"
     ],
     "Docbunto": [
-        "Dev:Docbunto"
+        "I18n",
+        "Lexer",
+        "Unindent",
+        "Yesno",
+        "Arguments",
+        "FrameTools",
+        "FrameTools",
+        "Docbunto/references"
     ],
+    "Docbunto/i18n": [],
+    "Docbunto/references": [],
     "Documentation": [
         "Arguments",
         "Documentation/Core"
@@ -262,13 +251,13 @@
     ],
     "Enchantment": [
         "Loader",
-        "Arguments",
         "String",
         "String/Templates",
         "Table",
         "Yesno",
         "Mctxt",
         "RarityTier",
+        "Arguments",
         "Enchantment/Data"
     ],
     "Enchantment/Aliases": [],
@@ -287,10 +276,25 @@
         "Arguments",
         "String"
     ],
+    "Enigma Souls": [
+        "Arguments",
+        "Loader",
+        "Table",
+        "Zone/Data"
+    ],
+    "Entrypoint": [],
     "Example": [
         "Arguments",
         "MultiRequire"
     ],
+    "Fairy Souls": [
+        "Arguments",
+        "Loader",
+        "Table",
+        "Zone/Data"
+    ],
+    "Fallbacklist": [],
+    "FixedRound": [],
     "Format": [
         "Arguments",
         "Yesno"
@@ -307,15 +311,19 @@
     "Gemstone/Aliases": [],
     "Gemstone/Data": [],
     "Hatnote": [
-        "Dev:Hatnote"
+        "LibraryUtil",
+        "Hatnote/i18n",
+        "Arguments",
+        "Yesno"
     ],
+    "Hatnote/i18n": [],
     "Heart of the Mountain": [
         "Loader",
-        "HypixelServerTime",
         "String",
         "Arguments",
         "LibU",
-        "Item"
+        "Item",
+        "HypixelServerTime"
     ],
     "History": [
         "Loader",
@@ -328,9 +336,16 @@
     "History/Aliases": [],
     "History/Datasheet": [],
     "Html": [
-        "LoadLib"
+        "Loader",
+        "String",
+        "Table",
+        "LibU"
     ],
     "HypixelServerTime": [],
+    "I18n": [
+        "Fallbacklist",
+        "Entrypoint"
+    ],
     "IP": [
         "Bit32",
         "LibraryUtil"
@@ -338,6 +353,7 @@
     "IPAddress": [
         "IP"
     ],
+    "IPAddress old": [],
     "Image": [
         "Arguments",
         "String",
@@ -351,6 +367,17 @@
         "Class"
     ],
     "Infobox/Data": [],
+    "Infobox/Gadget": [
+        "Infobox",
+        "Arguments",
+        "DPL",
+        "Table",
+        "String"
+    ],
+    "Infobox/Generic": [
+        "Arguments",
+        "Infobox"
+    ],
     "Infobox/Item": [
         "Loader",
         "String",
@@ -388,11 +415,18 @@
         "Animate",
         "Sprite",
         "Mayor",
+        "Fairy Souls",
+        "Enigma Souls",
+        "NPC",
         "Infobox/Data"
+    ],
+    "Infobox/Templates": [
+        "Arguments"
     ],
     "Infobox/Testcases": [
         "Infobox"
     ],
+    "Infobox/i18n": [],
     "Inventory slot": [
         "Arguments",
         "Loader",
@@ -402,8 +436,9 @@
         "Currency",
         "Random",
         "UIText",
-        "Cache",
-        "Inventory slot/Aliases"
+        "Inventory slot/Datasheet",
+        "Inventory slot/Aliases",
+        "Item/Variants"
     ],
     "Inventory slot/Aliases": [],
     "Inventory slot/Datasheet": [
@@ -422,8 +457,7 @@
         "Pet/Templates",
         "Enchantment",
         "Potion",
-        "Attribute",
-        "Mayor"
+        "Attribute"
     ],
     "Inventory slot/Tooltips": [],
     "Inventory slot/Utils": [
@@ -444,12 +478,11 @@
         "Currency",
         "Link",
         "Color",
-        "Cache",
-        "Item/ApiData",
-        "Item/ApiAliases",
         "Item/Data",
         "Item/Aliases",
-        "Armor/Sets"
+        "Armor/Sets",
+        "Item/ApiData",
+        "Item/ApiAliases"
     ],
     "Item/Aliases": [],
     "Item/ApiAliases": [],
@@ -477,11 +510,26 @@
         "RarityTier",
         "Ability",
         "Inventory slot",
+        "Statname/Order"
+    ],
+    "ItemInfo/Old": [
+        "Arguments",
+        "Loader",
+        "Yesno",
+        "Color",
+        "Statname",
+        "RarityTier",
+        "Ability",
+        "Inventory slot",
         "Statname/Data"
     ],
-    "ItemInfo/Armor Data": [],
-    "ItemInfo/Item Data": [],
-    "ItemInfo/Weapon Data": [],
+    "ItemInfo/Old/Armor Data": [],
+    "ItemInfo/Old/Item Data": [],
+    "ItemInfo/Old/Weapon Data": [],
+    "ItemInfo/Templates": [
+        "Arguments",
+        "Color"
+    ],
     "IterativeInventorySlot": [
         "Arguments",
         "Table",
@@ -501,6 +549,7 @@
         "Arguments",
         "Yesno"
     ],
+    "Lexer": [],
     "LibU": [],
     "LibraryUtil": [
         "LibU"
@@ -531,18 +580,11 @@
         "Gemstone",
         "Zone"
     ],
-    "LoadLib": [
-        "LibraryUtil",
-        "LoadLib/Autoloads"
-    ],
-    "LoadLib/Autoloads": [],
     "Loader": [
         "Table",
-        "MakeClass",
-        "LibU"
+        "LibU",
+        "Class"
     ],
-    "Location/Aliases": [],
-    "Location/Sprites": [],
     "LuaFunction": [
         "Loader",
         "String",
@@ -571,20 +613,16 @@
         "Potion/Data",
         "Inventory slot/Datasheet"
     ],
-    "MakeClass": [
-        "Table",
-        "LibU"
-    ],
     "Mayor": [
         "Loader",
         "Arguments",
-        "Mayor/Elections/Data",
-        "Mayor/Elections/ApiData",
-        "Mayor/Data",
         "String",
         "Table",
         "Yesno",
-        "SBTE"
+        "SBTE",
+        "Mayor/Elections/Data",
+        "Mayor/Elections/ApiData",
+        "Mayor/Data"
     ],
     "Mayor/Data": [],
     "Mayor/Elections": [],
@@ -608,8 +646,7 @@
         "Mayor/Elections"
     ],
     "Mbox": [
-        "Dev:Mbox",
-        "Dev:Arguments",
+        "Arguments",
         "Mbox/data"
     ],
     "Mbox/data": [],
@@ -646,7 +683,6 @@
         "Color",
         "Currency",
         "Item",
-        "Crafting/UI",
         "Skillname",
         "Minion/Data",
         "Collection/Data",
@@ -668,7 +704,6 @@
     "Minion/Templates": [
         "String",
         "Table",
-        "Minion",
         "Minion/Data"
     ],
     "Minion/UI": [
@@ -706,12 +741,20 @@
         "Statname/Data"
     ],
     "Mob/Aliases": [],
-    "Mob/Sprites": [],
+    "Mob/DAlias": [],
+    "Mob/Data": [],
     "MultiRequire": [
-        "LibraryUtil"
+        "LibU"
+    ],
+    "NPC": [
+        "Arguments",
+        "Loader",
+        "Table",
+        "Zone/Data"
     ],
     "NPC/Aliases": [],
-    "NPC/Sprites": [],
+    "NPC/DAlias": [],
+    "NPC/Data": [],
     "NPCPriceSpread": [
         "Arguments",
         "Table",
@@ -719,7 +762,10 @@
         "Yesno"
     ],
     "Namespace detect": [
-        "Dev:Namespace detect"
+        "Yesno",
+        "Arguments",
+        "TableTools",
+        "Namespace detect/data"
     ],
     "Namespace detect/data": [],
     "Navbar": [
@@ -749,6 +795,9 @@
         "Notice/Data"
     ],
     "Notice/Data": [],
+    "Nowiki": [
+        "Arguments"
+    ],
     "Number": [],
     "NumberSpell": [
         "Arguments"
@@ -776,14 +825,17 @@
         "Arguments",
         "Arguments",
         "String",
-        "Page Actions/Aliases",
         "Page Actions/Data"
     ],
-    "Page Actions/Aliases": [],
     "Page Actions/Data": [],
     "ParserFunctions": [
         "Arguments",
         "String",
+        "Yesno",
+        "LibU"
+    ],
+    "Perkpocalypse": [
+        "SBTE",
         "Yesno"
     ],
     "Pet": [
@@ -856,9 +908,9 @@
         "Table",
         "Yesno",
         "RarityTier",
-        "Inventory slot",
         "Statname",
         "Pet Item",
+        "UIText",
         "Pet/Data",
         "Pet/Aliases",
         "RarityTier/Aliases"
@@ -891,12 +943,12 @@
     "Potion/UI": [
         "Arguments",
         "Loader",
-        "Cache",
         "String",
         "Table",
         "Yesno",
         "Potion",
-        "UI/Core"
+        "UI/Core",
+        "Inventory slot/Aliases"
     ],
     "Power": [
         "Arguments",
@@ -905,9 +957,11 @@
         "List",
         "Statname/Aliases"
     ],
+    "ProcessArgs": [],
     "Protect": [],
     "Quote": [
-        "Dev:Quote"
+        "Arguments",
+        "I18n"
     ],
     "Random": [
         "Yesno",
@@ -934,20 +988,18 @@
     "RarityTier": [
         "Arguments",
         "Loader",
-        "String",
         "Table",
         "Yesno",
         "Color",
         "Mainonly",
         "RarityTier/Aliases",
-        "RarityTier/Data",
-        "Color/Data"
+        "RarityTier/Data"
     ],
     "RarityTier/Aliases": [],
     "RarityTier/Data": [],
     "Recipe table": [],
     "Reforge": [
-        "LoadLib",
+        "Loader",
         "Reforge/Data"
     ],
     "Reforge/Data": [],
@@ -994,11 +1046,9 @@
     ],
     "SafeResponse/Data": [],
     "ScribuntoUnit": [
-        "Dev:ScribuntoUnit"
+        "ScribuntoUnit/config"
     ],
-    "ScribuntoUnit/config": [
-        "Dev:ScribuntoUnit/config"
-    ],
+    "ScribuntoUnit/config": [],
     "SeaCreature": [
         "String",
         "Table",
@@ -1030,12 +1080,16 @@
         "String",
         "Yesno",
         "LibU",
-        "Mob/Sprites",
-        "NPC/Sprites",
-        "Location/Sprites",
+        "Mob/Data",
         "Mob/Aliases",
+        "Mob/DAlias",
+        "NPC/Data",
         "NPC/Aliases",
-        "Location/Aliases"
+        "NPC/DAlias"
+    ],
+    "Sprite/testcases": [
+        "Sprite",
+        "ScribuntoUnit"
     ],
     "Staff": [
         "Arguments",
@@ -1065,7 +1119,7 @@
     ],
     "Statname/Aliases": [],
     "Statname/Data": [],
-    "Statname/GenerateTemplateInfo": [
+    "Statname/Meta": [
         "MultiRequire",
         "Statname"
     ],
@@ -1088,15 +1142,16 @@
         "Arguments"
     ],
     "T": [
-        "Dev:Arguments",
-        "Dev:User error",
-        "Dev:Yesno"
+        "Arguments",
+        "User error",
+        "Yesno"
     ],
     "Tabber": [
         "Arguments"
     ],
     "Table": [
-        "LibU"
+        "LibU",
+        "Class"
     ],
     "Tabview": [
         "Arguments",
@@ -1131,8 +1186,7 @@
         "String",
         "Table",
         "Yesno",
-        "UIText",
-        "Cache"
+        "UIText"
     ],
     "Top": [],
     "UI": [
@@ -1180,6 +1234,11 @@
         "Zone/Data"
     ],
     "UIText/Data": [],
+    "Unindent": [],
+    "Unsigned": [
+        "IPAddress old",
+        "ProcessArgs"
+    ],
     "User": [
         "Arguments",
         "Loader",
@@ -1190,6 +1249,9 @@
         "User/Data",
         "User/Aliases"
     ],
+    "User error": [
+        "LibraryUtil"
+    ],
     "User/Aliases": [],
     "User/Data": [],
     "Userbox": [
@@ -1199,33 +1261,10 @@
         "Userbox/Skins"
     ],
     "Userbox/Skins": [],
-    "VariablesLuaUtil": [
-        "Binser"
-    ],
-    "VarsCacheMap": [
-        "VariablesLuaUtil",
-        "Class",
-        "LibU",
-        "Mw.ext.LuaCache"
-    ],
+    "VideoGallery": [],
     "Weapon": [
-        "Arguments",
-        "Loader",
-        "String",
-        "Table",
-        "Yesno",
-        "Statname",
-        "Currency",
-        "RarityTier",
-        "Mainonly",
-        "Color",
-        "Armor/StatsList",
-        "Weapon/Data",
-        "Weapon/Aliases",
-        "Statname/Data",
-        "Statname/Aliases"
+        "Arguments"
     ],
-    "Weapon/Aliases": [],
     "Weapon/Data": [],
     "Wikitable": [
         "WP:Wikitable"
@@ -1247,21 +1286,10 @@
     ],
     "Zone/Aliases": [],
     "Zone/Data": [],
-    "ArgsUtil": [],
-    "Mw.ext.LuaCache": [],
     "Dev:Dialogue": [],
-    "Dev:Docbunto": [],
-    "Dev:Hatnote": [],
+    "FrameTools": [],
     "Bit32": [],
-    "Dev:Mbox": [],
-    "Dev:Arguments": [],
-    "Dev:Namespace detect": [],
-    "Dev:Quote": [],
-    "Dev:ScribuntoUnit": [],
-    "Dev:ScribuntoUnit/config": [],
-    "Dev:User error": [],
-    "Dev:Yesno": [],
+    "TableTools": [],
     "Dev:Testharness": [],
-    "Binser": [],
     "WP:Wikitable": []
 }

@@ -39,7 +39,7 @@ Then, generate the HTML files:
 python src/buildnetwork.py
 ```
 
-This updates the HTML files in the `docs` directory.
+This updates the HTML files in the `docs` directory, which can be opened with a web browser.
 
 ## How It Works
 

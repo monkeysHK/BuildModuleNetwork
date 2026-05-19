@@ -1,19 +1,8 @@
 [
-    "ArgsUtil",
-    "Mw.ext.LuaCache",
     "Dev:Dialogue",
-    "Dev:Docbunto",
-    "Dev:Hatnote",
+    "FrameTools",
     "Bit32",
-    "Dev:Mbox",
-    "Dev:Arguments",
-    "Dev:Namespace detect",
-    "Dev:Quote",
-    "Dev:ScribuntoUnit",
-    "Dev:ScribuntoUnit/config",
-    "Dev:User error",
-    "Dev:Yesno",
+    "TableTools",
     "Dev:Testharness",
-    "Binser",
     "WP:Wikitable"
 ]
